@@ -575,6 +575,81 @@
         }
 
         #score-close-btn:hover { background: #0040A0; }
+
+        /* Options dropdown */
+        .opt-wrap { position: relative; }
+        #opt-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #E8F4FF;
+            border: 2px solid #5090B8;
+            border-top: none;
+            min-width: 170px;
+            z-index: 600;
+            font-size: 13px;
+        }
+        #opt-dropdown.on { display: block; }
+        .opt-item {
+            padding: 7px 14px;
+            cursor: pointer;
+            color: #002050;
+            white-space: nowrap;
+        }
+        .opt-item:hover { background: #00205A; color: #FFFF99; }
+        .opt-item.active-set { font-weight: bold; }
+        .opt-divider { border-bottom: 1px solid #A0C8DC; }
+        #opt-set-label {
+            padding: 4px 14px 2px;
+            font-size: 11px;
+            color: #5090B8;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Warning overlay */
+        #warn-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
+        }
+        #warn-overlay.on { display: flex; }
+        #warn-box {
+            background: #FFF8E8;
+            border: 3px solid #8B4000;
+            padding: 28px 32px 22px;
+            max-width: 420px;
+            width: 90%;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        #warn-box h2 {
+            background: #8B4000;
+            color: #FFFBE8;
+            font-size: 13px;
+            letter-spacing: 2px;
+            padding: 5px 10px;
+            margin: -28px -32px 18px;
+            text-align: center;
+        }
+        #warn-box p { font-size: 13px; color: #402000; line-height: 1.6; margin-bottom: 18px; }
+        .warn-btns { display: flex; gap: 10px; justify-content: center; }
+        .warn-btns button {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 13px;
+            padding: 5px 22px;
+            border: none;
+            cursor: pointer;
+            letter-spacing: 1px;
+        }
+        #warn-proceed { background: #8B4000; color: #FFFBE8; }
+        #warn-proceed:hover { background: #6A2A00; }
+        #warn-cancel { background: #4E7E4E; color: #EEFFEE; }
+        #warn-cancel:hover { background: #3A6A3A; }
     </style>
 </head>
 
@@ -582,7 +657,16 @@
 
     <div id="titlebar">*** NYSSLS HS-ESS REGENTS PRACTICE *** EARTH &amp; SPACE SCIENCE ***</div>
     <div id="menubar">
-        <span onclick="showSubmit()">Submit Work</span><span>Standards</span><span>Options</span><span onclick="showHelp()">Help &mdash; Show Help</span>
+        <span onclick="showSubmit()">Submit Work</span><span onclick="window.open('https://nyssls.info/index.php','_blank')">Standards</span>
+        <span class="opt-wrap" id="opt-wrap">
+            <span onclick="toggleOptions(event)">Options [<span id="set-indicator">A</span>]</span>
+            <div id="opt-dropdown">
+                <div id="opt-set-label">Question Set</div>
+                <div class="opt-item opt-divider active-set" id="opt-a" onclick="requestSetChange('a')">&#10003; Set A</div>
+                <div class="opt-item" id="opt-b" onclick="requestSetChange('b')">&nbsp;&nbsp; Set B</div>
+            </div>
+        </span>
+        <span onclick="showHelp()">Help &mdash; Show Help</span>
     </div>
 
     <div id="progress-bar">
@@ -2078,6 +2162,460 @@
                 </div>
             </div>
 
+        <!-- ============================================================ -->
+        <!-- SET B QUESTIONS                                              -->
+        <!-- ============================================================ -->
+
+        <!-- SET B · ESS1-1 -->
+        <div class="cq" id="qb-ess1-1">
+          <div class="std-hdr"><span class="code">HS-ESS1-1</span> &mdash; Develop a model based on evidence to illustrate the life span of the sun and the role of nuclear fusion in the sun's core to release energy in the form of radiation.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the data table and passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">Scientists use the Hertzsprung-Russell (H-R) diagram to classify stars by luminosity and surface temperature. Most stars fall along the "main sequence," where they fuse hydrogen into helium. More massive, hotter stars consume fuel rapidly and have short lifespans; cooler, less massive stars burn slowly and live far longer. The Sun is a mid-size G-type main-sequence star with a surface temperature of ~5,500&deg;C and an estimated total lifespan of ~10 billion years.</p><br>
+            <table class="dt">
+              <tr><th>Star</th><th>Surface Temp (&deg;C)</th><th>Luminosity (L&odot;)</th><th>Est. Lifespan</th></tr>
+              <tr><td>Rigel (blue supergiant)</td><td>12,000</td><td>120,000</td><td>~10 million yr</td></tr>
+              <tr><td>Sirius A (blue-white)</td><td>10,000</td><td>25</td><td>~1 billion yr</td></tr>
+              <tr><td>Sun (G-type)</td><td>5,500</td><td>1</td><td>~10 billion yr</td></tr>
+              <tr><td>Alpha Centauri B (K)</td><td>5,200</td><td>0.5</td><td>~15 billion yr</td></tr>
+              <tr><td>Proxima Centauri (red dwarf)</td><td>3,000</td><td>0.0015</td><td>~4 trillion yr</td></tr>
+            </table>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> Which star in the table has the shortest lifespan, and why?</div>
+              <ul class="ch"><li><span class="cl">(1)</span> Proxima Centauri, because it burns fuel very slowly</li><li><span class="cl">(2)</span> Rigel, because its high mass and luminosity cause it to consume fuel extremely rapidly</li><li><span class="cl">(3)</span> Sirius A, because it is the hottest main-sequence star listed</li><li><span class="cl">(4)</span> The Sun, because it is at the midpoint of the main sequence</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> Based on the table, which conclusion about main-sequence stars is best supported?</div>
+              <ul class="ch"><li><span class="cl">(1)</span> All main-sequence stars have approximately the same lifespan</li><li><span class="cl">(2)</span> Stars with higher surface temperatures have greater luminosity and shorter lifespans</li><li><span class="cl">(3)</span> Luminosity decreases as surface temperature increases on the main sequence</li><li><span class="cl">(4)</span> The Sun has the highest luminosity of any main-sequence star</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> The Sun is classified as a main-sequence star because it is currently</div>
+              <ul class="ch"><li><span class="cl">(1)</span> exhausting its hydrogen and expanding into a red giant</li><li><span class="cl">(2)</span> fusing hydrogen into helium in its core, releasing energy as radiation</li><li><span class="cl">(3)</span> cooling into a white dwarf after exhausting all nuclear fuel</li><li><span class="cl">(4)</span> located at the upper-left of the H-R diagram with the hottest stars</li></ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Using the H-R diagram data in the table, explain why astronomers can estimate how much longer the Sun will remain on the main sequence. Include the role of nuclear fusion in your answer. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET B · ESS1-2 -->
+        <div class="cq" id="qb-ess1-2">
+          <div class="std-hdr"><span class="code">HS-ESS1-2</span> &mdash; Construct an explanation of the Big Bang theory based on astronomical evidence of light spectra, motion of distant galaxies, and composition of matter in the universe.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the passage and table below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">In 1929, Edwin Hubble published data showing that a galaxy's recession velocity is proportional to its distance from Earth &mdash; a relationship now called Hubble's Law. Hubble measured recession velocity by analyzing the redshift of starlight. The Hubble Constant (H&sub0; &asymp; 70 km/s/Mpc) describes the rate of expansion. Scientists have also detected the cosmic microwave background (CMB) &mdash; faint, uniform microwave radiation filling all of space &mdash; which represents the afterglow of the early hot universe approximately 380,000 years after the Big Bang.</p><br>
+            <table class="dt">
+              <tr><th>Galaxy</th><th>Distance (Mpc)</th><th>Recession Velocity (km/s)</th></tr>
+              <tr><td>NGC 221</td><td>0.8</td><td>56</td></tr>
+              <tr><td>M81</td><td>3.6</td><td>252</td></tr>
+              <tr><td>Virgo Cluster</td><td>16</td><td>1,120</td></tr>
+              <tr><td>Coma Cluster</td><td>100</td><td>7,000</td></tr>
+              <tr><td>A2199</td><td>130</td><td>9,100</td></tr>
+            </table>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> Based on the data in the table, which conclusion is best supported?</div>
+              <ul class="ch"><li><span class="cl">(1)</span> Closer galaxies recede from Earth faster than more distant ones</li><li><span class="cl">(2)</span> The recession velocity of a galaxy increases proportionally with its distance from Earth</li><li><span class="cl">(3)</span> All galaxies move away from Earth at the same speed regardless of distance</li><li><span class="cl">(4)</span> Galaxies moving away from Earth are always younger than nearby galaxies</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> The cosmic microwave background (CMB) radiation provides evidence for the Big Bang because it</div>
+              <ul class="ch"><li><span class="cl">(1)</span> shows galaxies are moving toward each other</li><li><span class="cl">(2)</span> is the remnant heat from the early hot universe that has cooled as the universe expanded</li><li><span class="cl">(3)</span> proves the universe is 13.8 billion light-years in diameter</li><li><span class="cl">(4)</span> shows that helium is more abundant than hydrogen throughout the universe</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> If a galaxy is observed to have a recession velocity of 4,900 km/s, approximately how far away is it? (Use H&sub0; &asymp; 70 km/s/Mpc)</div>
+              <ul class="ch"><li><span class="cl">(1)</span> 35 Mpc</li><li><span class="cl">(2)</span> 70 Mpc</li><li><span class="cl">(3)</span> 343,000 Mpc</li><li><span class="cl">(4)</span> 4,830 Mpc</li></ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Explain how Hubble's Law supports the Big Bang theory. What does the recession of distant galaxies imply about the universe's history? <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET B · ESS1-3 -->
+        <div class="cq" id="qb-ess1-3">
+          <div class="std-hdr"><span class="code">HS-ESS1-3</span> &mdash; Communicate scientific ideas about the way stars, over their life cycle, produce elements.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">When a supernova explodes, it creates and disperses heavy elements. Evidence comes from isotopic analysis of meteorites: short-lived radioactive aluminum-26 (<sup>26</sup>Al) can only form during or shortly after a supernova. Decay products of <sup>26</sup>Al (magnesium-26) found in ancient meteorites indicate our solar system formed within ~2 million years of a nearby supernova. A massive star near the end of its life develops concentric fusion shells: hydrogen at the outermost layer, then helium, carbon, oxygen, neon, and finally an iron core. Because fusing iron does not release energy, the core collapses, triggering a supernova that disperses all these elements into space.</p>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> The presence of magnesium-26 (the decay product of aluminum-26) in ancient meteorites provides evidence that</div>
+              <ul class="ch"><li><span class="cl">(1)</span> magnesium was the most abundant element created in the Big Bang</li><li><span class="cl">(2)</span> our solar system formed near a supernova that occurred shortly before the solar system's formation</li><li><span class="cl">(3)</span> radioactive aluminum was the dominant element in the early solar system</li><li><span class="cl">(4)</span> iron cores form in all stars, regardless of mass</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> In the "onion-shell" structure of a massive star just before supernova, where is the iron core located?</div>
+              <ul class="ch"><li><span class="cl">(1)</span> In the outermost shell, surrounding the hydrogen layer</li><li><span class="cl">(2)</span> Between the hydrogen and helium shells</li><li><span class="cl">(3)</span> At the center of the star, below all lighter-element fusion shells</li><li><span class="cl">(4)</span> Iron does not form in stellar cores; it is produced only in supernovae</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> Spectroscopy of stars is useful for studying stellar nucleosynthesis because it</div>
+              <ul class="ch"><li><span class="cl">(1)</span> allows astronomers to directly measure the temperature inside stellar cores</li><li><span class="cl">(2)</span> reveals which elements are present in a star's outer layers by analyzing wavelengths of absorbed or emitted light</li><li><span class="cl">(3)</span> proves that all stars have identical elemental compositions</li><li><span class="cl">(4)</span> measures the gravitational pull of a star on nearby objects</li></ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Explain how radioactive isotopes found in meteorites serve as evidence that the elements in our solar system were created in previous stellar events. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET B · ESS1-4 -->
+        <div class="cq" id="qb-ess1-4">
+          <div class="std-hdr"><span class="code">HS-ESS1-4</span> &mdash; Use mathematical or computational representations to predict the motion of orbiting objects in the solar system.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the passage and table below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">Kepler's Third Law applies to any object in orbit, including artificial satellites around Earth. For Earth orbits, T<sup>2</sup> &prop; r<sup>3</sup>. The International Space Station (ISS) orbits at a radius of ~6,778 km with a period of ~92 minutes. Geostationary satellites orbit at ~42,164 km with a period of exactly 24 hours (matching Earth's rotation, so they appear stationary). GPS satellites orbit at ~26,560 km with a period of ~12 hours.</p><br>
+            <table class="dt">
+              <tr><th>Satellite</th><th>Orbital Radius (km)</th><th>Period</th></tr>
+              <tr><td>ISS</td><td>6,778</td><td>92 min</td></tr>
+              <tr><td>GPS</td><td>26,560</td><td>12 hr</td></tr>
+              <tr><td>Geostationary</td><td>42,164</td><td>24 hr</td></tr>
+              <tr><td>Moon</td><td>384,400</td><td>27.3 days</td></tr>
+            </table>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> Based on the table, what happens to orbital period as orbital radius increases?</div>
+              <ul class="ch"><li><span class="cl">(1)</span> Period decreases</li><li><span class="cl">(2)</span> Period increases</li><li><span class="cl">(3)</span> Period remains constant regardless of radius</li><li><span class="cl">(4)</span> Period first increases then decreases</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> Geostationary satellites are used for TV broadcasting because they</div>
+              <ul class="ch"><li><span class="cl">(1)</span> orbit faster than Earth rotates, providing constant coverage</li><li><span class="cl">(2)</span> remain over the same point on Earth's surface because their 24-hour period matches Earth's rotation</li><li><span class="cl">(3)</span> are the lowest-altitude satellites and have the strongest signals</li><li><span class="cl">(4)</span> orbit at the same altitude as the ISS but in the opposite direction</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> A new satellite is placed at the same orbital radius as the GPS satellites (26,560 km). Based on Kepler's Third Law, its orbital period should be approximately</div>
+              <ul class="ch"><li><span class="cl">(1)</span> 6 hours</li><li><span class="cl">(2)</span> 12 hours</li><li><span class="cl">(3)</span> 18 hours</li><li><span class="cl">(4)</span> 24 hours</li></ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Explain why a satellite at a lower orbital altitude orbits faster than one at a higher altitude. Use Kepler's Third Law in your explanation. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET B · ESS1-5 -->
+        <div class="cq" id="qb-ess1-5">
+          <div class="std-hdr"><span class="code">HS-ESS1-5</span> &mdash; Evaluate evidence of the past and current movements of continental and oceanic crust and the theory of plate tectonics to explain the ages of crustal rocks.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">Modern GPS technology measures tectonic plate movement with millimeter precision. Stations in Iceland, which straddles the Mid-Atlantic Ridge, record the North American and Eurasian plates spreading apart at ~2 cm/year. The Pacific Plate moves northwest at ~7&ndash;8 cm/year relative to the Hawaiian hot spot. This GPS data matches rates predicted from seafloor magnetic striping patterns. Paleomagnetism records magnetic field reversals in seafloor rocks: iron-bearing minerals in cooling lava align with Earth's magnetic field at the time of solidification, preserving a record of past magnetic orientations. Matching striping patterns on both sides of mid-ocean ridges confirm symmetrical seafloor spreading.</p>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> GPS data showing plates moving centimeters per year is significant because it</div>
+              <ul class="ch"><li><span class="cl">(1)</span> proves that plates move too slowly to cause earthquakes or volcanoes</li><li><span class="cl">(2)</span> provides direct, real-time confirmation that tectonic plates are currently in motion</li><li><span class="cl">(3)</span> shows that all tectonic plates move at the same speed in the same direction</li><li><span class="cl">(4)</span> demonstrates that the Atlantic Ocean is currently shrinking</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> Agreement between GPS measurements of spreading rates and magnetic striping patterns supports the conclusion that</div>
+              <ul class="ch"><li><span class="cl">(1)</span> seafloor spreading rates have been accelerating dramatically since the 1970s</li><li><span class="cl">(2)</span> seafloor spreading rates have remained relatively constant over geologic time</li><li><span class="cl">(3)</span> GPS is more accurate than magnetic data and has replaced it entirely</li><li><span class="cl">(4)</span> magnetic reversals caused tectonic plates to change direction</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> Paleomagnetism records past magnetic field reversals in seafloor rocks because</div>
+              <ul class="ch"><li><span class="cl">(1)</span> iron-bearing minerals in cooling lava align with Earth's magnetic field and preserve that orientation as the rock solidifies</li><li><span class="cl">(2)</span> tectonic plates generate their own magnetic fields as they move</li><li><span class="cl">(3)</span> magnetic reversals melted the oceanic crust, creating new rock layers</li><li><span class="cl">(4)</span> only rocks formed during normal magnetic polarity can solidify at mid-ocean ridges</li></ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Describe how GPS data from stations in Iceland supports the theory of seafloor spreading at the Mid-Atlantic Ridge. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET B · ESS1-6 -->
+        <div class="cq" id="qb-ess1-6">
+          <div class="std-hdr"><span class="code">HS-ESS1-6</span> &mdash; Apply scientific reasoning and evidence from ancient Earth materials, meteorites, and other planetary surfaces to construct an account of Earth and the solar system's formation and early history.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">Apollo missions (1969&ndash;1972) returned 382 kg of lunar rocks. Radiometric dating of lunar highland rocks yields ages of 4.0&ndash;4.5 billion years. Lunar rocks are chemically similar to Earth's mantle but are depleted in volatile elements (water, sodium). This composition is consistent with the "giant impact hypothesis": a Mars-sized body called Theia collided with early Earth ~4.5 billion years ago, ejecting molten material that coalesced into the Moon. Lunar rocks lack a proportionally large iron core, consistent with being formed from ejected mantle material. Identical oxygen isotope ratios in Earth and Moon rocks further support a common origin from the same region of the solar system.</p>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> The depletion of volatile elements in lunar rocks compared to Earth rocks supports the giant impact hypothesis because</div>
+              <ul class="ch"><li><span class="cl">(1)</span> volatile elements are always absent from all rocks formed beyond Earth</li><li><span class="cl">(2)</span> the violent impact would have vaporized volatile compounds, which escaped before the Moon solidified</li><li><span class="cl">(3)</span> the Moon formed closer to the Sun, where high temperatures permanently destroyed volatiles</li><li><span class="cl">(4)</span> volatile elements are only found in planets with liquid water on the surface</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> The similarity in oxygen isotope ratios between Earth and Moon rocks provides evidence that</div>
+              <ul class="ch"><li><span class="cl">(1)</span> the Moon formed completely independently in the same region of the solar system as Earth</li><li><span class="cl">(2)</span> the Moon formed primarily from material originating from Earth or a body from the same region of the solar system</li><li><span class="cl">(3)</span> oxygen was added equally to both Earth and the Moon through identical asteroid impacts</li><li><span class="cl">(4)</span> the Moon once had an ocean and atmosphere similar to early Earth</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> Which observation about the Moon is most consistent with the giant impact hypothesis?</div>
+              <ul class="ch"><li><span class="cl">(1)</span> The Moon has a large iron core similar in proportion to Earth's core</li><li><span class="cl">(2)</span> The Moon's highland rocks have compositions similar to Earth's mantle, not Earth's core</li><li><span class="cl">(3)</span> The Moon has abundant water ice at its poles, similar to Earth's polar regions</li><li><span class="cl">(4)</span> The Moon's orbit is inclined at exactly 90&deg; to Earth's equator</li></ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Compare the composition of lunar rocks to Earth rocks and explain how these differences support the giant impact hypothesis for the Moon's formation. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET B · ESS2-1 -->
+        <div class="cq" id="qb-ess2-1">
+          <div class="std-hdr"><span class="code">HS-ESS2-1</span> &mdash; Develop a model to illustrate how Earth's internal and surface processes operate at different spatial and temporal scales to form continental and ocean-floor features.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the passage and table below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">Hot spots are regions of unusually hot mantle material that rise through the lithosphere, creating chains of volcanic islands as a tectonic plate moves over them. The Hawaiian&ndash;Emperor seamount chain formed as the Pacific Plate moved over the Hawaiian hot spot. The age progression of islands &mdash; youngest at the active Big Island, oldest at distant seamounts &mdash; records both the plate's direction and speed. A pronounced bend in the chain ~47 million years ago records a change in the Pacific Plate's direction of motion. The oldest seamounts near the Aleutian Trench are ~80 million years old.</p><br>
+            <table class="dt">
+              <tr><th>Island/Seamount</th><th>Distance from Big Island (km)</th><th>Age (million yr)</th></tr>
+              <tr><td>Big Island (Hawaii)</td><td>0</td><td>0 (active)</td></tr>
+              <tr><td>Maui</td><td>200</td><td>1.3</td></tr>
+              <tr><td>Kauai</td><td>520</td><td>5.1</td></tr>
+              <tr><td>Midway Atoll</td><td>2,400</td><td>27.7</td></tr>
+              <tr><td>Detroit Seamount</td><td>4,860</td><td>76.0</td></tr>
+            </table>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> Using the Detroit Seamount data, what is the approximate rate of Pacific Plate movement over the hot spot?</div>
+              <ul class="ch"><li><span class="cl">(1)</span> ~2 cm/year</li><li><span class="cl">(2)</span> ~7 cm/year</li><li><span class="cl">(3)</span> ~15 cm/year</li><li><span class="cl">(4)</span> ~45 cm/year</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> The age progression of the Hawaiian&ndash;Emperor chain (older rocks farther from the Big Island) supports the conclusion that</div>
+              <ul class="ch"><li><span class="cl">(1)</span> the hot spot moves rapidly across the Pacific Ocean floor over time</li><li><span class="cl">(2)</span> the Pacific Plate moves over a relatively stationary hot spot in the mantle</li><li><span class="cl">(3)</span> volcanic islands are always oldest near convergent plate boundaries</li><li><span class="cl">(4)</span> the hot spot was created by a meteorite impact 80 million years ago</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> The bend in the Hawaiian&ndash;Emperor chain approximately 47 million years ago is evidence that</div>
+              <ul class="ch"><li><span class="cl">(1)</span> a major earthquake shifted the Hawaiian Islands to their current position</li><li><span class="cl">(2)</span> the hot spot migrated to a new location in the mantle at that time</li><li><span class="cl">(3)</span> the Pacific Plate changed direction of motion ~47 million years ago</li><li><span class="cl">(4)</span> volcanic activity in the chain temporarily stopped for several million years</li></ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Explain how the age progression of the Hawaiian&ndash;Emperor seamount chain provides evidence for both plate motion and the existence of a stationary mantle hot spot. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET B · ESS2-2 -->
+        <div class="cq" id="qb-ess2-2">
+          <div class="std-hdr"><span class="code">HS-ESS2-2</span> &mdash; Analyze geoscience data to make the claim that one change to Earth's surface can create feedbacks that cause changes to other Earth systems.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">Permafrost &mdash; permanently frozen soil containing ancient organic material &mdash; underlies ~25% of the Northern Hemisphere's land surface. As Arctic temperatures rise, permafrost thaws. When it thaws, frozen organic matter decomposes, releasing CO<sub>2</sub> and methane (CH<sub>4</sub>) &mdash; a greenhouse gas ~80 times more potent than CO<sub>2</sub> over 20 years. Scientists estimate permafrost contains ~1.5 trillion tonnes of carbon &mdash; roughly twice what is currently in the atmosphere. Permafrost thaw releases gases that cause more warming, which causes more thawing &mdash; a positive feedback. The Arctic is warming at ~4&times; the global average rate, a phenomenon called Arctic amplification.</p>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> The permafrost&ndash;methane cycle is a positive feedback because</div>
+              <ul class="ch"><li><span class="cl">(1)</span> permafrost thaw cools the surrounding soil, slowing further warming</li><li><span class="cl">(2)</span> methane released from thawing permafrost intensifies the greenhouse effect, causing more warming and more thawing</li><li><span class="cl">(3)</span> methane is converted to oxygen in the atmosphere, which reduces further warming</li><li><span class="cl">(4)</span> permafrost stores solar energy that is slowly released as visible light</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> Why is the potential release of permafrost carbon a major climate concern?</div>
+              <ul class="ch"><li><span class="cl">(1)</span> Permafrost carbon would cool the Arctic by shading the land surface</li><li><span class="cl">(2)</span> The ~1.5 trillion tonnes stored in permafrost could roughly double atmospheric carbon, intensifying warming</li><li><span class="cl">(3)</span> Permafrost carbon is stored as coal, which could spontaneously ignite</li><li><span class="cl">(4)</span> Releasing permafrost carbon would directly cause tsunamis in Arctic seas</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> Arctic amplification &mdash; the Arctic warming faster than the global average &mdash; is best explained by</div>
+              <ul class="ch"><li><span class="cl">(1)</span> increased solar output that specifically targets polar regions</li><li><span class="cl">(2)</span> positive feedbacks concentrated in the Arctic, such as sea-ice loss and permafrost thaw</li><li><span class="cl">(3)</span> increased industrial activity in Arctic regions</li><li><span class="cl">(4)</span> Earth's rotation directing more solar energy toward the poles</li></ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Explain why the thawing of permafrost represents a positive feedback loop and describe one consequence of this feedback for Earth's climate system. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET B · ESS2-3 -->
+        <div class="cq" id="qb-ess2-3">
+          <div class="std-hdr"><span class="code">HS-ESS2-3</span> &mdash; Develop a model based on evidence of Earth's interior to describe the cycling of matter by thermally driven convection in the mantle.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">Seismic tomography &mdash; analogous to a medical CT scan &mdash; uses seismic waves from earthquakes to map Earth's mantle in three dimensions. Seismic waves travel faster through cooler, denser material and slower through hotter, less-dense material. By analyzing thousands of seismic records worldwide, scientists create maps of the mantle revealing "plumes" of hot material rising from depth (associated with hot spots like Hawaii) and cold, dense slabs of subducted oceanic crust sinking up to 2,000 km into the mantle. This pattern of hot rising and cold sinking material is direct evidence of thermally driven mantle convection.</p>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> Seismic tomography maps mantle structure by analyzing</div>
+              <ul class="ch"><li><span class="cl">(1)</span> chemical composition of mantle rock samples from ocean floor drill cores</li><li><span class="cl">(2)</span> how variations in temperature and density cause seismic waves to travel at different speeds through the mantle</li><li><span class="cl">(3)</span> magnetic signatures frozen in lava as it cools at mid-ocean ridges</li><li><span class="cl">(4)</span> pressure readings from deep-sea drilling platforms</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> In seismic tomography images, regions where seismic waves travel more slowly indicate</div>
+              <ul class="ch"><li><span class="cl">(1)</span> denser, colder material such as subducted oceanic slabs</li><li><span class="cl">(2)</span> hotter, less-dense material such as rising mantle plumes</li><li><span class="cl">(3)</span> large iron ore deposits in the upper mantle</li><li><span class="cl">(4)</span> areas where tectonic plates are moving faster than average</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> The observation of cold, dense subducted slabs descending hundreds of kilometers into the mantle supports which conclusion about mantle convection?</div>
+              <ul class="ch"><li><span class="cl">(1)</span> Subducted slabs melt immediately upon entering the mantle and do not sink further</li><li><span class="cl">(2)</span> The downgoing limb of mantle convection involves subducted oceanic lithosphere sinking deep into the mantle</li><li><span class="cl">(3)</span> All mantle convection is driven exclusively by rising hot plumes, not sinking material</li><li><span class="cl">(4)</span> Subducted slabs accumulate at the base of the crust without entering the deeper mantle</li></ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Compare seismic tomography to a medical CT scan. Explain how both techniques use waves passing through material to reveal internal structure. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET B · ESS2-4 -->
+        <div class="cq" id="qb-ess2-4">
+          <div class="std-hdr"><span class="code">HS-ESS2-4</span> &mdash; Use a model to describe how variations in the flow of energy into and out of Earth's systems result in changes in climate.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">Milutin Milankovitch identified three orbital cycles that alter how solar energy is distributed across Earth's surface: (1) <strong>Eccentricity</strong> &mdash; variations in Earth's orbital shape (circular to elliptical), ~100,000-year cycle; (2) <strong>Obliquity</strong> &mdash; changes in Earth's axial tilt between 22.1&deg; and 24.5&deg;, ~41,000-year cycle; (3) <strong>Precession</strong> &mdash; wobble of Earth's rotational axis, ~26,000-year cycle. Oxygen isotope ratios (<sup>18</sup>O/<sup>16</sup>O) in Antarctic ice cores over 800,000 years show a clear 100,000-year glacial-interglacial pattern that strongly correlates with eccentricity. During glacial periods, ice sheets reached mid-latitudes and sea levels dropped ~120 m.</p>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> Milankovitch cycles drive climate change primarily by</div>
+              <ul class="ch"><li><span class="cl">(1)</span> changing the total amount of solar radiation produced by the Sun</li><li><span class="cl">(2)</span> altering the distribution, timing, and intensity of solar energy reaching Earth's surface at different latitudes and seasons</li><li><span class="cl">(3)</span> increasing greenhouse gas concentrations in the atmosphere during glacial periods</li><li><span class="cl">(4)</span> changing the gravitational distance between Earth and the Moon</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> Oxygen isotope ratios (<sup>18</sup>O/<sup>16</sup>O) in Antarctic ice cores are useful for reconstructing past temperatures because</div>
+              <ul class="ch"><li><span class="cl">(1)</span> heavier <sup>18</sup>O evaporates more easily than <sup>16</sup>O at higher temperatures</li><li><span class="cl">(2)</span> during colder periods, more of the lighter <sup>16</sup>O is locked in ice, enriching ocean water in <sup>18</sup>O in a measurable, temperature-dependent way</li><li><span class="cl">(3)</span> <sup>18</sup>O is only produced during warm interglacial periods</li><li><span class="cl">(4)</span> oxygen isotope ratios directly measure CO<sub>2</sub> concentrations in past atmospheres</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> The ~100,000-year cycle seen in Antarctic ice core records matches the period of which Milankovitch cycle?</div>
+              <ul class="ch"><li><span class="cl">(1)</span> Precession (~26,000 years)</li><li><span class="cl">(2)</span> Obliquity (~41,000 years)</li><li><span class="cl">(3)</span> Eccentricity (~100,000 years)</li><li><span class="cl">(4)</span> All three cycles combine equally to produce the 100,000-year pattern</li></ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Explain how Milankovitch cycles can cause ice ages even though the total solar energy reaching Earth does not change significantly. Focus on seasonal and latitudinal distribution of energy. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET B · ESS2-5 -->
+        <div class="cq" id="qb-ess2-5">
+          <div class="std-hdr"><span class="code">HS-ESS2-5</span> &mdash; Plan and conduct an investigation of the properties of water and its effects on Earth materials and surface processes.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the passage and table below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">The Ogallala (High Plains) Aquifer underlies ~450,000 km<sup>2</sup> of the U.S. Great Plains and supplies ~30% of all groundwater used for irrigation in the country. Natural recharge through precipitation infiltration occurs at only 1&ndash;15 cm/year, while agricultural pumping removes water 10&ndash;40 times faster. Water table levels in parts of the aquifer have dropped more than 60 m since large-scale pumping began in the 1950s. As the water table falls, pumping costs rise and wells eventually go dry, threatening regional agriculture.</p><br>
+            <table class="dt">
+              <tr><th>Region</th><th>Water Table Drop since 1950 (m)</th><th>Recharge (cm/yr)</th><th>Depletion (cm/yr)</th></tr>
+              <tr><td>Northern</td><td>&minus;3</td><td>10&ndash;15</td><td>15&ndash;25</td></tr>
+              <tr><td>Central</td><td>&minus;30</td><td>5&ndash;10</td><td>50&ndash;80</td></tr>
+              <tr><td>Southern</td><td>&minus;60</td><td>1&ndash;3</td><td>80&ndash;120</td></tr>
+            </table>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> Based on the table, which region faces the greatest long-term water sustainability risk?</div>
+              <ul class="ch"><li><span class="cl">(1)</span> Northern region, because it has the highest recharge rate</li><li><span class="cl">(2)</span> Southern region, where depletion far exceeds recharge and the water table has dropped 60 m</li><li><span class="cl">(3)</span> Central region, because it has the most agricultural land</li><li><span class="cl">(4)</span> All three regions are equally at risk since they share the same aquifer</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> The primary reason the Ogallala Aquifer is being depleted is that</div>
+              <ul class="ch"><li><span class="cl">(1)</span> the aquifer is losing water through evaporation from the surface</li><li><span class="cl">(2)</span> irrigation pumping removes water far faster than natural precipitation recharge can replace it</li><li><span class="cl">(3)</span> climate change has permanently ended precipitation over the Great Plains</li><li><span class="cl">(4)</span> underground channels are draining the aquifer into the Gulf of Mexico</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> Which property of water makes aquifer depletion a particularly serious long-term concern?</div>
+              <ul class="ch"><li><span class="cl">(1)</span> Aquifer water is always too salty for agricultural use without desalination</li><li><span class="cl">(2)</span> Natural aquifer recharge through precipitation infiltration occurs on extremely slow temporal scales relative to human demand</li><li><span class="cl">(3)</span> Water evaporates from aquifers faster than it can be pumped out</li><li><span class="cl">(4)</span> Aquifer water dissolves soil minerals, making it toxic over time</li></ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Design an investigation to measure the rate of water infiltration into different soil types. Identify the independent variable, dependent variable, and one controlled variable. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET B · ESS2-6 -->
+        <div class="cq" id="qb-ess2-6">
+          <div class="std-hdr"><span class="code">HS-ESS2-6</span> &mdash; Develop a quantitative model to describe the cycling of carbon among the hydrosphere, atmosphere, geosphere, and biosphere.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">As atmospheric CO<sub>2</sub> increases, oceans absorb ~25&ndash;30% of human CO<sub>2</sub> emissions. Dissolved CO<sub>2</sub> forms carbonic acid (H<sub>2</sub>CO<sub>3</sub>), which releases hydrogen ions (H<sup>+</sup>), lowering ocean pH. Ocean pH has fallen from ~8.2 to ~8.1 since pre-industrial times &mdash; a 26% increase in acidity (pH is logarithmic). This <strong>ocean acidification</strong> threatens shell-forming organisms (oysters, corals, sea urchins) because excess H<sup>+</sup> reacts with carbonate ions (CO<sub>3</sub><sup>2&minus;</sup>) needed for calcium carbonate shells, reducing their availability. Laboratory experiments show that at projected 2100 pH levels (~7.8), many shell-forming organisms cannot maintain their shells.</p>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> Ocean acidification results directly from</div>
+              <ul class="ch"><li><span class="cl">(1)</span> acid rain dissolving into the ocean from polluted air above coastal cities</li><li><span class="cl">(2)</span> the ocean absorbing excess atmospheric CO<sub>2</sub>, which forms carbonic acid when dissolved in seawater</li><li><span class="cl">(3)</span> increased volcanic activity releasing sulfur dioxide directly into the ocean</li><li><span class="cl">(4)</span> decomposition of marine organisms releasing concentrated organic acids</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> Ocean acidification threatens shell-forming organisms because</div>
+              <ul class="ch"><li><span class="cl">(1)</span> more acidic water is too cold for these organisms to survive</li><li><span class="cl">(2)</span> increased hydrogen ions react with carbonate ions needed for calcium carbonate shells, reducing their availability</li><li><span class="cl">(3)</span> acidic conditions cause organisms to produce shells too rapidly, wasting metabolic energy</li><li><span class="cl">(4)</span> carbonic acid directly destroys the DNA of shell-forming organisms</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> Ocean acidification represents an interaction between which Earth systems?</div>
+              <ul class="ch"><li><span class="cl">(1)</span> Geosphere and biosphere only &mdash; no atmospheric connection is involved</li><li><span class="cl">(2)</span> Atmosphere and hydrosphere, with consequences for the biosphere</li><li><span class="cl">(3)</span> Cryosphere and lithosphere &mdash; driven by melting ice and seafloor chemistry</li><li><span class="cl">(4)</span> Geosphere and atmosphere only &mdash; oceans play no direct role</li></ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Explain how the ocean's absorption of CO<sub>2</sub> connects the carbon cycle to changes in the biosphere. Include carbonate chemistry in your answer. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET B · ESS2-7 -->
+        <div class="cq" id="qb-ess2-7">
+          <div class="std-hdr"><span class="code">HS-ESS2-7</span> &mdash; Construct an argument based on evidence about the simultaneous coevolution of Earth's systems and life on Earth.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">The end-Permian extinction (~252 million years ago) eliminated ~96% of marine species and ~70% of terrestrial vertebrates &mdash; Earth's most severe mass extinction. Evidence indicates it was triggered by massive volcanic eruptions in Siberia (the "Siberian Traps"), which released enormous CO<sub>2</sub> and SO<sub>2</sub>, causing rapid warming, ocean acidification, and widespread ocean anoxia. Recovery took ~5&ndash;10 million years: surviving lineages diversified into vacant ecological niches, new plant communities altered weathering rates and atmospheric CO<sub>2</sub>, and ocean chemistry gradually recovered as new shell-forming organisms evolved and incorporated carbon into seafloor sediments.</p>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> The end-Permian mass extinction is most directly linked to which Earth system event?</div>
+              <ul class="ch"><li><span class="cl">(1)</span> A large asteroid impact that blocked sunlight for millions of years</li><li><span class="cl">(2)</span> Massive volcanic eruptions releasing CO<sub>2</sub> and SO<sub>2</sub>, causing rapid climate and ocean chemistry changes</li><li><span class="cl">(3)</span> A reversal of Earth's magnetic field that exposed life to harmful radiation</li><li><span class="cl">(4)</span> Continental drift that isolated populations, causing competitive extinctions</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> During recovery from the end-Permian extinction, the evolution of new shell-forming organisms contributed to</div>
+              <ul class="ch"><li><span class="cl">(1)</span> increased atmospheric oxygen from photosynthesis by new marine algae</li><li><span class="cl">(2)</span> gradual reduction of ocean acidity as carbonate was incorporated into new shells and seafloor sediments</li><li><span class="cl">(3)</span> increased volcanic activity caused by the weight of new carbonate sediments on the seafloor</li><li><span class="cl">(4)</span> decreased ocean temperature as new shells reflected more sunlight</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> Which statement best describes the relationship between Earth's physical systems and life during and after a mass extinction?</div>
+              <ul class="ch"><li><span class="cl">(1)</span> Physical changes always destroy life permanently with no possibility of recovery</li><li><span class="cl">(2)</span> Physical changes drive extinction, while surviving life forms then influence Earth's systems during recovery</li><li><span class="cl">(3)</span> Life controls all physical Earth systems, so extinctions only occur when species fail to adapt fast enough</li><li><span class="cl">(4)</span> Mass extinctions are driven purely by random genetic mutation, not by Earth system changes</li></ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Using the end-Permian extinction, describe how a change in one Earth physical system led to biosphere changes, and how the recovering biosphere then influenced Earth's physical systems. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET B · ESS3-1 -->
+        <div class="cq" id="qb-ess3-1">
+          <div class="std-hdr"><span class="code">HS-ESS3-1</span> &mdash; Construct an explanation based on evidence for how the availability of natural resources, occurrence of natural hazards, and changes in climate have influenced human activity.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">The Middle East and North Africa (MENA) region holds ~6% of the world's population but only ~1% of its renewable freshwater. Ancient Arabian civilizations survived near oases &mdash; natural springs fed by artesian groundwater. Today, Gulf states rely on desalination and extraction of "fossil water" from non-renewable aquifers recharged thousands of years ago during wetter climate periods. The Wadi Al-Dawasir aquifer in Saudi Arabia contains water ~20,000 years old; its extraction for agriculture is entirely unsustainable. Climate projections indicate the MENA region will experience more frequent droughts, reduced precipitation, and temperature increases of 4&ndash;6&deg;C by 2100.</p>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> "Fossil water" aquifers in arid regions are not renewable resources because</div>
+              <ul class="ch"><li><span class="cl">(1)</span> the water is too saline for direct agricultural or domestic use</li><li><span class="cl">(2)</span> they were recharged under past climate conditions that no longer exist, and current recharge rates are negligible</li><li><span class="cl">(3)</span> fossil water is too deep underground to be pumped economically</li><li><span class="cl">(4)</span> desalination plants near these aquifers contaminate the surrounding groundwater</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> The location of ancient settlements near oases in arid regions demonstrates that</div>
+              <ul class="ch"><li><span class="cl">(1)</span> all early civilizations were nomadic and did not depend on permanent freshwater sources</li><li><span class="cl">(2)</span> the availability of freshwater resources directly influenced where human settlements developed</li><li><span class="cl">(3)</span> ancient peoples could survive without water access by using only moisture from food</li><li><span class="cl">(4)</span> oases form randomly and have no predictable relationship to settlement patterns</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> Projected climate change in MENA &mdash; higher temperatures and decreased precipitation &mdash; will most likely</div>
+              <ul class="ch"><li><span class="cl">(1)</span> increase renewable freshwater availability through increased snowmelt from nearby mountains</li><li><span class="cl">(2)</span> reduce freshwater availability and increase pressure on already-stressed water resources, affecting settlements and agriculture</li><li><span class="cl">(3)</span> cause sea level rise that will provide freshwater through flooding of coastal aquifers</li><li><span class="cl">(4)</span> reduce human water demand as drought-adapted crops require less irrigation</li></ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Using the MENA region as an example, describe how the availability (or scarcity) of a natural resource has historically influenced human settlement patterns. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET B · ESS3-2 -->
+        <div class="cq" id="qb-ess3-2">
+          <div class="std-hdr"><span class="code">HS-ESS3-2</span> &mdash; Evaluate competing design solutions for developing, managing, and utilizing energy and mineral resources based on cost-benefit ratios.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the data table below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">Hydraulic fracturing ("fracking") has expanded U.S. natural gas production but raises concerns about groundwater contamination, induced seismicity, and greenhouse gas emissions. Renewable sources (wind and solar) have falling costs but variable output. The table below compares key metrics for these energy technologies.</p><br>
+            <table class="dt">
+              <tr><th>Energy Source</th><th>CO<sub>2</sub> (g/kWh)</th><th>Water Use (L/MWh)</th><th>Methane Leak Risk</th><th>Cost (&cent;/kWh)</th><th>Reliability</th></tr>
+              <tr><td>Natural Gas (fracking)</td><td>490</td><td>3,800</td><td>High</td><td>5&ndash;8</td><td>High</td></tr>
+              <tr><td>Utility Solar</td><td>45</td><td>10</td><td>None</td><td>4&ndash;6</td><td>Variable</td></tr>
+              <tr><td>Onshore Wind</td><td>11</td><td>4</td><td>None</td><td>3&ndash;5</td><td>Variable</td></tr>
+            </table>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> Based on the table, which two sources have both the lowest carbon emissions AND the lowest water use?</div>
+              <ul class="ch"><li><span class="cl">(1)</span> Natural gas and solar</li><li><span class="cl">(2)</span> Solar and wind</li><li><span class="cl">(3)</span> Wind and natural gas</li><li><span class="cl">(4)</span> All three have equal emissions and water use</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> A community in a drought-prone region should prioritize which energy source based on water use?</div>
+              <ul class="ch"><li><span class="cl">(1)</span> Natural gas, because it is the most reliable energy source available</li><li><span class="cl">(2)</span> Solar or wind, because they require far less water per unit of energy than natural gas</li><li><span class="cl">(3)</span> Natural gas, because its water consumption is lower than that of solar panels</li><li><span class="cl">(4)</span> All sources use similar water amounts, so water use is not a relevant factor</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> The major trade-off between natural gas (fracking) and wind/solar is that natural gas</div>
+              <ul class="ch"><li><span class="cl">(1)</span> emits less CO<sub>2</sub> but requires significantly more land area</li><li><span class="cl">(2)</span> is more reliable (dispatchable) but has significantly higher environmental impacts including emissions, water use, and methane leakage</li><li><span class="cl">(3)</span> is less expensive per kWh but produces far less electricity per facility</li><li><span class="cl">(4)</span> creates more jobs but requires substantially more government subsidies</li></ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Using data from the table, argue whether natural gas or renewable energy is the better long-term solution for a community that prioritizes both environmental sustainability and energy reliability. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET B · ESS3-3 -->
+        <div class="cq" id="qb-ess3-3">
+          <div class="std-hdr"><span class="code">HS-ESS3-3</span> &mdash; Create a computational simulation to illustrate the relationships among management of natural resources, the sustainability of human populations, and biodiversity.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">Coral reefs cover &lt;1% of the ocean floor but support ~25% of all marine species and provide ecosystem services valued at $375 billion/year (fisheries, coastal storm protection, tourism). Major threats include ocean warming (causing coral bleaching, where corals expel symbiotic algae and turn white), ocean acidification (weakening coral skeletons), overfishing (disrupting balance), and nutrient runoff (fueling algal overgrowth). Ecosystem models show reefs can recover from a single bleaching event if given 10&ndash;15 years without further stress; repeated bleaching at shorter intervals prevents recovery and leads to permanent reef degradation.</p>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> Coral reefs are considered critical ecosystems to protect because they</div>
+              <ul class="ch"><li><span class="cl">(1)</span> are the only habitat for all deep-sea fish species</li><li><span class="cl">(2)</span> support ~25% of marine species and provide valuable services including fisheries and coastal storm protection</li><li><span class="cl">(3)</span> are the primary source of atmospheric oxygen for the Southern Hemisphere</li><li><span class="cl">(4)</span> prevent tsunamis from reaching coastlines by dissipating wave energy</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> Computational ecosystem models show that reef recovery depends critically on</div>
+              <ul class="ch"><li><span class="cl">(1)</span> increasing water temperature to accelerate coral growth rates</li><li><span class="cl">(2)</span> having sufficient time between bleaching events for coral communities to recover</li><li><span class="cl">(3)</span> removing all fish from reef areas to eliminate competition with corals</li><li><span class="cl">(4)</span> raising ocean pH above 9.0 to promote calcium carbonate deposition</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> Which combination of human activities most directly threatens coral reefs through both physical and chemical stressors?</div>
+              <ul class="ch"><li><span class="cl">(1)</span> Deep-sea mining and underwater pipeline construction</li><li><span class="cl">(2)</span> Greenhouse gas emissions (causing warming and acidification) combined with overfishing and nutrient runoff</li><li><span class="cl">(3)</span> Freshwater runoff decreasing ocean salinity due to increased glacial melt</li><li><span class="cl">(4)</span> Recreational scuba diving and scientific research sample collection</li></ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Describe TWO management strategies that could protect coral reef ecosystems and explain how each addresses a specific threat to reef biodiversity. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET B · ESS3-4 -->
+        <div class="cq" id="qb-ess3-4">
+          <div class="std-hdr"><span class="code">HS-ESS3-4</span> &mdash; Evaluate or refine a technological solution that reduces impacts of human activities on natural systems.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">Urban development replaces permeable soil with impervious surfaces (roads, rooftops, parking lots), dramatically increasing stormwater runoff that carries pollutants (oils, heavy metals, nitrogen, phosphorus) into streams. Green infrastructure &mdash; bioswales, green roofs, permeable pavements, and rain gardens &mdash; mimics natural hydrology by capturing and filtering stormwater. A study compared a conventional parking lot with a bioswale-equipped lot: the bioswale reduced peak runoff by 73%, removed 89% of suspended solids, and removed 65% of nitrogen from stormwater, while also providing wildlife habitat and reducing urban heat island effects.</p>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> The primary reason urban areas have greater stormwater runoff than natural areas is that</div>
+              <ul class="ch"><li><span class="cl">(1)</span> cities receive more rainfall due to the urban heat island effect</li><li><span class="cl">(2)</span> impervious surfaces prevent infiltration, forcing precipitation to run off directly</li><li><span class="cl">(3)</span> stormwater pipes in cities direct water away from where it originally falls</li><li><span class="cl">(4)</span> urban vegetation absorbs more water than rural vegetation</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> Green infrastructure (bioswales, rain gardens) reduces stormwater pollution by</div>
+              <ul class="ch"><li><span class="cl">(1)</span> chemically neutralizing all pollutants through reactions with concrete materials</li><li><span class="cl">(2)</span> allowing stormwater to infiltrate and be filtered through soil and vegetation before reaching waterways</li><li><span class="cl">(3)</span> increasing the velocity of stormwater flow to prevent sediment from settling</li><li><span class="cl">(4)</span> diverting stormwater to treatment plants more efficiently than conventional pipes</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> Based on the study data, which best describes the overall benefit of the bioswale?</div>
+              <ul class="ch"><li><span class="cl">(1)</span> A 65% reduction in water temperature compared to the conventional lot</li><li><span class="cl">(2)</span> Significant reductions in peak runoff (73%) and key pollutants (89% solids, 65% nitrogen)</li><li><span class="cl">(3)</span> A 100% elimination of stormwater entering downstream waterways</li><li><span class="cl">(4)</span> Reduced maintenance costs compared to the conventional parking lot design</li></ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Evaluate a bioswale as a technological solution for reducing the impact of urban development on natural water systems. Use specific data from the passage to support your evaluation. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET B · ESS3-5 -->
+        <div class="cq" id="qb-ess3-5">
+          <div class="std-hdr"><span class="code">HS-ESS3-5</span> &mdash; Analyze geoscience data and the results from global climate models to make an evidence-based forecast of the current rate of global or regional climate change and associated future impacts to Earth systems.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the passage and table below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">Sea level is rising due to thermal expansion of warming seawater and melting of land-based ice. Tide gauge records show ~20 cm of sea level rise since 1880. Since 1993, satellite altimetry shows an <em>accelerating</em> rate of rise. The Greenland Ice Sheet loses ~280 billion tonnes/year; Antarctica loses ~150 billion tonnes/year. Climate models project 0.3&ndash;1.0+ meters of additional rise by 2100, depending on emissions.</p><br>
+            <table class="dt">
+              <tr><th>Time Period</th><th>Sea Level Rise Rate (mm/yr)</th><th>Primary Contributor</th></tr>
+              <tr><td>1900&ndash;1930</td><td>~1.2</td><td>Thermal expansion</td></tr>
+              <tr><td>1960&ndash;1990</td><td>~1.5</td><td>Thermal expansion + glacier melt</td></tr>
+              <tr><td>1993&ndash;2002</td><td>~2.1</td><td>Ice sheets increasing contribution</td></tr>
+              <tr><td>2006&ndash;2015</td><td>~3.6</td><td>Ice sheets + glaciers accelerating</td></tr>
+              <tr><td>2016&ndash;2024</td><td>~4.0</td><td>Accelerating ice sheet loss</td></tr>
+            </table>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> The data in the table shows that sea level rise rates have</div>
+              <ul class="ch"><li><span class="cl">(1)</span> remained essentially constant since 1900 at approximately 2 mm/yr</li><li><span class="cl">(2)</span> accelerated over time, with the rate roughly tripling since the early 20th century</li><li><span class="cl">(3)</span> decreased in recent decades as emission reduction policies have taken effect</li><li><span class="cl">(4)</span> fluctuated randomly with no discernible long-term trend</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> The two primary physical mechanisms causing sea level rise are</div>
+              <ul class="ch"><li><span class="cl">(1)</span> Increased rainfall and river discharge adding water volume to the oceans</li><li><span class="cl">(2)</span> Thermal expansion of warming seawater and melting of land-based ice sheets and glaciers</li><li><span class="cl">(3)</span> Tectonic subsidence of ocean floors and volcanic addition of water vapor to the atmosphere</li><li><span class="cl">(4)</span> Changes in ocean salinity reducing water density and increasing volume</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> Based on the trend in the table, which projection for the 2030 sea level rise rate is most consistent with the observed data?</div>
+              <ul class="ch"><li><span class="cl">(1)</span> ~1.0 mm/yr (a significant decrease from the current trend)</li><li><span class="cl">(2)</span> ~4.5 mm/yr (a continuation of the accelerating trend)</li><li><span class="cl">(3)</span> ~0 mm/yr (sea level stabilizes due to climate action)</li><li><span class="cl">(4)</span> ~10 mm/yr (a sudden doubling of the current rate)</li></ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Using data from both the passage and the table, construct an argument that sea level rise is accelerating and poses an increasing risk to coastal communities. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET B · ESS3-6 -->
+        <div class="cq" id="qb-ess3-6">
+          <div class="std-hdr"><span class="code">HS-ESS3-6</span> &mdash; Use a computational representation to illustrate the relationships among Earth systems and how those relationships are being modified due to human activity.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">The nitrogen cycle moves nitrogen through Earth's systems via nitrogen fixation, nitrification, denitrification, and decomposition. Human agriculture has disrupted this cycle: the Haber-Bosch process (industrial nitrogen fixation) produces ~120 million tonnes of synthetic fertilizer per year, roughly doubling biologically available nitrogen compared to pre-industrial levels. Much fertilizer nitrogen is not absorbed by crops &mdash; it leaches into groundwater and rivers, causing eutrophication (algal blooms and oxygen depletion) in freshwater and coastal systems. The Gulf of Mexico "dead zone" &mdash; an area of severely oxygen-depleted water &mdash; is fed primarily by nitrogen runoff from Midwestern farms via the Mississippi River, demonstrating how human land use in one region affects a distant marine ecosystem.</p>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> The Haber-Bosch process has disrupted the natural nitrogen cycle by</div>
+              <ul class="ch"><li><span class="cl">(1)</span> removing nitrogen from the atmosphere faster than natural fixation processes can replace it</li><li><span class="cl">(2)</span> roughly doubling the amount of biologically available nitrogen, overwhelming the natural cycling capacity of ecosystems</li><li><span class="cl">(3)</span> converting ocean nitrogen into atmospheric nitrogen, reducing marine productivity</li><li><span class="cl">(4)</span> creating nitrogen compounds toxic to the natural nitrogen-fixing bacteria</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> Excess nitrogen fertilizer not absorbed by crops most directly affects the hydrosphere by</div>
+              <ul class="ch"><li><span class="cl">(1)</span> increasing ocean salinity when nitrogen compounds accumulate in seawater</li><li><span class="cl">(2)</span> leaching into rivers and groundwater, causing eutrophication and oxygen depletion in aquatic ecosystems</li><li><span class="cl">(3)</span> combining with atmospheric oxygen to form protective ozone in the stratosphere</li><li><span class="cl">(4)</span> settling to the seafloor and forming nitrogen-rich sedimentary rock layers</li></ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> The Gulf of Mexico dead zone best illustrates which Earth system connection pathway?</div>
+              <ul class="ch"><li><span class="cl">(1)</span> Atmosphere &rarr; lithosphere &rarr; hydrosphere</li><li><span class="cl">(2)</span> Agricultural land use (biosphere/geosphere) &rarr; river nitrogen transport (hydrosphere) &rarr; coastal oxygen depletion (hydrosphere/biosphere)</li><li><span class="cl">(3)</span> Geosphere &rarr; atmosphere &rarr; biosphere</li><li><span class="cl">(4)</span> Hydrosphere &rarr; atmosphere &rarr; biosphere</li></ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Trace the path of a nitrogen atom from synthetic fertilizer on a Midwestern farm to a dead zone in the Gulf of Mexico. Identify at least two Earth systems the nitrogen passes through. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
         </div><!-- end #content -->
     </div><!-- end #layout -->
 
@@ -2104,6 +2642,17 @@
                 <tfoot><tr><td colspan="2" id="sc-foot"></td><td colspan="3"></td></tr></tfoot>
             </table>
             <button id="score-close-btn" onclick="closeScore()">[ Close ]</button>
+        </div>
+    </div>
+
+    <div id="warn-overlay">
+        <div id="warn-box">
+            <h2>[ WARNING ]</h2>
+            <p>Switching question sets will reset <strong>all progress</strong> and clear all answers. Are you sure?</p>
+            <div class="warn-btns">
+                <button id="warn-proceed" onclick="confirmSetChange()">[ Proceed ]</button>
+                <button id="warn-cancel" onclick="cancelSetChange()">[ Cancel ]</button>
+            </div>
         </div>
     </div>
 
@@ -2143,7 +2692,8 @@
         function show(id, btn) {
             document.querySelectorAll('.cq').forEach(function (e) { e.classList.remove('on'); });
             document.getElementById('welcome').style.display = 'none';
-            var q = document.getElementById('q-' + id);
+            var prefix = currentSet === 'a' ? 'q-' : 'qb-';
+            var q = document.getElementById(prefix + id);
             if (q) q.classList.add('on');
             document.querySelectorAll('.sbtn').forEach(function (b) { b.classList.remove('on'); });
             btn.classList.add('on');
@@ -2158,6 +2708,9 @@
             'ess2-1','ess2-2','ess2-3','ess2-4','ess2-5','ess2-6','ess2-7',
             'ess3-1','ess3-2','ess3-3','ess3-4','ess3-5','ess3-6'
         ];
+
+        var currentSet = 'a';
+        var pendingSet = null;
 
         var ANSWER_KEY = {
             'ess1-1': {1:2, 2:2, 3:3},
@@ -2181,6 +2734,67 @@
             'ess3-6': {1:2, 2:2, 3:2}
         };
 
+        var ANSWER_KEY_B = {
+            'ess1-1': {1:2, 2:2, 3:2},
+            'ess1-2': {1:2, 2:2, 3:2},
+            'ess1-3': {1:2, 2:3, 3:2},
+            'ess1-4': {1:2, 2:2, 3:2},
+            'ess1-5': {1:2, 2:2, 3:1},
+            'ess1-6': {1:2, 2:2, 3:2},
+            'ess2-1': {1:2, 2:2, 3:3},
+            'ess2-2': {1:2, 2:2, 3:2},
+            'ess2-3': {1:2, 2:2, 3:2},
+            'ess2-4': {1:2, 2:2, 3:3},
+            'ess2-5': {1:2, 2:2, 3:2},
+            'ess2-6': {1:2, 2:2, 3:2},
+            'ess2-7': {1:2, 2:2, 3:2},
+            'ess3-1': {1:2, 2:2, 3:2},
+            'ess3-2': {1:2, 2:2, 3:2},
+            'ess3-3': {1:2, 2:2, 3:2},
+            'ess3-4': {1:2, 2:2, 3:2},
+            'ess3-5': {1:2, 2:2, 3:2},
+            'ess3-6': {1:2, 2:2, 3:2}
+        };
+
+        function toggleOptions(e) {
+            e.stopPropagation();
+            document.getElementById('opt-dropdown').classList.toggle('on');
+        }
+        function closeOptions() {
+            document.getElementById('opt-dropdown').classList.remove('on');
+        }
+        function requestSetChange(set) {
+            if (set === currentSet) { closeOptions(); return; }
+            pendingSet = set;
+            closeOptions();
+            document.getElementById('warn-overlay').classList.add('on');
+        }
+        function cancelSetChange() {
+            pendingSet = null;
+            document.getElementById('warn-overlay').classList.remove('on');
+        }
+        function confirmSetChange() {
+            currentSet = pendingSet;
+            pendingSet = null;
+            Object.keys(answers).forEach(function (k) { answers[k] = ''; });
+            document.querySelectorAll('ul.ch li.picked').forEach(function (l) { l.classList.remove('picked'); });
+            document.querySelectorAll('textarea.rb').forEach(function (t) { t.value = ''; });
+            document.querySelectorAll('.cq').forEach(function (e) { e.classList.remove('on'); });
+            document.getElementById('welcome').style.display = '';
+            document.getElementById('set-indicator').textContent = currentSet.toUpperCase();
+            var aActive = currentSet === 'a';
+            document.getElementById('opt-a').className = 'opt-item opt-divider' + (aActive ? ' active-set' : '');
+            document.getElementById('opt-b').className = 'opt-item' + (!aActive ? ' active-set' : '');
+            document.getElementById('opt-a').innerHTML = (aActive ? '&#10003;' : '&nbsp;&nbsp;') + ' Set A';
+            document.getElementById('opt-b').innerHTML = (!aActive ? '&#10003;' : '&nbsp;&nbsp;') + ' Set B';
+            document.querySelectorAll('.sbtn').forEach(function (b) { b.classList.remove('on'); });
+            updateProgress();
+            document.getElementById('warn-overlay').classList.remove('on');
+        }
+        document.addEventListener('click', function (e) {
+            if (!document.getElementById('opt-wrap').contains(e.target)) closeOptions();
+        });
+
         function stdLabel(id) {
             return id.replace(/ess(\d+)-(\d+)/, 'HS-ESS$1-$2');
         }
@@ -2202,7 +2816,8 @@
                 for (var i = 1; i <= 3; i++) {
                     var resp = answers[stdId + '-mc' + i] || '';
                     var chosen = choiceNum(resp);
-                    var key = ANSWER_KEY[stdId] ? ANSWER_KEY[stdId][i] : null;
+                    var activeKey = currentSet === 'a' ? ANSWER_KEY : ANSWER_KEY_B;
+                    var key = activeKey[stdId] ? activeKey[stdId][i] : null;
                     var correct = (chosen !== null && key !== null && chosen === key);
                     if (correct) { stdResult.correct++; totalCorrect++; }
                     stdResult.qs.push({chosen: chosen, correct: correct, blank: !resp});
