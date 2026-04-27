@@ -1,14 +1,2329 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <title>Canvas Quiz Game</title>
-  <style>
-    body { margin: 0; background: black; }
-    canvas { display: block; background: lightblue; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYSSLS HS-ESS Regents Practice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background: #C8E8F4;
+            color: #00205A;
+            font-size: 14px;
+        }
+
+        #titlebar {
+            background: #00205A;
+            color: #FFFF99;
+            text-align: center;
+            padding: 5px;
+            font-size: 15px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            border-bottom: 3px solid #0040A0;
+        }
+
+        #menubar {
+            background: #D0E8F8;
+            padding: 3px 10px;
+            display: flex;
+            gap: 20px;
+            border-bottom: 2px solid #8AB8D8;
+            font-size: 13px;
+        }
+
+        #menubar span {
+            cursor: pointer;
+            padding: 2px 8px;
+        }
+
+        #menubar span:hover {
+            background: #00205A;
+            color: #FFFF99;
+        }
+
+        #progress-bar {
+            background: #8B2222;
+            height: 22px;
+            position: relative;
+            border-bottom: 2px solid #5A1010;
+        }
+
+        #progress-fill {
+            background: #4E7E4E;
+            height: 100%;
+            width: 0%;
+            transition: width 0.35s ease;
+        }
+
+        #progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #EEFFEE;
+            font-size: 11px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            letter-spacing: 1px;
+            white-space: nowrap;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+        }
+
+        ul.ch li.picked {
+            color: #003060;
+            font-weight: bold;
+            background: #C8DFF8;
+            padding-left: 6px;
+        }
+
+        #help-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #help-overlay.on {
+            display: flex;
+        }
+
+        #help-box {
+            background: #EAF4FF;
+            border: 3px solid #00205A;
+            padding: 28px 32px 20px;
+            max-width: 420px;
+            width: 90%;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        #help-box h2 {
+            background: #00205A;
+            color: #FFFF99;
+            font-size: 13px;
+            letter-spacing: 2px;
+            padding: 5px 10px;
+            margin: -28px -32px 18px;
+            text-align: center;
+        }
+
+        #help-box p {
+            font-size: 13px;
+            line-height: 1.7;
+            color: #001840;
+        }
+
+        #help-close {
+            display: block;
+            margin: 18px auto 0;
+            background: #00205A;
+            color: #FFFF99;
+            border: none;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 13px;
+            padding: 4px 24px;
+            cursor: pointer;
+            letter-spacing: 1px;
+        }
+
+        #help-close:hover {
+            background: #0040A0;
+        }
+
+        #submit-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #submit-overlay.on {
+            display: flex;
+        }
+
+        #submit-box {
+            background: #EAF4FF;
+            border: 3px solid #00205A;
+            padding: 28px 32px 22px;
+            max-width: 440px;
+            width: 90%;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        #submit-box h2 {
+            background: #00205A;
+            color: #FFFF99;
+            font-size: 13px;
+            letter-spacing: 2px;
+            padding: 5px 10px;
+            margin: -28px -32px 20px;
+            text-align: center;
+        }
+
+        #submit-box label {
+            display: block;
+            font-size: 12px;
+            color: #003060;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+
+        #submit-name {
+            width: 100%;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 13px;
+            padding: 5px 7px;
+            border: 1px solid #5090B8;
+            background: #FAFFFE;
+            color: #001840;
+            margin-bottom: 16px;
+        }
+
+        #submit-name:focus {
+            outline: 2px solid #00205A;
+        }
+
+        .submit-btns {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .submit-btns button {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 13px;
+            padding: 5px 20px;
+            border: none;
+            cursor: pointer;
+            letter-spacing: 1px;
+        }
+
+        #btn-generate {
+            background: #4E7E4E;
+            color: #EEFFEE;
+        }
+
+        #btn-generate:hover {
+            background: #3A6A3A;
+        }
+
+        #btn-cancel {
+            background: #8B2222;
+            color: #FFEEEE;
+        }
+
+        #btn-cancel:hover {
+            background: #6A1010;
+        }
+
+        #layout {
+            display: flex;
+            height: calc(100vh - 68px);
+        }
+
+        #sidebar {
+            width: 290px;
+            background: #E4F2FA;
+            border-right: 2px solid #5090B8;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .sb-head {
+            background: #5090B8;
+            color: #fff;
+            padding: 6px 10px;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .grp-lbl {
+            background: #B8D8EE;
+            color: #003060;
+            padding: 5px 8px;
+            font-size: 12px;
+            font-weight: bold;
+            border-top: 1px solid #7AAECE;
+            border-bottom: 1px solid #7AAECE;
+            margin-top: 4px;
+        }
+
+        .sbtn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 4px 18px;
+            background: none;
+            border: none;
+            border-bottom: 1px dotted #A0C8DC;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #002050;
+        }
+
+        .sbtn:hover,
+        .sbtn.on {
+            background: #00205A;
+            color: #FFFF99;
+        }
+
+        #content {
+            flex: 1;
+            padding: 18px;
+            overflow-y: auto;
+            background: #F8FDFB;
+        }
+
+        .cq {
+            display: none;
+            max-width: 820px;
+        }
+
+        .cq.on {
+            display: block;
+        }
+
+        .std-hdr {
+            background: #00205A;
+            color: #fff;
+            padding: 8px 14px;
+            font-size: 13px;
+            font-weight: bold;
+            border: 2px solid #0040A0;
+            margin-bottom: 0;
+        }
+
+        .std-hdr .code {
+            color: #FFFF66;
+        }
+
+        .stimulus {
+            border: 2px solid #5090B8;
+            background: #EAF4FF;
+            padding: 12px 14px;
+            margin: 8px 0;
+        }
+
+        .stimulus h3 {
+            font-size: 11px;
+            color: #003870;
+            border-bottom: 1px solid #5090B8;
+            padding-bottom: 5px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stim-txt {
+            line-height: 1.65;
+            font-size: 13px;
+            color: #001840;
+        }
+
+        .dt {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 8px 0;
+            font-size: 12px;
+        }
+
+        .dt th {
+            background: #5090B8;
+            color: #fff;
+            padding: 4px 8px;
+            border: 1px solid #3070A0;
+        }
+
+        .dt td {
+            padding: 4px 8px;
+            border: 1px solid #A0C4D8;
+            background: #F0F8FF;
+        }
+
+        .dt tr:nth-child(even) td {
+            background: #E0F0F8;
+        }
+
+        .q-sec {
+            margin: 12px 0;
+        }
+
+        .q-lbl {
+            font-size: 11px;
+            color: #003870;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #A0C8DC;
+            padding-bottom: 3px;
+            margin-bottom: 6px;
+        }
+
+        .qi {
+            background: #FFFDE8;
+            border: 1px solid #C8C070;
+            padding: 10px 13px;
+            margin: 6px 0;
+        }
+
+        .qt {
+            font-size: 13px;
+            color: #201800;
+            margin-bottom: 7px;
+            line-height: 1.5;
+        }
+
+        .qn {
+            font-weight: bold;
+            color: #804000;
+        }
+
+        ul.ch {
+            list-style: none;
+            padding-left: 14px;
+        }
+
+        ul.ch li {
+            padding: 3px 0;
+            font-size: 13px;
+            color: #202020;
+            cursor: pointer;
+        }
+
+        ul.ch li:hover {
+            color: #00205A;
+            text-decoration: underline;
+        }
+
+        .cl {
+            font-weight: bold;
+            color: #004080;
+        }
+
+        .cr {
+            background: #EEFFF0;
+            border: 1px solid #80C090;
+            padding: 10px 13px;
+            margin: 6px 0;
+        }
+
+        textarea.rb {
+            width: 100%;
+            height: 80px;
+            border: 1px solid #80A890;
+            background: #FAFFFE;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            padding: 5px;
+            margin-top: 6px;
+            resize: vertical;
+        }
+
+        #welcome {
+            text-align: center;
+            padding: 50px 20px;
+            color: #3870A0;
+        }
+
+        #welcome h2 {
+            font-size: 18px;
+            color: #00205A;
+            margin-bottom: 10px;
+        }
+
+        #welcome pre {
+            font-size: 12px;
+            color: #5090B8;
+            display: inline-block;
+            text-align: left;
+            margin: 14px auto;
+        }
+
+        #welcome p {
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        #statusbar {
+            background: #C8DFF0;
+            border-top: 2px solid #8AB8D8;
+            padding: 3px 10px;
+            font-size: 11px;
+            color: #003060;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #score-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #score-overlay.on { display: flex; }
+
+        #score-box {
+            background: #F8FDFB;
+            border: 3px solid #00205A;
+            width: 520px;
+            max-width: 95vw;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 0;
+        }
+
+        #score-box-hdr {
+            background: #00205A;
+            color: #FFFF99;
+            text-align: center;
+            padding: 8px 14px;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        #score-meta {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 18px 4px;
+            font-size: 12px;
+            color: #003060;
+            border-bottom: 1px solid #B0D0E8;
+        }
+
+        #score-total-wrap {
+            text-align: center;
+            padding: 14px 0 10px;
+            border-bottom: 1px solid #B0D0E8;
+        }
+
+        #score-big {
+            font-size: 42px;
+            font-weight: bold;
+            color: #00205A;
+            line-height: 1;
+        }
+
+        #score-of {
+            font-size: 16px;
+            color: #4070A0;
+        }
+
+        #score-mc-note {
+            font-size: 11px;
+            color: #607090;
+            margin-top: 4px;
+        }
+
+        #score-breakdown {
+            width: calc(100% - 36px);
+            margin: 10px 18px;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        #score-breakdown th {
+            background: #5090B8;
+            color: #fff;
+            padding: 4px 10px;
+            border: 1px solid #3070A0;
+            text-align: left;
+        }
+
+        #score-breakdown td {
+            padding: 3px 10px;
+            border: 1px solid #A0C4D8;
+        }
+
+        #score-breakdown tr.all-correct td { background: #D4EED4; }
+        #score-breakdown tr.none-correct td { background: #EED4D4; }
+        #score-breakdown tr.part-correct td { background: #EEECD4; }
+        #score-breakdown tfoot td {
+            font-weight: bold;
+            background: #D0E8F8;
+            border-top: 2px solid #5090B8;
+        }
+
+        #score-close-btn {
+            display: block;
+            margin: 12px auto 14px;
+            background: #00205A;
+            color: #FFFF99;
+            border: none;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 13px;
+            padding: 5px 28px;
+            cursor: pointer;
+            letter-spacing: 1px;
+        }
+
+        #score-close-btn:hover { background: #0040A0; }
+    </style>
 </head>
+
 <body>
-  <canvas id="gameCanvas" width="800" height="600"></canvas>
-  <script type="module" src="./main.js"></script>
+
+    <div id="titlebar">*** NYSSLS HS-ESS REGENTS PRACTICE *** EARTH &amp; SPACE SCIENCE ***</div>
+    <div id="menubar">
+        <span onclick="showSubmit()">Submit Work</span><span>Standards</span><span>Options</span><span onclick="showHelp()">Help &mdash; Show Help</span>
+    </div>
+
+    <div id="progress-bar">
+        <div id="progress-fill"></div>
+        <span id="progress-text">0% Complete (0 / 76)</span>
+    </div>
+
+    <div id="layout">
+        <div id="sidebar">
+            <div class="sb-head">[ SELECT STANDARD ]</div>
+
+            <div class="grp-lbl">HS-ESS1: Earth's Place in the Universe</div>
+            <button class="sbtn" onclick="show('ess1-1',this)">ESS1-1 · Solar Energy &amp; Fusion</button>
+            <button class="sbtn" onclick="show('ess1-2',this)">ESS1-2 · Big Bang Theory</button>
+            <button class="sbtn" onclick="show('ess1-3',this)">ESS1-3 · Stellar Nucleosynthesis</button>
+            <button class="sbtn" onclick="show('ess1-4',this)">ESS1-4 · Orbital Motion</button>
+            <button class="sbtn" onclick="show('ess1-5',this)">ESS1-5 · Plate Tectonics &amp; Crust Ages</button>
+            <button class="sbtn" onclick="show('ess1-6',this)">ESS1-6 · Earth's Formation</button>
+
+            <div class="grp-lbl">HS-ESS2: Earth's Systems</div>
+            <button class="sbtn" onclick="show('ess2-1',this)">ESS2-1 · Crust &amp; Ocean Features</button>
+            <button class="sbtn" onclick="show('ess2-2',this)">ESS2-2 · Surface Change Feedbacks</button>
+            <button class="sbtn" onclick="show('ess2-3',this)">ESS2-3 · Mantle Convection</button>
+            <button class="sbtn" onclick="show('ess2-4',this)">ESS2-4 · Climate &amp; Energy Flow</button>
+            <button class="sbtn" onclick="show('ess2-5',this)">ESS2-5 · Properties of Water</button>
+            <button class="sbtn" onclick="show('ess2-6',this)">ESS2-6 · Carbon Cycle</button>
+            <button class="sbtn" onclick="show('ess2-7',this)">ESS2-7 · Earth &amp; Life Coevolution</button>
+
+            <div class="grp-lbl">HS-ESS3: Earth &amp; Human Activity</div>
+            <button class="sbtn" onclick="show('ess3-1',this)">ESS3-1 · Resources &amp; Human Activity</button>
+            <button class="sbtn" onclick="show('ess3-2',this)">ESS3-2 · Energy &amp; Mineral Resources</button>
+            <button class="sbtn" onclick="show('ess3-3',this)">ESS3-3 · Resources &amp; Biodiversity</button>
+            <button class="sbtn" onclick="show('ess3-4',this)">ESS3-4 · Reducing Human Impacts</button>
+            <button class="sbtn" onclick="show('ess3-5',this)">ESS3-5 · Climate Change Forecast</button>
+            <button class="sbtn" onclick="show('ess3-6',this)">ESS3-6 · Earth Systems &amp; Human Activity</button>
+        </div>
+
+        <div id="content">
+            <div id="welcome">
+                <h2>NYSSLS High School Earth &amp; Space Science</h2>
+                <pre>
++--------------------------------------------+
+|  REGENTS EXAMINATION CLUSTER QUESTIONS     |
+|  Earth and Space Science Standards         |
+|  New York State Science Learning Standards |
++--------------------------------------------+</pre>
+                <p>Select a standard from the left panel to display<br>a Regents-style cluster question.</p>
+            </div>
+
+            <!-- ======== ESS1-1 ======== -->
+            <div class="cq" id="q-ess1-1">
+                <div class="std-hdr"><span class="code">HS-ESS1-1</span> &mdash; Develop a model based on evidence to
+                    illustrate the life span of the sun and the role of nuclear fusion in the sun's core to release
+                    energy in the form of radiation.</div>
+                <div class="stimulus">
+                    <h3>Base your answers to questions 1&ndash;3 on the passage and table below and on your knowledge of
+                        Earth Science.</h3>
+                    <p class="stim-txt">The Sun is a medium-sized star currently in the middle of its approximately
+                        10-billion-year main sequence life. Energy is produced in the Sun's core through nuclear fusion,
+                        where hydrogen nuclei fuse to form helium, releasing enormous amounts of electromagnetic
+                        radiation. Core temperatures reach ~15 million &deg;C. After hydrogen fuel is exhausted, the Sun
+                        will expand into a red giant, then collapse into a white dwarf.</p>
+                    <br>
+                    <table class="dt">
+                        <tr>
+                            <th>Stage</th>
+                            <th>Duration</th>
+                            <th>Core Process</th>
+                            <th>Relative Diameter</th>
+                        </tr>
+                        <tr>
+                            <td>Protostar</td>
+                            <td>~100,000 yr</td>
+                            <td>Gravitational contraction</td>
+                            <td>~10&times;</td>
+                        </tr>
+                        <tr>
+                            <td>Main Sequence (now)</td>
+                            <td>~10 billion yr</td>
+                            <td>H &rarr; He fusion</td>
+                            <td>1&times;</td>
+                        </tr>
+                        <tr>
+                            <td>Red Giant</td>
+                            <td>~1 billion yr</td>
+                            <td>He &rarr; C fusion</td>
+                            <td>~100&times;</td>
+                        </tr>
+                        <tr>
+                            <td>White Dwarf</td>
+                            <td>Billions of yr</td>
+                            <td>Cooling (no fusion)</td>
+                            <td>~0.01&times;</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part A &mdash; Multiple Choice</div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">1.</span> Which process produces energy in the Sun's core?
+                        </div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> Nuclear fission of uranium</li>
+                            <li><span class="cl">(2)</span> Fusion of hydrogen nuclei into helium</li>
+                            <li><span class="cl">(3)</span> Combustion of hydrogen gas</li>
+                            <li><span class="cl">(4)</span> Gravitational collapse of helium</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">2.</span> The Sun is approximately 4.6 billion years old.
+                            According to the table, the Sun is currently in which stage?</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> Protostar</li>
+                            <li><span class="cl">(2)</span> Main Sequence</li>
+                            <li><span class="cl">(3)</span> Red Giant</li>
+                            <li><span class="cl">(4)</span> White Dwarf</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">3.</span> Which sequence correctly describes the Sun's future
+                            evolution?</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> Main sequence &rarr; neutron star &rarr; black hole</li>
+                            <li><span class="cl">(2)</span> Main sequence &rarr; supernova &rarr; white dwarf</li>
+                            <li><span class="cl">(3)</span> Main sequence &rarr; red giant &rarr; white dwarf</li>
+                            <li><span class="cl">(4)</span> Main sequence &rarr; red giant &rarr; neutron star</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part B &mdash; Constructed Response</div>
+                    <div class="cr">
+                        <div class="qt"><span class="qn">4.</span> Explain why extremely high temperatures are required
+                            for nuclear fusion in the Sun's core, and describe the form of energy released. <em>(1 pt)</em></div>
+                        <textarea class="rb" placeholder="Write your response here..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======== ESS1-2 ======== -->
+            <div class="cq" id="q-ess1-2">
+                <div class="std-hdr"><span class="code">HS-ESS1-2</span> &mdash; Construct an explanation of the Big
+                    Bang theory based on astronomical evidence of light spectra, motion of distant galaxies, and
+                    composition of matter in the universe.</div>
+                <div class="stimulus">
+                    <h3>Base your answers to questions 1&ndash;3 on the passage below and on your knowledge of Earth
+                        Science.</h3>
+                    <p class="stim-txt">Light from nearly all distant galaxies is shifted toward the red end of the
+                        spectrum (redshift), indicating galaxies are moving away from Earth. The farther a galaxy is,
+                        the greater its redshift. The universe is approximately 75% hydrogen and 25% helium by mass
+                        &mdash; proportions consistent with Big Bang nucleosynthesis models. Faint microwave radiation
+                        (cosmic microwave background) fills the universe uniformly, representing the afterglow of the
+                        early, hot universe. Together, these observations support the Big Bang theory: the universe
+                        began ~13.8 billion years ago as an extremely hot, dense point and has been expanding ever
+                        since.</p>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part A &mdash; Multiple Choice</div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">1.</span> The redshift of light from distant galaxies indicates
+                            that the universe is</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> contracting</li>
+                            <li><span class="cl">(2)</span> expanding</li>
+                            <li><span class="cl">(3)</span> rotating around a central point</li>
+                            <li><span class="cl">(4)</span> stationary and unchanging</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">2.</span> The cosmic microwave background radiation is
+                            significant because it</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> proves the Sun is the center of the universe</li>
+                            <li><span class="cl">(2)</span> is the afterglow of the early hot universe predicted by the
+                                Big Bang theory</li>
+                            <li><span class="cl">(3)</span> shows that galaxies are moving toward each other</li>
+                            <li><span class="cl">(4)</span> indicates that the universe has always had the same
+                                temperature</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">3.</span> The universe's composition of ~75% hydrogen and ~25%
+                            helium supports the Big Bang theory because</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> these proportions match predictions from early-universe
+                                nucleosynthesis calculations</li>
+                            <li><span class="cl">(2)</span> heavier elements are more common than lighter ones
+                                throughout the universe</li>
+                            <li><span class="cl">(3)</span> only stars produce hydrogen and helium</li>
+                            <li><span class="cl">(4)</span> the ratio has been increasing since the Big Bang</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part B &mdash; Constructed Response</div>
+                    <div class="cr">
+                        <div class="qt"><span class="qn">4.</span> Describe TWO pieces of evidence that support the Big
+                            Bang theory and explain how each supports the idea that the universe had a beginning and has
+                            been expanding. <em>(1 pt)</em></div>
+                        <textarea class="rb" placeholder="Write your response here..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======== ESS1-3 ======== -->
+            <div class="cq" id="q-ess1-3">
+                <div class="std-hdr"><span class="code">HS-ESS1-3</span> &mdash; Communicate scientific ideas about the
+                    way stars, over their life cycle, produce elements.</div>
+                <div class="stimulus">
+                    <h3>Base your answers to questions 1&ndash;3 on the passage and table below and on your knowledge of
+                        Earth Science.</h3>
+                    <p class="stim-txt">All elements heavier than hydrogen and helium were forged inside stars through
+                        stellar nucleosynthesis. Main-sequence stars fuse hydrogen into helium. More massive stars in
+                        later stages can fuse helium into carbon, oxygen, silicon, and up to iron (Fe, atomic number
+                        26). Iron cannot release energy through fusion, so massive stars explode as supernovae,
+                        producing and dispersing elements heavier than iron &mdash; including gold and uranium &mdash;
+                        throughout space. These elements eventually become part of new stars, planets, and living
+                        organisms.</p>
+                    <br>
+                    <table class="dt">
+                        <tr>
+                            <th>Element</th>
+                            <th>Atomic #</th>
+                            <th>Where Produced</th>
+                            <th>Needs Supernova?</th>
+                        </tr>
+                        <tr>
+                            <td>Helium (He)</td>
+                            <td>2</td>
+                            <td>Big Bang / main-sequence stars</td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td>Carbon (C)</td>
+                            <td>6</td>
+                            <td>Red giant cores</td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td>Iron (Fe)</td>
+                            <td>26</td>
+                            <td>Massive star cores (fusion limit)</td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td>Gold (Au)</td>
+                            <td>79</td>
+                            <td>Supernova / neutron star mergers</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Uranium (U)</td>
+                            <td>92</td>
+                            <td>Supernova</td>
+                            <td>Yes</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part A &mdash; Multiple Choice</div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">1.</span> Which element represents the heaviest product of
+                            fusion in a massive star before a supernova is needed?</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> Helium</li>
+                            <li><span class="cl">(2)</span> Carbon</li>
+                            <li><span class="cl">(3)</span> Iron</li>
+                            <li><span class="cl">(4)</span> Gold</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">2.</span> Gold atoms found on Earth were most likely produced
+                            during</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> fusion in the Sun's core today</li>
+                            <li><span class="cl">(2)</span> a supernova or neutron star merger that predated our solar
+                                system</li>
+                            <li><span class="cl">(3)</span> the Big Bang, alongside hydrogen and helium</li>
+                            <li><span class="cl">(4)</span> radioactive decay inside Earth's mantle</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">3.</span> Supernovae are essential to the existence of planets
+                            and life because they</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> absorb heavy elements from surrounding nebulae</li>
+                            <li><span class="cl">(2)</span> disperse newly synthesized elements into space for
+                                incorporation into new systems</li>
+                            <li><span class="cl">(3)</span> convert heavy elements back into hydrogen for reuse</li>
+                            <li><span class="cl">(4)</span> compress matter into neutron stars where elements are
+                                preserved indefinitely</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part B &mdash; Constructed Response</div>
+                    <div class="cr">
+                        <div class="qt"><span class="qn">4.</span> Explain how the carbon and oxygen atoms in your body
+                            came to exist on Earth. Include the roles of stellar nucleosynthesis and supernovae. <em>(1 pt)</em></div>
+                        <textarea class="rb" placeholder="Write your response here..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======== ESS1-4 ======== -->
+            <div class="cq" id="q-ess1-4">
+                <div class="std-hdr"><span class="code">HS-ESS1-4</span> &mdash; Use mathematical or computational
+                    representations to predict the motion of orbiting objects in the solar system.</div>
+                <div class="stimulus">
+                    <h3>Base your answers to questions 1&ndash;3 on the data table below and on your knowledge of Earth
+                        Science.</h3>
+                    <p class="stim-txt">Kepler's Third Law states that the square of a planet's orbital period (T&sup2;)
+                        is proportional to the cube of its average distance from the Sun (d&sup3;): T&sup2; = d&sup3;
+                        (when T is in Earth years and d is in AU). The table below shows orbital data for planets in our
+                        solar system.</p>
+                    <br>
+                    <table class="dt">
+                        <tr>
+                            <th>Planet</th>
+                            <th>Avg. Distance (AU)</th>
+                            <th>Period (Earth yr)</th>
+                            <th>T&sup2;/d&sup3;</th>
+                        </tr>
+                        <tr>
+                            <td>Mercury</td>
+                            <td>0.39</td>
+                            <td>0.24</td>
+                            <td>1.00</td>
+                        </tr>
+                        <tr>
+                            <td>Venus</td>
+                            <td>0.72</td>
+                            <td>0.61</td>
+                            <td>1.00</td>
+                        </tr>
+                        <tr>
+                            <td>Earth</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                        </tr>
+                        <tr>
+                            <td>Mars</td>
+                            <td>1.52</td>
+                            <td>1.88</td>
+                            <td>1.00</td>
+                        </tr>
+                        <tr>
+                            <td>Jupiter</td>
+                            <td>5.20</td>
+                            <td>11.86</td>
+                            <td>1.00</td>
+                        </tr>
+                        <tr>
+                            <td>Saturn</td>
+                            <td>9.58</td>
+                            <td>29.46</td>
+                            <td>1.00</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part A &mdash; Multiple Choice</div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">1.</span> According to Kepler's Third Law, as a planet's
+                            average distance from the Sun increases, its orbital period</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> decreases</li>
+                            <li><span class="cl">(2)</span> increases</li>
+                            <li><span class="cl">(3)</span> remains the same</li>
+                            <li><span class="cl">(4)</span> first increases, then decreases</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">2.</span> An asteroid orbits at 4.0 AU from the Sun. Using
+                            Kepler's Third Law, what is its approximate orbital period?</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> 4.0 years</li>
+                            <li><span class="cl">(2)</span> 8.0 years</li>
+                            <li><span class="cl">(3)</span> 16.0 years</li>
+                            <li><span class="cl">(4)</span> 64.0 years</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">3.</span> The constant value of T&sup2;/d&sup3; for all planets
+                            in the table indicates that</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> all planets travel at the same orbital speed</li>
+                            <li><span class="cl">(2)</span> the same gravitational relationship governs all planetary
+                                orbits around the Sun</li>
+                            <li><span class="cl">(3)</span> each planet follows a unique orbital law</li>
+                            <li><span class="cl">(4)</span> planets closer to the Sun have longer orbital periods</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part B &mdash; Constructed Response</div>
+                    <div class="cr">
+                        <div class="qt"><span class="qn">4.</span> A newly discovered exoplanet orbits its star at 4.0
+                            AU with a period of 8.0 years. Show how you would apply Kepler's Third Law to verify this
+                            data is consistent. Show your work. <em>(1 pt)</em></div>
+                        <textarea class="rb" placeholder="Show your calculation here..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======== ESS1-5 ======== -->
+            <div class="cq" id="q-ess1-5">
+                <div class="std-hdr"><span class="code">HS-ESS1-5</span> &mdash; Evaluate evidence of the past and
+                    current movements of continental and oceanic crust and the theory of plate tectonics to explain the
+                    ages of crustal rocks.</div>
+                <div class="stimulus">
+                    <h3>Base your answers to questions 1&ndash;3 on the passage below and on your knowledge of Earth
+                        Science.</h3>
+                    <p class="stim-txt">At mid-ocean ridges, new oceanic crust forms continuously as magma rises and
+                        solidifies (seafloor spreading). Radiometric dating confirms that oceanic crust near ridges is
+                        younger than crust farther away. The oldest oceanic crust is ~200 million years old; continental
+                        crust can exceed 4 billion years. Symmetrical magnetic striping patterns on the ocean floor
+                        &mdash; parallel to mid-ocean ridges &mdash; record periodic reversals of Earth's magnetic field
+                        and provided crucial evidence for seafloor spreading. At subduction zones, old oceanic crust is
+                        recycled back into the mantle, which is why oceanic crust is always much younger than
+                        continental crust.</p>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part A &mdash; Multiple Choice</div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">1.</span> Why is oceanic crust generally much younger than
+                            continental crust?</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> Oceanic crust is continuously created at mid-ocean ridges
+                                and destroyed at subduction zones</li>
+                            <li><span class="cl">(2)</span> Continental crust forms faster than oceanic crust</li>
+                            <li><span class="cl">(3)</span> Oceanic crust weathers more rapidly than continental crust
+                            </li>
+                            <li><span class="cl">(4)</span> Subduction only occurs beneath continental plates</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">2.</span> The magnetic striping pattern on the ocean floor
+                            provides evidence for seafloor spreading because the stripes</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> show that magma erupts only at subduction zones</li>
+                            <li><span class="cl">(2)</span> are symmetrical on both sides of mid-ocean ridges and record
+                                periodic magnetic field reversals</li>
+                            <li><span class="cl">(3)</span> prove the ocean floor is currently shrinking</li>
+                            <li><span class="cl">(4)</span> confirm that continental crust is denser than oceanic crust
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">3.</span> Where would you find the oldest oceanic crust?</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> At the center of a mid-ocean ridge</li>
+                            <li><span class="cl">(2)</span> Directly above a hot spot</li>
+                            <li><span class="cl">(3)</span> Far from a ridge, near a subduction zone</li>
+                            <li><span class="cl">(4)</span> At the surface of a continental shield</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part B &mdash; Constructed Response</div>
+                    <div class="cr">
+                        <div class="qt"><span class="qn">4.</span> Describe TWO pieces of evidence that support the
+                            theory of plate tectonics, and explain what each piece of evidence reveals about the
+                            movement of Earth's crust. <em>(1 pt)</em></div>
+                        <textarea class="rb" placeholder="Write your response here..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======== ESS1-6 ======== -->
+            <div class="cq" id="q-ess1-6">
+                <div class="std-hdr"><span class="code">HS-ESS1-6</span> &mdash; Apply scientific reasoning and evidence
+                    from ancient Earth materials, meteorites, and other planetary surfaces to construct an account of
+                    Earth and the solar system's formation and early history.</div>
+                <div class="stimulus">
+                    <h3>Base your answers to questions 1&ndash;3 on the passage below and on your knowledge of Earth
+                        Science.</h3>
+                    <p class="stim-txt">Earth and the solar system formed ~4.6 billion years ago from a rotating cloud
+                        of gas and dust (the solar nebula). Evidence for this age comes from radiometric dating of
+                        ancient zircon crystals (~4.4 billion years old), meteorites (~4.56 billion years old), and
+                        lunar rocks (~4.5 billion years old). The similar ages and compositions of these materials
+                        support the solar nebula hypothesis. Early Earth was extremely hot due to meteorite bombardment
+                        and radioactive decay. Denser materials (iron, nickel) sank to form the core while less-dense
+                        silicates rose to form the crust &mdash; a process called differentiation.</p>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part A &mdash; Multiple Choice</div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">1.</span> Which material provides the best evidence for the age
+                            of the solar system?</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> Sedimentary rock from Earth's ocean floor</li>
+                            <li><span class="cl">(2)</span> Ancient meteorites with radiometric ages of ~4.56 billion
+                                years</li>
+                            <li><span class="cl">(3)</span> Igneous rock from mid-ocean ridges</li>
+                            <li><span class="cl">(4)</span> River sediments containing zircon crystals</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">2.</span> The process by which Earth's interior layers formed,
+                            with denser materials sinking toward the center, is called</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> subduction</li>
+                            <li><span class="cl">(2)</span> convection</li>
+                            <li><span class="cl">(3)</span> differentiation</li>
+                            <li><span class="cl">(4)</span> nucleosynthesis</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">3.</span> The similar ages and compositions of Earth, the Moon,
+                            and meteorites support the conclusion that</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> the Moon formed from material ejected by Earth's early
+                                volcanoes</li>
+                            <li><span class="cl">(2)</span> all objects in the solar system formed from the same
+                                material at approximately the same time</li>
+                            <li><span class="cl">(3)</span> meteorites formed after the planets were already established
+                            </li>
+                            <li><span class="cl">(4)</span> Earth and the Moon have always been the same size</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part B &mdash; Constructed Response</div>
+                    <div class="cr">
+                        <div class="qt"><span class="qn">4.</span> Explain how radiometric dating of meteorites is used
+                            to determine the age of the solar system. Why are meteorites more useful than most Earth
+                            rocks for this purpose? <em>(1 pt)</em></div>
+                        <textarea class="rb" placeholder="Write your response here..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======== ESS2-1 ======== -->
+            <div class="cq" id="q-ess2-1">
+                <div class="std-hdr"><span class="code">HS-ESS2-1</span> &mdash; Develop a model to illustrate how
+                    Earth's internal and surface processes operate at different spatial and temporal scales to form
+                    continental and ocean-floor features.</div>
+                <div class="stimulus">
+                    <h3>Base your answers to questions 1&ndash;3 on the passage below and on your knowledge of Earth
+                        Science.</h3>
+                    <p class="stim-txt">Earth's surface features form through processes that operate across vastly
+                        different temporal scales. The Himalayas formed over ~50 million years as the Indian and Eurasian
+                        plates collided, rising a few cm/year. In contrast, a volcanic island can emerge within decades.
+                        Ocean trenches, the deepest features on Earth, form at subduction zones. The Mid-Atlantic Ridge
+                        spreads at ~2.5 cm/year, continuously generating new oceanic crust. At the surface, weathering
+                        and erosion remove thousands of meters of rock over millions of years, continuously reshaping
+                        landforms.</p>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part A &mdash; Multiple Choice</div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">1.</span> Mountain ranges like the Himalayas form at</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> divergent boundaries where plates move apart</li>
+                            <li><span class="cl">(2)</span> convergent boundaries where two continental plates collide
+                            </li>
+                            <li><span class="cl">(3)</span> transform boundaries where plates slide past each other</li>
+                            <li><span class="cl">(4)</span> hot spots in the middle of tectonic plates</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">2.</span> If the Mid-Atlantic Ridge spreads at 2.5 cm/year,
+                            approximately how much wider will the Atlantic Ocean be in 1 million years?</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> 2.5 km</li>
+                            <li><span class="cl">(2)</span> 25 km</li>
+                            <li><span class="cl">(3)</span> 250 km</li>
+                            <li><span class="cl">(4)</span> 2,500 km</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">3.</span> Ocean trenches are formed by which internal Earth
+                            process?</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> Seafloor spreading at mid-ocean ridges</li>
+                            <li><span class="cl">(2)</span> Hot spot volcanism</li>
+                            <li><span class="cl">(3)</span> Subduction of oceanic crust beneath another plate</li>
+                            <li><span class="cl">(4)</span> Continental rifting</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part B &mdash; Constructed Response</div>
+                    <div class="cr">
+                        <div class="qt"><span class="qn">4.</span> Compare the temporal scale of mountain-building through
+                            plate tectonics with the temporal scale of erosion by rivers. Explain why both processes are
+                            important in determining the final shape of a mountain range. <em>(1 pt)</em></div>
+                        <textarea class="rb" placeholder="Write your response here..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======== ESS2-2 ======== -->
+            <div class="cq" id="q-ess2-2">
+                <div class="std-hdr"><span class="code">HS-ESS2-2</span> &mdash; Analyze geoscience data to make the
+                    claim that one change to Earth's surface can create feedbacks that cause changes to other Earth
+                    systems.</div>
+                <div class="stimulus">
+                    <h3>Base your answers to questions 1&ndash;3 on the passage below and on your knowledge of Earth
+                        Science.</h3>
+                    <p class="stim-txt">In the Arctic, rising temperatures have caused significant melting of sea ice.
+                        Sea ice is white and reflects much of incoming solar radiation back into space (high albedo).
+                        When sea ice melts, it is replaced by darker ocean water, which absorbs more solar radiation
+                        (lower albedo). The absorbed energy further warms the ocean, causing more ice to melt &mdash; a
+                        self-reinforcing cycle called the <strong>ice-albedo feedback</strong>. Arctic sea ice extent
+                        has decreased by ~13% per decade since the late 1970s, with dramatic summer losses. This Arctic
+                        warming affects weather patterns across the Northern Hemisphere.</p>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part A &mdash; Multiple Choice</div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">1.</span> The ice-albedo feedback is an example of a</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> negative feedback that stabilizes Earth's temperature</li>
+                            <li><span class="cl">(2)</span> positive feedback that amplifies the original change</li>
+                            <li><span class="cl">(3)</span> neutral feedback with no net effect on climate</li>
+                            <li><span class="cl">(4)</span> feedback that only affects ocean salinity</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">2.</span> Albedo is defined as</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> the density of a surface material</li>
+                            <li><span class="cl">(2)</span> the reflectivity of a surface &mdash; the proportion of
+                                incoming solar radiation that is reflected</li>
+                            <li><span class="cl">(3)</span> the heat capacity of ocean water</li>
+                            <li><span class="cl">(4)</span> the salinity of Arctic seawater</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">3.</span> If Arctic sea ice continues to decline, the
+                            ice-albedo feedback would most likely cause</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> Arctic temperatures to decrease as more heat is reflected
+                            </li>
+                            <li><span class="cl">(2)</span> Arctic temperatures to continue rising, causing further ice
+                                loss</li>
+                            <li><span class="cl">(3)</span> cloud cover to decrease, reducing solar radiation reaching
+                                the surface</li>
+                            <li><span class="cl">(4)</span> ocean salinity to increase, counteracting warming</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part B &mdash; Constructed Response</div>
+                    <div class="cr">
+                        <div class="qt"><span class="qn">4.</span> Describe another feedback loop in Earth's climate
+                            system (other than ice-albedo) and identify whether it is a positive or negative feedback.
+                            Explain your reasoning. <em>(1 pt)</em></div>
+                        <textarea class="rb" placeholder="Write your response here..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======== ESS2-3 ======== -->
+            <div class="cq" id="q-ess2-3">
+                <div class="std-hdr"><span class="code">HS-ESS2-3</span> &mdash; Develop a model based on evidence of
+                    Earth's interior to describe the cycling of matter by thermally driven convection in the mantle.
+                </div>
+                <div class="stimulus">
+                    <h3>Base your answers to questions 1&ndash;3 on the passage below and on your knowledge of Earth
+                        Science.</h3>
+                    <p class="stim-txt">Earth's mantle (~84% of Earth's volume) consists of solid rock that behaves
+                        plastically over long temporal scales. Heat from Earth's core and radioactive decay within the mantle
+                        drives convection: hot, less-dense material rises toward the surface while cooler, denser
+                        material sinks. This convective cycling exerts drag forces on tectonic plates, driving seafloor
+                        spreading and subduction. Seismic wave analysis reveals regions of hot upwelling and cold
+                        downwelling material within the mantle. Despite convecting at only a few cm/year, mantle
+                        convection has reshaped Earth's entire surface over geologic time.</p>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part A &mdash; Multiple Choice</div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">1.</span> What is the primary energy source that drives
+                            convection in Earth's mantle?</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> Solar energy absorbed at Earth's surface</li>
+                            <li><span class="cl">(2)</span> Heat from Earth's core and radioactive decay within the
+                                mantle</li>
+                            <li><span class="cl">(3)</span> Tidal forces from the Moon</li>
+                            <li><span class="cl">(4)</span> Chemical reactions at mid-ocean ridges</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">2.</span> Scientists infer the structure and behavior of the
+                            mantle primarily by analyzing</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> direct rock samples collected by deep-mantle drilling</li>
+                            <li><span class="cl">(2)</span> how seismic waves change speed and direction as they pass
+                                through the mantle</li>
+                            <li><span class="cl">(3)</span> the chemical composition of ocean-floor sediments</li>
+                            <li><span class="cl">(4)</span> the height of mid-ocean ridges above the seafloor</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">3.</span> Where in the mantle would you expect rock to be
+                            moving upward in a convection cell?</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> Beneath subduction zones, where crust sinks into the mantle
+                            </li>
+                            <li><span class="cl">(2)</span> Beneath mid-ocean ridges and hot spots, where heat is
+                                greatest</li>
+                            <li><span class="cl">(3)</span> At the core-mantle boundary everywhere equally</li>
+                            <li><span class="cl">(4)</span> In the outer core, which drives plate motion directly</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part B &mdash; Constructed Response</div>
+                    <div class="cr">
+                        <div class="qt"><span class="qn">4.</span> Explain how thermal energy from Earth's interior
+                            drives the movement of tectonic plates at Earth's surface. Describe the role of mantle
+                            convection in this process. <em>(1 pt)</em></div>
+                        <textarea class="rb" placeholder="Write your response here..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======== ESS2-4 ======== -->
+            <div class="cq" id="q-ess2-4">
+                <div class="std-hdr"><span class="code">HS-ESS2-4</span> &mdash; Use a model to describe how variations
+                    in the flow of energy into and out of Earth's systems result in changes in climate.</div>
+                <div class="stimulus">
+                    <h3>Base your answers to questions 1&ndash;3 on the passage below and on your knowledge of Earth
+                        Science.</h3>
+                    <p class="stim-txt">Earth's climate is determined by the balance between incoming solar radiation
+                        and outgoing infrared (heat) radiation. Greenhouse gases (CO<sub>2</sub>, water vapor, methane) trap
+                        outgoing infrared radiation, warming Earth's surface. Milankovitch cycles &mdash; periodic
+                        changes in Earth's orbital shape, axial tilt, and wobble &mdash; alter solar energy distribution
+                        over tens of thousands to hundreds of thousands of years, contributing to ice age cycles.
+                        Volcanic eruptions temporarily cool climate by injecting sulfate aerosols that reflect sunlight.
+                        Human activities have increased atmospheric CO<sub>2</sub> from ~280 ppm (pre-industrial) to over 420
+                        ppm today.</p>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part A &mdash; Multiple Choice</div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">1.</span> Which factor would most directly cause a long-term
+                            decrease in Earth's average global temperature?</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> A decrease in atmospheric CO<sub>2</sub> concentration</li>
+                            <li><span class="cl">(2)</span> An increase in frequency of major volcanic eruptions</li>
+                            <li><span class="cl">(3)</span> An increase in solar output</li>
+                            <li><span class="cl">(4)</span> A decrease in polar ice coverage</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">2.</span> Milankovitch cycles affect Earth's climate primarily
+                            by</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> changing the total amount of solar energy the Sun produces
+                            </li>
+                            <li><span class="cl">(2)</span> altering the distribution and seasonal timing of solar
+                                energy reaching Earth's surface</li>
+                            <li><span class="cl">(3)</span> increasing the concentration of greenhouse gases in the
+                                atmosphere</li>
+                            <li><span class="cl">(4)</span> changing Earth's distance from the galactic center</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">3.</span> The rapid increase in atmospheric CO<sub>2</sub> since
+                            industrialization is most directly responsible for</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> a weakening of the greenhouse effect</li>
+                            <li><span class="cl">(2)</span> an enhanced greenhouse effect and global warming</li>
+                            <li><span class="cl">(3)</span> a reduction of water vapor in the upper atmosphere</li>
+                            <li><span class="cl">(4)</span> equal cooling of both the stratosphere and troposphere</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part B &mdash; Constructed Response</div>
+                    <div class="cr">
+                        <div class="qt"><span class="qn">4.</span> Explain how the greenhouse effect maintains Earth's
+                            surface temperature above what it would be without an atmosphere. Then describe how human
+                            activities are altering this natural process. <em>(1 pt)</em></div>
+                        <textarea class="rb" placeholder="Write your response here..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======== ESS2-5 ======== -->
+            <div class="cq" id="q-ess2-5">
+                <div class="std-hdr"><span class="code">HS-ESS2-5</span> &mdash; Plan and conduct an investigation of
+                    the properties of water and its effects on Earth materials and surface processes.</div>
+                <div class="stimulus">
+                    <h3>Base your answers to questions 1&ndash;3 on the passage below and on your knowledge of Earth
+                        Science.</h3>
+                    <p class="stim-txt">Water has unique properties that make it essential to Earth's surface processes.
+                        Its high specific heat capacity requires large amounts of energy to change temperature,
+                        moderating coastal climates. Unlike most substances, water expands when it freezes &mdash;
+                        causing mechanical weathering when water in cracks freezes and shatters rock (frost wedging).
+                        Water is also a powerful polar solvent, dissolving minerals and transporting them. The water
+                        cycle moves ~505,000 km&sup3; of water through the atmosphere annually, with ~86% evaporating
+                        from the oceans.</p>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part A &mdash; Multiple Choice</div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">1.</span> Frost wedging is a type of mechanical weathering
+                            because water</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> dissolves minerals in rock, weakening the structure</li>
+                            <li><span class="cl">(2)</span> expands upon freezing, exerting pressure that fractures rock
+                            </li>
+                            <li><span class="cl">(3)</span> contracts upon freezing, pulling rock surfaces apart</li>
+                            <li><span class="cl">(4)</span> reacts chemically with silicate minerals to form clay</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">2.</span> A coastal city has milder temperature swings than an
+                            inland city at the same latitude primarily because</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> ocean water reflects more solar radiation than land</li>
+                            <li><span class="cl">(2)</span> water's high specific heat capacity moderates temperature
+                                extremes near coastlines</li>
+                            <li><span class="cl">(3)</span> salt water has a lower freezing point than fresh water</li>
+                            <li><span class="cl">(4)</span> ocean currents always carry cold water from the poles to
+                                coastal areas</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">3.</span> Which property of water is most responsible for its
+                            effectiveness as a transporter of dissolved minerals?</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> High boiling point (100&deg;C)</li>
+                            <li><span class="cl">(2)</span> Polarity, which makes water a powerful solvent</li>
+                            <li><span class="cl">(3)</span> Low density as a solid (ice)</li>
+                            <li><span class="cl">(4)</span> High surface tension</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part B &mdash; Constructed Response</div>
+                    <div class="cr">
+                        <div class="qt"><span class="qn">4.</span> Design a controlled investigation to test how the
+                            rate of frost wedging depends on the number of freeze-thaw cycles. Identify the independent
+                            variable, dependent variable, and one controlled variable. <em>(1 pt)</em></div>
+                        <textarea class="rb" placeholder="Write your response here..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======== ESS2-6 ======== -->
+            <div class="cq" id="q-ess2-6">
+                <div class="std-hdr"><span class="code">HS-ESS2-6</span> &mdash; Develop a quantitative model to
+                    describe the cycling of carbon among the hydrosphere, atmosphere, geosphere, and biosphere.</div>
+                <div class="stimulus">
+                    <h3>Base your answers to questions 1&ndash;3 on the passage and table below and on your knowledge of
+                        Earth Science.</h3>
+                    <p class="stim-txt">Carbon cycles continuously among Earth's reservoirs. Photosynthesis removes
+                        CO<sub>2</sub> from the atmosphere; respiration and decomposition return it. Oceans absorb CO<sub>2</sub>,
+                        organisms build calcium carbonate shells that become limestone, and volcanic activity returns
+                        carbon from the geosphere to the atmosphere. Burning fossil fuels releases carbon stored in the
+                        geosphere for millions of years into the atmosphere at rates far exceeding natural processes.
+                    </p>
+                    <br>
+                    <table class="dt">
+                        <tr>
+                            <th>Reservoir</th>
+                            <th>Carbon Stored (Gt C)</th>
+                            <th>Typical Residence Time</th>
+                        </tr>
+                        <tr>
+                            <td>Atmosphere</td>
+                            <td>860</td>
+                            <td>~4 years (active exchange)</td>
+                        </tr>
+                        <tr>
+                            <td>Ocean (surface)</td>
+                            <td>900</td>
+                            <td>Decades</td>
+                        </tr>
+                        <tr>
+                            <td>Ocean (deep)</td>
+                            <td>37,100</td>
+                            <td>~1,000 years</td>
+                        </tr>
+                        <tr>
+                            <td>Terrestrial biosphere</td>
+                            <td>2,300</td>
+                            <td>Years &ndash; centuries</td>
+                        </tr>
+                        <tr>
+                            <td>Fossil fuels</td>
+                            <td>3,700</td>
+                            <td>Millions of years</td>
+                        </tr>
+                        <tr>
+                            <td>Sediments &amp; rocks</td>
+                            <td>66,000,000</td>
+                            <td>Tens of millions of years</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part A &mdash; Multiple Choice</div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">1.</span> The largest reservoir of carbon on Earth is found in
+                        </div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> the atmosphere</li>
+                            <li><span class="cl">(2)</span> fossil fuels</li>
+                            <li><span class="cl">(3)</span> sediments and rocks</li>
+                            <li><span class="cl">(4)</span> the terrestrial biosphere</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">2.</span> Burning fossil fuels adds carbon to the active carbon
+                            cycle because</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> combustion creates new carbon atoms</li>
+                            <li><span class="cl">(2)</span> carbon stored in the geosphere for millions of years is
+                                rapidly released into the atmosphere</li>
+                            <li><span class="cl">(3)</span> burning converts atmospheric oxygen into carbon dioxide
+                                directly</li>
+                            <li><span class="cl">(4)</span> fossil fuels contain radioactive carbon that decays into
+                                CO<sub>2</sub></li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">3.</span> Which process moves carbon from the biosphere back to
+                            the atmosphere?</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> Photosynthesis</li>
+                            <li><span class="cl">(2)</span> Chemical weathering of silicate rocks</li>
+                            <li><span class="cl">(3)</span> Cellular respiration and decomposition</li>
+                            <li><span class="cl">(4)</span> Subduction of oceanic crust</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part B &mdash; Constructed Response</div>
+                    <div class="cr">
+                        <div class="qt"><span class="qn">4.</span> Using data from the table, explain why burning fossil
+                            fuels is having such a large impact on atmospheric CO<sub>2</sub> even though the atmosphere is
+                            not the largest carbon reservoir. <em>(1 pt)</em></div>
+                        <textarea class="rb" placeholder="Write your response here..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======== ESS2-7 ======== -->
+            <div class="cq" id="q-ess2-7">
+                <div class="std-hdr"><span class="code">HS-ESS2-7</span> &mdash; Construct an argument based on evidence
+                    about the simultaneous coevolution of Earth's systems and life on Earth.</div>
+                <div class="stimulus">
+                    <h3>Base your answers to questions 1&ndash;3 on the passage below and on your knowledge of Earth
+                        Science.</h3>
+                    <p class="stim-txt">About 2.4 billion years ago, photosynthetic cyanobacteria released oxygen into
+                        the atmosphere during the <strong>Great Oxidation Event</strong>, transforming Earth's
+                        originally anoxic atmosphere. Free oxygen reacted with dissolved iron in the oceans,
+                        precipitating banded iron formations in ocean sediments. Gradually, an ozone layer developed
+                        from atmospheric oxygen, shielding land surfaces from harmful UV radiation and allowing life to
+                        colonize land ~500 million years ago. Conversely, the Chicxulub asteroid impact (~66 million
+                        years ago) caused mass extinctions, dramatically altering the biosphere and opening ecological
+                        niches for mammals to diversify.</p>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part A &mdash; Multiple Choice</div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">1.</span> The Great Oxidation Event demonstrates that</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> volcanic activity created Earth's early oxygen-rich
+                                atmosphere</li>
+                            <li><span class="cl">(2)</span> life fundamentally transformed Earth's atmospheric
+                                composition</li>
+                            <li><span class="cl">(3)</span> oxygen has always been the dominant gas in Earth's
+                                atmosphere</li>
+                            <li><span class="cl">(4)</span> the oceans formed before any life existed on Earth</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">2.</span> Banded iron formations in ancient sedimentary rocks
+                            are evidence that early oceans</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> contained high concentrations of dissolved iron that
+                                precipitated when free oxygen appeared</li>
+                            <li><span class="cl">(2)</span> were much warmer than modern oceans</li>
+                            <li><span class="cl">(3)</span> received iron deposits from meteorite impacts</li>
+                            <li><span class="cl">(4)</span> were much deeper than they are today</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">3.</span> The development of the ozone layer allowed life to
+                            colonize land primarily because it</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> warmed land surfaces to temperatures suitable for
+                                terrestrial life</li>
+                            <li><span class="cl">(2)</span> absorbed harmful UV radiation that would otherwise damage
+                                DNA</li>
+                            <li><span class="cl">(3)</span> increased CO<sub>2</sub> concentration available for
+                                photosynthesis on land</li>
+                            <li><span class="cl">(4)</span> reflected sunlight, cooling land and reducing water
+                                evaporation</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part B &mdash; Constructed Response</div>
+                    <div class="cr">
+                        <div class="qt"><span class="qn">4.</span> Using ONE specific example, construct an argument
+                            explaining how life changed Earth's physical systems OR how Earth's physical systems
+                            influenced the evolution of life. Include evidence to support your argument. <em>(1 pt)</em></div>
+                        <textarea class="rb" placeholder="Write your response here..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======== ESS3-1 ======== -->
+            <div class="cq" id="q-ess3-1">
+                <div class="std-hdr"><span class="code">HS-ESS3-1</span> &mdash; Construct an explanation based on
+                    evidence for how the availability of natural resources, occurrence of natural hazards, and changes
+                    in climate have influenced human activity.</div>
+                <div class="stimulus">
+                    <h3>Base your answers to questions 1&ndash;3 on the passage below and on your knowledge of Earth
+                        Science.</h3>
+                    <p class="stim-txt">Throughout history, natural resource distribution has shaped where and how
+                        civilizations developed. Ancient Mesopotamia flourished between the Tigris and Euphrates rivers
+                        because of fertile soil and reliable water. Regions prone to volcanic eruptions, earthquakes,
+                        and floods have forced populations to adapt or relocate. The 79 CE eruption of Mt. Vesuvius
+                        destroyed Pompeii, yet volcanic ash enriched surrounding soils for generations. Today, climate
+                        change increasingly threatens human settlements: rising sea levels endanger coastal cities,
+                        droughts reduce agricultural output, and shifting precipitation patterns alter freshwater
+                        availability.</p>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part A &mdash; Multiple Choice</div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">1.</span> Many early civilizations developed near rivers
+                            primarily because rivers</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> protected settlements from volcanic eruptions</li>
+                            <li><span class="cl">(2)</span> provided water, fertile sediment, and transportation routes
+                                essential for agriculture and trade</li>
+                            <li><span class="cl">(3)</span> created the most moderate climates on Earth</li>
+                            <li><span class="cl">(4)</span> prevented disease by filtering pathogens from drinking water
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">2.</span> Volcanic ash deposited after an eruption can be both
+                            a natural hazard and a natural resource because</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> ash permanently destroys farmland and creates toxic soils
+                            </li>
+                            <li><span class="cl">(2)</span> ash is destructive in the short term but enriches soils with
+                                minerals over time</li>
+                            <li><span class="cl">(3)</span> ash creates new landforms suitable as settlement sites</li>
+                            <li><span class="cl">(4)</span> ash contains freshwater trapped in mineral crystals</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">3.</span> Rising sea levels driven by climate change most
+                            directly threaten coastal human populations by</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> reducing the amount of sunlight reaching Earth's surface
+                            </li>
+                            <li><span class="cl">(2)</span> inundating cities, agricultural land, and freshwater
+                                aquifers</li>
+                            <li><span class="cl">(3)</span> increasing the frequency of volcanic eruptions at mid-ocean
+                                ridges</li>
+                            <li><span class="cl">(4)</span> cooling ocean temperatures, reducing marine biodiversity
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part B &mdash; Constructed Response</div>
+                    <div class="cr">
+                        <div class="qt"><span class="qn">4.</span> Describe how a specific natural hazard has influenced
+                            human settlement patterns in a region. Use evidence to support your explanation. <em>(2
+                                pts)</em></div>
+                        <textarea class="rb" placeholder="Write your response here..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======== ESS3-2 ======== -->
+            <div class="cq" id="q-ess3-2">
+                <div class="std-hdr"><span class="code">HS-ESS3-2</span> &mdash; Evaluate competing design solutions for
+                    developing, managing, and utilizing energy and mineral resources based on cost-benefit ratios.</div>
+                <div class="stimulus">
+                    <h3>Base your answers to questions 1&ndash;3 on the data table below and on your knowledge of Earth
+                        Science.</h3>
+                    <p class="stim-txt">As global energy demand grows, engineers and policymakers must evaluate
+                        different energy sources. The table below compares key metrics for several technologies.</p>
+                    <br>
+                    <table class="dt">
+                        <tr>
+                            <th>Energy Source</th>
+                            <th>CO<sub>2</sub> Emissions (g/kWh)</th>
+                            <th>Avg. Cost (&cent;/kWh)</th>
+                            <th>Land Use (m&sup2;/GWh/yr)</th>
+                            <th>Reliability</th>
+                        </tr>
+                        <tr>
+                            <td>Coal</td>
+                            <td>820</td>
+                            <td>10.5</td>
+                            <td>36,000</td>
+                            <td>High (baseload)</td>
+                        </tr>
+                        <tr>
+                            <td>Natural Gas</td>
+                            <td>490</td>
+                            <td>9.0</td>
+                            <td>3,600</td>
+                            <td>High (baseload)</td>
+                        </tr>
+                        <tr>
+                            <td>Nuclear</td>
+                            <td>12</td>
+                            <td>14.0</td>
+                            <td>240</td>
+                            <td>High (baseload)</td>
+                        </tr>
+                        <tr>
+                            <td>Wind</td>
+                            <td>11</td>
+                            <td>5.0</td>
+                            <td>72,000</td>
+                            <td>Variable</td>
+                        </tr>
+                        <tr>
+                            <td>Solar PV</td>
+                            <td>45</td>
+                            <td>7.0</td>
+                            <td>36,000</td>
+                            <td>Variable</td>
+                        </tr>
+                        <tr>
+                            <td>Hydroelectric</td>
+                            <td>24</td>
+                            <td>6.5</td>
+                            <td>75,000</td>
+                            <td>Seasonal</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part A &mdash; Multiple Choice</div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">1.</span> Based on the table, which source has the best
+                            combination of low CO<sub>2</sub> emissions, high reliability, and minimal land use?</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> Wind</li>
+                            <li><span class="cl">(2)</span> Coal</li>
+                            <li><span class="cl">(3)</span> Nuclear</li>
+                            <li><span class="cl">(4)</span> Solar PV</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">2.</span> A community wants to reduce greenhouse gas emissions
+                            at the lowest cost per kWh. Based on the table, which source best meets both criteria?</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> Natural gas (490 g/kWh, 9.0&cent;/kWh)</li>
+                            <li><span class="cl">(2)</span> Wind (11 g/kWh, 5.0&cent;/kWh)</li>
+                            <li><span class="cl">(3)</span> Coal (820 g/kWh, 10.5&cent;/kWh)</li>
+                            <li><span class="cl">(4)</span> Nuclear (12 g/kWh, 14.0&cent;/kWh)</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">3.</span> A major limitation of wind and solar as primary power
+                            sources is that they</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> produce more CO<sub>2</sub> than coal</li>
+                            <li><span class="cl">(2)</span> require far more land than nuclear per unit of energy
+                                produced</li>
+                            <li><span class="cl">(3)</span> do not consistently produce power on demand due to weather
+                                dependence</li>
+                            <li><span class="cl">(4)</span> are more expensive per kWh than coal</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part B &mdash; Constructed Response</div>
+                    <div class="cr">
+                        <div class="qt"><span class="qn">4.</span> Using data from the table, evaluate whether nuclear
+                            or wind energy is the better solution for a region that prioritizes both low carbon
+                            emissions and consistent power delivery. Justify your recommendation with specific data.
+                            <em>(1 pt)</em></div>
+                        <textarea class="rb" placeholder="Write your response here..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======== ESS3-3 ======== -->
+            <div class="cq" id="q-ess3-3">
+                <div class="std-hdr"><span class="code">HS-ESS3-3</span> &mdash; Create a computational simulation to
+                    illustrate the relationships among management of natural resources, the sustainability of human
+                    populations, and biodiversity.</div>
+                <div class="stimulus">
+                    <h3>Base your answers to questions 1&ndash;3 on the scenario below and on your knowledge of Earth
+                        Science.</h3>
+                    <p class="stim-txt">A fishing company has been increasing its annual catch to meet growing demand.
+                        Scientists modeled the fish population dynamics and found that when harvest exceeds the fish
+                        population's reproductive rate, the population declines. Once the population drops below a
+                        critical threshold, recovery becomes extremely slow. Species that rely on fish &mdash; seabirds,
+                        marine mammals, larger fish &mdash; also begin to decline, reducing overall ecosystem
+                        biodiversity. The model predicts population collapse within 15 years at current harvest rates.
+                    </p>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part A &mdash; Multiple Choice</div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">1.</span> "Maximum sustainable yield" refers to</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> the maximum number of fish that can ever be caught in a
+                                season</li>
+                            <li><span class="cl">(2)</span> the largest harvest that allows the population to fully
+                                recover each year</li>
+                            <li><span class="cl">(3)</span> the minimum population size needed to prevent extinction
+                            </li>
+                            <li><span class="cl">(4)</span> the amount of fish caught per hour of fishing effort</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">2.</span> If the fish population collapses, which outcome would
+                            most likely result?</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> Increased biodiversity as other species fill the niche</li>
+                            <li><span class="cl">(2)</span> Decreased biodiversity as species dependent on fish for food
+                                also decline</li>
+                            <li><span class="cl">(3)</span> No change in the ecosystem because fish are not keystone
+                                species</li>
+                            <li><span class="cl">(4)</span> Rapid recovery of the fish population within 2&ndash;3 years
+                                once fishing stops</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">3.</span> Computational models of fish populations are valuable
+                            for resource management because they allow scientists to</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> guarantee exact predictions of future population sizes</li>
+                            <li><span class="cl">(2)</span> test different management scenarios and identify sustainable
+                                harvest levels without real-world experimentation</li>
+                            <li><span class="cl">(3)</span> replace field observations entirely</li>
+                            <li><span class="cl">(4)</span> prove that any harvest level is sustainable with proper
+                                management</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part B &mdash; Constructed Response</div>
+                    <div class="cr">
+                        <div class="qt"><span class="qn">4.</span> Describe TWO resource management strategies the
+                            fishing company could implement to prevent the population collapse predicted by the
+                            simulation. Explain how each strategy would help maintain biodiversity. <em>(1 pt)</em>
+                        </div>
+                        <textarea class="rb" placeholder="Write your response here..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======== ESS3-4 ======== -->
+            <div class="cq" id="q-ess3-4">
+                <div class="std-hdr"><span class="code">HS-ESS3-4</span> &mdash; Evaluate or refine a technological
+                    solution that reduces impacts of human activities on natural systems.</div>
+                <div class="stimulus">
+                    <h3>Base your answers to questions 1&ndash;3 on the passage below and on your knowledge of Earth
+                        Science.</h3>
+                    <p class="stim-txt">Constructed wetlands are engineered systems that mimic natural wetland functions
+                        to treat agricultural runoff containing nitrogen and phosphorus &mdash; nutrients that cause
+                        eutrophication (algal blooms that deplete dissolved oxygen) in downstream rivers and lakes. A
+                        pilot study compared two technologies for a dairy farm: <strong>constructed wetlands</strong>
+                        reduced nitrogen by 68% and phosphorus by 54%, while supporting 34 bird species and 12 plant
+                        species. A <strong>chemical filtration system</strong> reduced nitrogen by 85% and phosphorus by
+                        91%, but required high energy input and produced chemical waste requiring disposal.</p>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part A &mdash; Multiple Choice</div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">1.</span> Eutrophication in lakes causes ecological harm
+                            because</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> nutrients lower water pH, killing aquatic life directly</li>
+                            <li><span class="cl">(2)</span> algal blooms deplete dissolved oxygen when they decompose,
+                                creating dead zones</li>
+                            <li><span class="cl">(3)</span> excess phosphorus causes water to freeze at higher
+                                temperatures</li>
+                            <li><span class="cl">(4)</span> nitrogen reacts with water to form directly toxic compounds
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">2.</span> Based on the study data, a significant advantage of
+                            constructed wetlands over chemical filtration is that constructed wetlands</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> remove more nitrogen and phosphorus than the chemical system
+                            </li>
+                            <li><span class="cl">(2)</span> provide wildlife habitat while treating water</li>
+                            <li><span class="cl">(3)</span> require less land area to install</li>
+                            <li><span class="cl">(4)</span> are more effective at treating industrial chemical waste
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">3.</span> A farmer bordering a sensitive lake ecosystem would
+                            most benefit from</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> increasing fertilizer use to maximize crop yield</li>
+                            <li><span class="cl">(2)</span> installing a constructed wetland to reduce nutrient runoff
+                                while supporting local biodiversity</li>
+                            <li><span class="cl">(3)</span> installing drainage pipes that route runoff directly into
+                                the lake</li>
+                            <li><span class="cl">(4)</span> removing all natural vegetation along the property's
+                                waterfront</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part B &mdash; Constructed Response</div>
+                    <div class="cr">
+                        <div class="qt"><span class="qn">4.</span> Evaluate the trade-offs between constructed wetlands
+                            and chemical filtration systems. Which would you recommend for a community that values both
+                            water quality and ecosystem health? Justify your answer with data from the passage. <em>(1 pt)</em></div>
+                        <textarea class="rb" placeholder="Write your response here..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======== ESS3-5 ======== -->
+            <div class="cq" id="q-ess3-5">
+                <div class="std-hdr"><span class="code">HS-ESS3-5</span> &mdash; Analyze geoscience data and the results
+                    from global climate models to make an evidence-based forecast of the current rate of global or
+                    regional climate change and associated future impacts to Earth systems.</div>
+                <div class="stimulus">
+                    <h3>Base your answers to questions 1&ndash;3 on the passage and data table below and on your
+                        knowledge of Earth Science.</h3>
+                    <p class="stim-txt">Global average surface temperatures have increased ~1.1&deg;C since
+                        pre-industrial times. Climate models project a 2.5&ndash;4&deg;C rise by 2100 without
+                        significant emissions reductions. Antarctic ice core records spanning 800,000 years show
+                        CO<sub>2</sub> and temperature have historically tracked closely. Current CO<sub>2</sub> (~420 ppm) is
+                        higher than at any point in this 800,000-year record.</p>
+                    <br>
+                    <table class="dt">
+                        <tr>
+                            <th>Decade</th>
+                            <th>Temp. Anomaly (&deg;C from 1901&ndash;2000 avg.)</th>
+                            <th>Arctic Sea Ice (million km&sup2;)</th>
+                        </tr>
+                        <tr>
+                            <td>1980s</td>
+                            <td>+0.26</td>
+                            <td>7.9</td>
+                        </tr>
+                        <tr>
+                            <td>1990s</td>
+                            <td>+0.31</td>
+                            <td>7.5</td>
+                        </tr>
+                        <tr>
+                            <td>2000s</td>
+                            <td>+0.54</td>
+                            <td>6.8</td>
+                        </tr>
+                        <tr>
+                            <td>2010s</td>
+                            <td>+0.82</td>
+                            <td>5.7</td>
+                        </tr>
+                        <tr>
+                            <td>2020&ndash;2024</td>
+                            <td>+1.10</td>
+                            <td>4.9</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part A &mdash; Multiple Choice</div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">1.</span> Based on the table, what trend exists between global
+                            temperature anomaly and Arctic sea ice extent?</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> As temperature anomaly increases, sea ice extent increases
+                            </li>
+                            <li><span class="cl">(2)</span> As temperature anomaly increases, sea ice extent decreases
+                            </li>
+                            <li><span class="cl">(3)</span> Temperature anomaly and sea ice extent show no relationship
+                            </li>
+                            <li><span class="cl">(4)</span> Sea ice extent increased after 2000 despite rising
+                                temperatures</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">2.</span> Ice core data showing a long-term correlation between
+                            CO<sub>2</sub> and temperature over 800,000 years suggests that</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> temperature changes always precede CO<sub>2</sub> changes by
+                                thousands of years</li>
+                            <li><span class="cl">(2)</span> CO<sub>2</sub> and temperature have been coupled over geological
+                                temporal scales, indicating a causal relationship</li>
+                            <li><span class="cl">(3)</span> CO<sub>2</sub> has no effect on temperature over long temporal scales
+                            </li>
+                            <li><span class="cl">(4)</span> current CO<sub>2</sub> levels fall within the natural range of the
+                                last 800,000 years</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">3.</span> Based on current trends, scientists would most likely
+                            project that the coming decades will bring</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> stable global temperatures as sea ice reflects more sunlight
+                            </li>
+                            <li><span class="cl">(2)</span> further Arctic sea ice loss, sea level rise, and more
+                                frequent extreme weather events</li>
+                            <li><span class="cl">(3)</span> tropical cooling that offsets polar warming</li>
+                            <li><span class="cl">(4)</span> naturally declining CO<sub>2</sub> as forests expand into warming
+                                regions</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part B &mdash; Constructed Response</div>
+                    <div class="cr">
+                        <div class="qt"><span class="qn">4.</span> Using data from both the table and the passage,
+                            construct an evidence-based argument that current climate change is occurring at an
+                            unprecedented rate compared to natural historical variation. <em>(1 pt)</em></div>
+                        <textarea class="rb" placeholder="Write your response here..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======== ESS3-6 ======== -->
+            <div class="cq" id="q-ess3-6">
+                <div class="std-hdr"><span class="code">HS-ESS3-6</span> &mdash; Use a computational representation to
+                    illustrate the relationships among Earth systems and how those relationships are being modified due
+                    to human activity.</div>
+                <div class="stimulus">
+                    <h3>Base your answers to questions 1&ndash;3 on the passage below and on your knowledge of Earth
+                        Science.</h3>
+                    <p class="stim-txt">Earth's major systems &mdash; atmosphere, hydrosphere, geosphere, and biosphere
+                        &mdash; are interconnected through flows of matter and energy. Human activities modify these
+                        connections: burning fossil fuels transfers carbon from the geosphere to the atmosphere;
+                        deforestation reduces the biosphere's CO<sub>2</sub> absorption capacity; agricultural irrigation
+                        transfers groundwater to the atmosphere via evapotranspiration; urban heat islands modify local
+                        temperature and precipitation by replacing vegetation with heat-absorbing pavement. Earth system
+                        models are complex computational simulations that track how changes in one system propagate
+                        through others.</p>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part A &mdash; Multiple Choice</div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">1.</span> When a forest is cleared for agriculture, the most
+                            direct consequence to Earth's systems is</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> increased atmospheric CO<sub>2</sub> absorption by newly grown
+                                crops</li>
+                            <li><span class="cl">(2)</span> reduced carbon storage in the biosphere and increased
+                                surface runoff to the hydrosphere</li>
+                            <li><span class="cl">(3)</span> decreased soil erosion due to reduced root competition</li>
+                            <li><span class="cl">(4)</span> increased precipitation in the cleared area from reduced
+                                transpiration</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">2.</span> Urban heat islands form primarily because</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> cities are located at lower elevations where temperatures
+                                are naturally higher</li>
+                            <li><span class="cl">(2)</span> pavement and buildings absorb and retain more heat than
+                                vegetated surfaces</li>
+                            <li><span class="cl">(3)</span> urban areas have more precipitation that stores solar energy
+                                as latent heat</li>
+                            <li><span class="cl">(4)</span> greenhouse gas concentrations are lower in cities due to
+                                industrial air filters</li>
+                        </ul>
+                    </div>
+                    <div class="qi">
+                        <div class="qt"><span class="qn">3.</span> Earth system models are valuable tools for
+                            understanding human impacts because they</div>
+                        <ul class="ch">
+                            <li><span class="cl">(1)</span> produce exact predictions of future events with no
+                                uncertainty</li>
+                            <li><span class="cl">(2)</span> simulate interactions among multiple systems to show how
+                                change in one system affects others</li>
+                            <li><span class="cl">(3)</span> eliminate the need for field data collection</li>
+                            <li><span class="cl">(4)</span> only model the atmosphere and hydrosphere</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="q-sec">
+                    <div class="q-lbl">Part B &mdash; Constructed Response</div>
+                    <div class="cr">
+                        <div class="qt"><span class="qn">4.</span> Choose ONE human activity described in the passage.
+                            Trace its effects through at least TWO different Earth systems, explaining the connections
+                            between systems using specific details from the passage. <em>(1 pt)</em></div>
+                        <textarea class="rb" placeholder="Write your response here..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- end #content -->
+    </div><!-- end #layout -->
+
+    <div id="statusbar">
+        <span id="sl">NYSSLS HS-ESS Regents Practice &bull; Earth &amp; Space Science</span>
+        <span id="sr">Select a standard from the panel</span>
+    </div>
+
+    <div id="score-overlay">
+        <div id="score-box">
+            <div id="score-box-hdr">NYSSLS HS-ESS &mdash; SCORE REPORT</div>
+            <div id="score-meta">
+                <span>Student: <strong id="sc-name"></strong></span>
+                <span id="sc-date"></span>
+            </div>
+            <div id="score-total-wrap">
+                <div id="score-big"><span id="sc-correct">0</span></div>
+                <div id="score-of">out of <span id="sc-total">57</span> multiple choice</div>
+                <div id="score-mc-note">Short responses are not scored here.</div>
+            </div>
+            <table id="score-breakdown">
+                <thead><tr><th>Standard</th><th>Correct / 3</th><th>Q1</th><th>Q2</th><th>Q3</th></tr></thead>
+                <tbody id="sc-tbody"></tbody>
+                <tfoot><tr><td colspan="2" id="sc-foot"></td><td colspan="3"></td></tr></tfoot>
+            </table>
+            <button id="score-close-btn" onclick="closeScore()">[ Close ]</button>
+        </div>
+    </div>
+
+    <div id="submit-overlay">
+        <div id="submit-box">
+            <h2>[ SUBMIT WORK ]</h2>
+            <label for="submit-name">ENTER YOUR NAME:</label>
+            <input type="text" id="submit-name" placeholder="First Last" autocomplete="off">
+            <div class="submit-btns">
+                <button id="btn-generate" onclick="generateResponse()">[ Generate Response ]</button>
+                <button id="btn-cancel" onclick="closeSubmit()">[ Cancel ]</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="help-overlay">
+        <div id="help-box">
+            <h2>[ HELP ]</h2>
+            <p>Select and input your answers.&nbsp; When complete, click <strong>Submit Work</strong> in the menu and select &ldquo;Generate Response.&rdquo;</p>
+            <button id="help-close" onclick="closeHelp()">[ OK ]</button>
+        </div>
+    </div>
+
+    <script>
+        function showHelp() {
+            document.getElementById('help-overlay').classList.add('on');
+        }
+
+        function closeHelp() {
+            document.getElementById('help-overlay').classList.remove('on');
+        }
+
+        document.getElementById('help-overlay').addEventListener('click', function (e) {
+            if (e.target === this) closeHelp();
+        });
+
+        function show(id, btn) {
+            document.querySelectorAll('.cq').forEach(function (e) { e.classList.remove('on'); });
+            document.getElementById('welcome').style.display = 'none';
+            var q = document.getElementById('q-' + id);
+            if (q) q.classList.add('on');
+            document.querySelectorAll('.sbtn').forEach(function (b) { b.classList.remove('on'); });
+            btn.classList.add('on');
+            var label = btn.textContent.replace(/ESS/g, 'HS-ESS').split('·')[0].trim();
+            document.getElementById('sr').textContent = 'Viewing: ' + label;
+        }
+
+        var answers = {};
+
+        var STD_ORDER = [
+            'ess1-1','ess1-2','ess1-3','ess1-4','ess1-5','ess1-6',
+            'ess2-1','ess2-2','ess2-3','ess2-4','ess2-5','ess2-6','ess2-7',
+            'ess3-1','ess3-2','ess3-3','ess3-4','ess3-5','ess3-6'
+        ];
+
+        var ANSWER_KEY = {
+            'ess1-1': {1:2, 2:2, 3:3},
+            'ess1-2': {1:2, 2:2, 3:1},
+            'ess1-3': {1:3, 2:2, 3:2},
+            'ess1-4': {1:2, 2:2, 3:2},
+            'ess1-5': {1:1, 2:2, 3:3},
+            'ess1-6': {1:2, 2:3, 3:2},
+            'ess2-1': {1:2, 2:2, 3:3},
+            'ess2-2': {1:2, 2:2, 3:2},
+            'ess2-3': {1:2, 2:2, 3:2},
+            'ess2-4': {1:1, 2:2, 3:2},
+            'ess2-5': {1:2, 2:2, 3:2},
+            'ess2-6': {1:3, 2:2, 3:3},
+            'ess2-7': {1:2, 2:1, 3:2},
+            'ess3-1': {1:2, 2:2, 3:2},
+            'ess3-2': {1:3, 2:2, 3:3},
+            'ess3-3': {1:2, 2:2, 3:2},
+            'ess3-4': {1:2, 2:2, 3:2},
+            'ess3-5': {1:2, 2:2, 3:2},
+            'ess3-6': {1:2, 2:2, 3:2}
+        };
+
+        function stdLabel(id) {
+            return id.replace(/ess(\d+)-(\d+)/, 'HS-ESS$1-$2');
+        }
+
+        function csvEscape(s) {
+            return '"' + String(s).replace(/"/g, '""') + '"';
+        }
+
+        function choiceNum(text) {
+            var m = String(text).trim().match(/^\((\d)\)/);
+            return m ? parseInt(m[1]) : null;
+        }
+
+        function calcScore() {
+            var results = {};
+            var totalCorrect = 0;
+            STD_ORDER.forEach(function (stdId) {
+                var stdResult = {correct: 0, qs: []};
+                for (var i = 1; i <= 3; i++) {
+                    var resp = answers[stdId + '-mc' + i] || '';
+                    var chosen = choiceNum(resp);
+                    var key = ANSWER_KEY[stdId] ? ANSWER_KEY[stdId][i] : null;
+                    var correct = (chosen !== null && key !== null && chosen === key);
+                    if (correct) { stdResult.correct++; totalCorrect++; }
+                    stdResult.qs.push({chosen: chosen, correct: correct, blank: !resp});
+                }
+                results[stdId] = stdResult;
+            });
+            return {byStd: results, total: totalCorrect, possible: STD_ORDER.length * 3};
+        }
+
+        function showScore(name, scoreData) {
+            document.getElementById('sc-name').textContent = name;
+            document.getElementById('sc-date').textContent = new Date().toLocaleDateString();
+            document.getElementById('sc-correct').textContent = scoreData.total;
+            document.getElementById('sc-total').textContent = scoreData.possible;
+            var tbody = document.getElementById('sc-tbody');
+            tbody.innerHTML = '';
+            STD_ORDER.forEach(function (stdId) {
+                var r = scoreData.byStd[stdId];
+                var tr = document.createElement('tr');
+                var rowClass = r.correct === 3 ? 'all-correct' : r.correct === 0 ? 'none-correct' : 'part-correct';
+                tr.className = rowClass;
+                var cells = '<td>' + stdLabel(stdId) + '</td><td>' + r.correct + ' / 3</td>';
+                r.qs.forEach(function (q) {
+                    cells += '<td>' + (q.blank ? '&mdash;' : q.correct ? '&#10003;' : '&#10007;') + '</td>';
+                });
+                tr.innerHTML = cells;
+                tbody.appendChild(tr);
+            });
+            document.getElementById('sc-foot').textContent =
+                'Total: ' + scoreData.total + ' / ' + scoreData.possible;
+            document.getElementById('score-overlay').classList.add('on');
+        }
+
+        function closeScore() {
+            document.getElementById('score-overlay').classList.remove('on');
+        }
+
+        function updateProgress() {
+            var answered = Object.keys(answers).filter(function (k) { return answers[k]; }).length;
+            var total = Object.keys(answers).length;
+            var pct = total > 0 ? Math.round((answered / total) * 100) : 0;
+            document.getElementById('progress-fill').style.width = pct + '%';
+            document.getElementById('progress-text').textContent =
+                pct + '% Complete (' + answered + ' / ' + total + ')';
+        }
+
+        function showSubmit() {
+            document.getElementById('submit-overlay').classList.add('on');
+            document.getElementById('submit-name').focus();
+        }
+
+        function closeSubmit() {
+            document.getElementById('submit-overlay').classList.remove('on');
+        }
+
+        function generateResponse() {
+            var name = document.getElementById('submit-name').value.trim();
+            if (!name) {
+                document.getElementById('submit-name').focus();
+                return;
+            }
+            var rows = ['Name,Standard,Question,Type,Response'];
+            STD_ORDER.forEach(function (stdId) {
+                var lbl = stdLabel(stdId);
+                for (var i = 1; i <= 3; i++) {
+                    var val = answers[stdId + '-mc' + i] || '';
+                    rows.push([csvEscape(name), csvEscape(lbl), csvEscape('Q' + i), csvEscape('Multiple Choice'), csvEscape(val)].join(','));
+                }
+                var crVal = answers[stdId + '-cr'] || '';
+                rows.push([csvEscape(name), csvEscape(lbl), csvEscape('Q4'), csvEscape('Constructed Response'), csvEscape(crVal)].join(','));
+            });
+            var blob = new Blob([rows.join('\n')], { type: 'text/plain' });
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = name.replace(/\s+/g, '_') + '_response.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(a.href);
+            closeSubmit();
+            showScore(name, calcScore());
+        }
+
+        document.getElementById('submit-overlay').addEventListener('click', function (e) {
+            if (e.target === this) closeSubmit();
+        });
+
+        window.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.cq').forEach(function (cq) {
+                var stdId = cq.id.replace('q-', '');
+
+                cq.querySelectorAll('.qi').forEach(function (qi, idx) {
+                    var qId = stdId + '-mc' + (idx + 1);
+                    answers[qId] = '';
+                    qi.querySelectorAll('ul.ch li').forEach(function (li) {
+                        li.addEventListener('click', function () {
+                            qi.querySelectorAll('ul.ch li').forEach(function (l) {
+                                l.classList.remove('picked');
+                            });
+                            li.classList.add('picked');
+                            answers[qId] = li.textContent.trim();
+                            updateProgress();
+                        });
+                    });
+                });
+
+                var ta = cq.querySelector('textarea.rb');
+                if (ta) {
+                    var crId = stdId + '-cr';
+                    answers[crId] = '';
+                    ta.addEventListener('input', function () {
+                        var prev = answers[crId];
+                        answers[crId] = ta.value.trim();
+                        if (Boolean(answers[crId]) !== Boolean(prev)) updateProgress();
+                    });
+                }
+            });
+
+            updateProgress();
+        });
+    </script>
 </body>
+
 </html>
