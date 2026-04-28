@@ -659,11 +659,12 @@
     <div id="menubar">
         <span onclick="showSubmit()">Submit Work</span><span onclick="window.open('https://nyssls.info/index.php','_blank')">Standards</span>
         <span class="opt-wrap" id="opt-wrap">
-            <span onclick="toggleOptions(event)">Options [<span id="set-indicator">A</span>]</span>
+            <span onclick="toggleOptions(event)">Problem Set [<span id="set-indicator">A</span>]</span>
             <div id="opt-dropdown">
                 <div id="opt-set-label">Question Set</div>
                 <div class="opt-item opt-divider active-set" id="opt-a" onclick="requestSetChange('a')">&#10003; Set A</div>
-                <div class="opt-item" id="opt-b" onclick="requestSetChange('b')">&nbsp;&nbsp; Set B</div>
+                <div class="opt-item opt-divider" id="opt-b" onclick="requestSetChange('b')">&nbsp;&nbsp; Set B</div>
+                <div class="opt-item" id="opt-c" onclick="requestSetChange('c')">&nbsp;&nbsp; Set C</div>
             </div>
         </span>
         <span onclick="showHelp()">Help &mdash; Show Help</span>
@@ -882,7 +883,7 @@
                         stellar nucleosynthesis. Main-sequence stars fuse hydrogen into helium. More massive stars in
                         later stages can fuse helium into carbon, oxygen, silicon, and up to iron (Fe, atomic number
                         26). Iron cannot release energy through fusion, so massive stars explode as supernovae,
-                        producing and dispersing elements heavier than iron &mdash; including gold and uranium &mdash;
+                        producing and dispersing elements heavier than iron (including gold and uranium)
                         throughout space. These elements eventually become part of new stars, planets, and living
                         organisms.</p>
                     <br>
@@ -2616,6 +2617,849 @@
           </div>
         </div>
 
+        <!-- ============================================================ -->
+        <!-- SET C QUESTIONS  (CER — Claim / Evidence / Refutation style)-->
+        <!-- ============================================================ -->
+
+        <!-- SET C · ESS1-1 -->
+        <div class="cq" id="qc-ess1-1">
+          <div class="std-hdr"><span class="code">HS-ESS1-1</span> &mdash; Develop a model based on evidence to illustrate the life span of the sun and the role of nuclear fusion in the sun's core to release energy in the form of radiation.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the table and passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">Astronomers have tested several hypotheses to explain the Sun's enormous energy output. Three competing models were evaluated: chemical combustion (burning), gravitational contraction (the Kelvin&ndash;Helmholtz mechanism), and nuclear fusion. Each was assessed against the known age of the Sun (~4.6 billion years) and its observed energy output (~3.8 &times; 10<sup>26</sup> W). Solar neutrino detectors also measure particles produced only by nuclear fusion reactions.</p><br>
+            <table class="dt">
+              <tr><th>Energy Source Model</th><th>Maximum Duration It Could Power the Sun</th><th>Observed/Predicted He Production</th></tr>
+              <tr><td>Chemical combustion</td><td>~10,000 years</td><td>Not predicted</td></tr>
+              <tr><td>Gravitational contraction</td><td>~25 million years</td><td>Not predicted</td></tr>
+              <tr><td>Nuclear fusion (H&rarr;He)</td><td>~10 billion years</td><td>620 million tons He/sec (matches observations)</td></tr>
+              <tr><td>Sun's actual age</td><td>4.6 billion years (radiometric)</td><td>Solar neutrinos detected match fusion predictions</td></tr>
+            </table>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> Which statement best supports the claim that the Sun generates energy through nuclear fusion rather than chemical combustion?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> The Sun&rsquo;s surface temperature is ~5,500&deg;C, which is consistent with combustion</li>
+                <li><span class="cl">(2)</span> Chemical combustion could only power the Sun for ~10,000 years, far less than the Sun&rsquo;s radiometric age of 4.6 billion years</li>
+                <li><span class="cl">(3)</span> The Sun contains more helium than any other element</li>
+                <li><span class="cl">(4)</span> Gravitational contraction produces more energy than nuclear fusion</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> A student claims that gravitational contraction alone can explain the Sun&rsquo;s energy output over its entire history. Which evidence in the table best refutes this claim?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Chemical combustion could power the Sun for 10,000 years</li>
+                <li><span class="cl">(2)</span> Nuclear fusion predicts helium production that matches observations</li>
+                <li><span class="cl">(3)</span> Gravitational contraction could power the Sun for only ~25 million years, yet the Sun is 4.6 billion years old &mdash; nearly 200 times longer than contraction alone could sustain</li>
+                <li><span class="cl">(4)</span> Solar neutrinos are detected on Earth</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> Identify the evidence in the table that most directly supports the claim that nuclear fusion is currently occurring in the Sun&rsquo;s core.</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> The Sun&rsquo;s radiometric age is 4.6 billion years</li>
+                <li><span class="cl">(2)</span> Gravitational contraction could last 25 million years</li>
+                <li><span class="cl">(3)</span> Chemical combustion does not predict helium production</li>
+                <li><span class="cl">(4)</span> Solar neutrinos detected on Earth match the predicted output of hydrogen fusion reactions, and observed helium production (620 million tons/sec) matches fusion model predictions</li>
+              </ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Using evidence from the table, explain why nuclear fusion is accepted as the source of the Sun&rsquo;s energy. In your response, state a claim, identify at least one specific piece of data from the table as evidence, and explain how that evidence supports your claim. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET C · ESS1-2 -->
+        <div class="cq" id="qc-ess1-2">
+          <div class="std-hdr"><span class="code">HS-ESS1-2</span> &mdash; Construct an explanation of the Big Bang theory based on astronomical evidence of light spectra, motion of distant galaxies, and composition of matter in the universe.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the table and passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">In 1929, Edwin Hubble published data showing that the recession velocity of a galaxy is proportional to its distance from Earth &mdash; a relationship now called Hubble&rsquo;s Law. Recession velocity is measured by analyzing the redshift of starlight. Scientists have also detected the cosmic microwave background (CMB) &mdash; faint, uniform microwave radiation filling all of space &mdash; which represents the afterglow of the early hot universe approximately 380,000 years after the Big Bang.</p><br>
+            <table class="dt">
+              <tr><th>Galaxy</th><th>Distance (Mpc)</th><th>Recession Velocity (km/s)</th><th>Is Redshifted?</th></tr>
+              <tr><td>NGC 221</td><td>0.8</td><td>56</td><td>Yes</td></tr>
+              <tr><td>M81</td><td>3.6</td><td>252</td><td>Yes</td></tr>
+              <tr><td>Virgo Cluster</td><td>16</td><td>1,120</td><td>Yes</td></tr>
+              <tr><td>Coma Cluster</td><td>100</td><td>7,000</td><td>Yes</td></tr>
+              <tr><td>A2199</td><td>130</td><td>9,100</td><td>Yes</td></tr>
+            </table>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> Which statement best supports the claim that distant galaxies are moving away from Earth?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> The light from the Coma Cluster reaches Earth faster than light from NGC 221</li>
+                <li><span class="cl">(2)</span> All five galaxies in the table show redshifted light, indicating their light wavelengths are stretched as each galaxy moves away from Earth</li>
+                <li><span class="cl">(3)</span> A2199 is the most distant galaxy listed in the table</li>
+                <li><span class="cl">(4)</span> Recession velocity decreases as distance from Earth increases</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> A student claims that all galaxies recede from Earth at the same speed regardless of distance. Which data in the table best refutes this claim?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> NGC 221 is located closer to Earth than A2199</li>
+                <li><span class="cl">(2)</span> All galaxies listed are moving away from Earth</li>
+                <li><span class="cl">(3)</span> A2199&rsquo;s recession velocity (9,100 km/s) is more than 160 times greater than NGC 221&rsquo;s (56 km/s), demonstrating that velocity increases proportionally with distance</li>
+                <li><span class="cl">(4)</span> The Virgo Cluster is at 16 Mpc from Earth</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> Identify the evidence in the table that best supports the claim that all matter in the universe originated from a single point and has been moving apart ever since.</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> A2199 has the highest recession velocity of any galaxy in the table</li>
+                <li><span class="cl">(2)</span> The proportional relationship between galaxy distance and recession velocity (Hubble&rsquo;s Law) indicates all galaxies are moving apart from each other, consistent with an expanding universe originating from a single point</li>
+                <li><span class="cl">(3)</span> NGC 221 has a recession velocity of only 56 km/s</li>
+                <li><span class="cl">(4)</span> The Virgo Cluster is located 16 Mpc from Earth</li>
+              </ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Using data from the table, support the claim that the universe has been expanding since the Big Bang. Identify at least one specific piece of evidence from the table and explain how it supports this claim. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET C · ESS1-3 -->
+        <div class="cq" id="qc-ess1-3">
+          <div class="std-hdr"><span class="code">HS-ESS1-3</span> &mdash; Communicate scientific ideas about the way stars, over their life cycle, produce elements.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the table and passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">Astronomers classify stars into populations based on their age and chemical composition. Population III stars (the earliest) formed from the hydrogen and helium produced in the Big Bang and contained almost no heavier elements. Later generations of stars formed from gas clouds enriched by supernova debris from previous stellar generations. Each successive population contains a higher percentage of elements heavier than helium, called &ldquo;metals&rdquo; by astronomers.</p><br>
+            <table class="dt">
+              <tr><th>Star Population</th><th>Hydrogen (%)</th><th>Helium (%)</th><th>Heavy Elements (%)</th><th>Approx. Age (Ga)</th></tr>
+              <tr><td>Pop III (first stars)</td><td>75</td><td>25</td><td>&lt;0.001</td><td>~13</td></tr>
+              <tr><td>Pop II (old stars)</td><td>74</td><td>25</td><td>~0.1</td><td>10&ndash;12</td></tr>
+              <tr><td>Sun / Pop I</td><td>73</td><td>25</td><td>~1.5</td><td>4.6</td></tr>
+              <tr><td>Young Pop I stars</td><td>70</td><td>25</td><td>~2&ndash;3</td><td>&lt;1</td></tr>
+            </table>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> Which statement best supports the claim that heavier elements are produced inside stars and distributed through stellar explosions over time?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> All star populations contain approximately 25% helium</li>
+                <li><span class="cl">(2)</span> The percentage of heavy elements increases in younger, later-generation stars, which have been enriched by material from previous supernovae</li>
+                <li><span class="cl">(3)</span> Population III stars were made entirely of hydrogen</li>
+                <li><span class="cl">(4)</span> The Sun is classified as a Population I star</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> A student claims that all elements were present in equal amounts immediately after the Big Bang. Which evidence in the table best refutes this claim?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Young Population I stars contain 70% hydrogen</li>
+                <li><span class="cl">(2)</span> The Sun contains 73% hydrogen and only ~1.5% heavy elements</li>
+                <li><span class="cl">(3)</span> Population III stars, which formed shortly after the Big Bang, contained essentially no heavy elements (&lt;0.001%), while successively younger star generations contain progressively more</li>
+                <li><span class="cl">(4)</span> All star populations contain approximately 25% helium</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> Identify the data in the table that provides the strongest evidence that elements heavier than helium were not produced during the Big Bang but were synthesized later inside stars.</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Pop II stars are between 10 and 12 billion years old</li>
+                <li><span class="cl">(2)</span> The Sun has a heavy-element content of ~1.5%</li>
+                <li><span class="cl">(3)</span> Young Pop I stars contain the highest heavy-element percentage (~2&ndash;3%) of any population</li>
+                <li><span class="cl">(4)</span> Pop III stars formed near the Big Bang with essentially no heavy elements (&lt;0.001%), while successive generations show a consistent increase in heavy elements, indicating ongoing stellar production</li>
+              </ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Using the table, support the claim that elements heavier than helium are produced inside stars over successive stellar generations. Cite at least one specific value from the table as evidence and explain your reasoning. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET C · ESS1-4 -->
+        <div class="cq" id="qc-ess1-4">
+          <div class="std-hdr"><span class="code">HS-ESS1-4</span> &mdash; Use mathematical or computational representations to predict the motion of orbiting objects in the solar system.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the table and passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">Kepler&rsquo;s Third Law states that a planet&rsquo;s orbital period is related to its distance from the Sun: planets farther from the Sun take longer to complete an orbit and move more slowly. Newton later showed this is a consequence of gravity weakening with distance &mdash; planets closer to the Sun experience stronger gravitational pull and must orbit faster to avoid falling inward.</p><br>
+            <table class="dt">
+              <tr><th>Planet</th><th>Distance from Sun (AU)</th><th>Orbital Period (years)</th><th>Orbital Velocity (km/s)</th></tr>
+              <tr><td>Mercury</td><td>0.39</td><td>0.24</td><td>47.9</td></tr>
+              <tr><td>Venus</td><td>0.72</td><td>0.62</td><td>35.0</td></tr>
+              <tr><td>Earth</td><td>1.00</td><td>1.00</td><td>29.8</td></tr>
+              <tr><td>Mars</td><td>1.52</td><td>1.88</td><td>24.1</td></tr>
+              <tr><td>Jupiter</td><td>5.20</td><td>11.86</td><td>13.1</td></tr>
+              <tr><td>Saturn</td><td>9.58</td><td>29.46</td><td>9.7</td></tr>
+            </table>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> Which statement best supports the claim that planets closer to the Sun orbit at higher speeds?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Jupiter takes longer to orbit the Sun than Earth does</li>
+                <li><span class="cl">(2)</span> Mercury, the closest planet to the Sun, has the highest orbital velocity (47.9 km/s), while Saturn, the most distant planet listed, moves at only 9.7 km/s</li>
+                <li><span class="cl">(3)</span> Earth&rsquo;s orbital period is defined as exactly 1 year</li>
+                <li><span class="cl">(4)</span> Saturn is farther from the Sun than Jupiter</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> A student claims that orbital period has no relationship to a planet&rsquo;s distance from the Sun. Which evidence in the table best refutes this claim?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Earth orbits the Sun at 29.8 km/s</li>
+                <li><span class="cl">(2)</span> Jupiter has an orbital period of 11.86 years</li>
+                <li><span class="cl">(3)</span> Mercury has a shorter orbital period than Venus</li>
+                <li><span class="cl">(4)</span> Orbital period increases consistently from Mercury (0.24 years at 0.39 AU) to Saturn (29.46 years at 9.58 AU), showing a clear relationship between distance and period</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> Identify the evidence in the table that best supports the claim that gravitational force decreases with increasing distance from the Sun, causing outer planets to orbit more slowly.</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Earth is located exactly 1 AU from the Sun</li>
+                <li><span class="cl">(2)</span> Saturn has the longest orbital period of the planets shown</li>
+                <li><span class="cl">(3)</span> Orbital velocity decreases consistently from 47.9 km/s (Mercury, 0.39 AU) to 9.7 km/s (Saturn, 9.58 AU), demonstrating the effect of decreasing gravitational pull at greater distances</li>
+                <li><span class="cl">(4)</span> Mars has an orbital period of 1.88 years</li>
+              </ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Support the claim that the farther a planet is from the Sun, the slower it orbits. Use at least two specific values from the table as evidence and explain why this relationship exists. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET C · ESS1-5 -->
+        <div class="cq" id="qc-ess1-5">
+          <div class="std-hdr"><span class="code">HS-ESS1-5</span> &mdash; Evaluate evidence of the past and current movements of continental and oceanic crust and the theory of plate tectonics to explain the ages of crustal rocks.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the table and passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">Scientists drilled ocean floor samples at multiple sites across the Atlantic Ocean and measured the radiometric age of the basaltic rock at each location. Mid-ocean ridges are underwater mountain ranges where tectonic plates pull apart and new oceanic crust forms from rising magma. According to the theory of seafloor spreading, older crust is pushed progressively farther from the ridge as new crust forms.</p><br>
+            <table class="dt">
+              <tr><th>Sample Site</th><th>Distance from Mid-Atlantic Ridge (km)</th><th>Age of Seafloor Rock (million years)</th></tr>
+              <tr><td>Site 1</td><td>0 (at ridge)</td><td>0</td></tr>
+              <tr><td>Site 2</td><td>200</td><td>5</td></tr>
+              <tr><td>Site 3</td><td>500</td><td>15</td></tr>
+              <tr><td>Site 4</td><td>1,000</td><td>32</td></tr>
+              <tr><td>Site 5</td><td>2,000</td><td>67</td></tr>
+              <tr><td>Site 6</td><td>3,000</td><td>105</td></tr>
+            </table>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> Which statement best supports the claim that new ocean crust is continuously forming at the Mid-Atlantic Ridge?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> All ocean floor rock samples are composed of basalt</li>
+                <li><span class="cl">(2)</span> Seafloor rock at the ridge is 0 million years old, and age increases steadily with distance from the ridge, indicating continuous crust formation at the ridge</li>
+                <li><span class="cl">(3)</span> The Mid-Atlantic Ridge is located near the center of the Atlantic Ocean</li>
+                <li><span class="cl">(4)</span> Basalt is a dark-colored igneous rock that forms from lava</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> A student claims that the age of ocean floor rocks is the same everywhere across the Atlantic Ocean basin. Which data in the table best refutes this claim?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> All six rock samples are composed of basalt</li>
+                <li><span class="cl">(2)</span> Rocks at the ridge are 0 million years old while rocks 3,000 km away are 105 million years old, demonstrating significant age variation across the ocean floor</li>
+                <li><span class="cl">(3)</span> Site 2 rocks are only 5 million years old</li>
+                <li><span class="cl">(4)</span> Site 3 is located 500 km from the ridge</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> Identify the evidence in the table that best supports the claim that the Atlantic Ocean floor spreads at a roughly constant rate over time.</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Site 1 is located at the ridge and has an age of 0 million years</li>
+                <li><span class="cl">(2)</span> The rock at Site 5 is 67 million years old</li>
+                <li><span class="cl">(3)</span> All samples in the table are basalt, an igneous rock</li>
+                <li><span class="cl">(4)</span> Rock age increases proportionally with distance from the ridge (200 km = 5 Ma; 2,000 km = 67 Ma; 3,000 km = 105 Ma), indicating a roughly constant spreading rate of ~28&ndash;30 km per million years</li>
+              </ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Using evidence from the table, support the claim that the ocean floor spreads outward from the Mid-Atlantic Ridge. Cite at least two data points from the table and explain how they support this claim. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET C · ESS1-6 -->
+        <div class="cq" id="qc-ess1-6">
+          <div class="std-hdr"><span class="code">HS-ESS1-6</span> &mdash; Apply scientific reasoning and evidence from ancient Earth materials, meteorites, and other planetary surfaces to construct an account of Earth and the solar system&rsquo;s formation and early history.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the table and passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">Scientists use radiometric dating of meteorites, moon rocks, and ancient Earth minerals to reconstruct the history of the solar system. The solar system is thought to have formed from a rotating disk of gas and dust (solar nebula) that collapsed under gravity ~4.57 billion years ago. Meteorites are particularly valuable because many are primitive, unaltered fragments of early solar system material.</p><br>
+            <table class="dt">
+              <tr><th>Object</th><th>Radiometric Age (billion years)</th><th>Significance</th></tr>
+              <tr><td>Calcium-Aluminum Inclusions (CAIs)</td><td>4.568</td><td>Oldest known solar system solids</td></tr>
+              <tr><td>Carbonaceous chondrite meteorites</td><td>4.56</td><td>Primitive, unaltered solar nebula material</td></tr>
+              <tr><td>Iron meteorites</td><td>4.55</td><td>Differentiated early planetesimals</td></tr>
+              <tr><td>Moon highlands (Apollo samples)</td><td>4.4&ndash;4.5</td><td>Post-giant-impact crustal rocks</td></tr>
+              <tr><td>Earth&rsquo;s oldest zircon crystal (Jack Hills)</td><td>4.4</td><td>Earliest evidence of continental crust</td></tr>
+            </table>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> Which statement best supports the claim that all objects in the solar system formed at approximately the same time from the same material?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> The Moon&rsquo;s highlands have different rocks than Earth&rsquo;s mantle</li>
+                <li><span class="cl">(2)</span> CAIs, carbonaceous chondrites, iron meteorites, Moon highlands, and Earth&rsquo;s oldest zircon all cluster between 4.4 and 4.568 billion years old, consistent with formation from a single solar nebula</li>
+                <li><span class="cl">(3)</span> Iron meteorites are denser than carbonaceous chondrites</li>
+                <li><span class="cl">(4)</span> Earth&rsquo;s oldest zircon formed after the Moon&rsquo;s highlands</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> A student claims that Earth formed hundreds of millions of years after the Sun and other solar system objects. Which evidence in the table best refutes this claim?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Earth&rsquo;s oldest zircon crystal is 4.4 billion years old</li>
+                <li><span class="cl">(2)</span> CAIs formed 4.568 billion years ago, and Earth&rsquo;s oldest zircon crystals at 4.4 billion years are only ~170 million years younger &mdash; a brief interval compared to geologic time, consistent with roughly simultaneous formation</li>
+                <li><span class="cl">(3)</span> Moon highland rocks are 4.4&ndash;4.5 billion years old</li>
+                <li><span class="cl">(4)</span> Iron meteorites formed 4.55 billion years ago</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> Identify the evidence in the table that best supports the claim that rocky planets and asteroids formed by accretion of smaller solid objects that condensed from the same solar nebula.</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> CAIs are the oldest known solar system solids</li>
+                <li><span class="cl">(2)</span> Moon highland rocks are younger than CAIs</li>
+                <li><span class="cl">(3)</span> Carbonaceous chondrite meteorites are primitive, unaltered solar nebula material dated to 4.56 billion years &mdash; the same age as other solar system objects &mdash; representing the original building blocks that accreted to form planets</li>
+                <li><span class="cl">(4)</span> Earth&rsquo;s oldest zircon crystals are 4.4 billion years old</li>
+              </ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Support the claim that the solar system formed approximately 4.56 billion years ago from a single solar nebula. Use at least two pieces of data from the table as evidence and explain how they support the claim. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET C · ESS2-1 -->
+        <div class="cq" id="qc-ess2-1">
+          <div class="std-hdr"><span class="code">HS-ESS2-1</span> &mdash; Develop a model to illustrate how Earth&rsquo;s internal and surface processes operate at different spatial and temporal scales to form continental and ocean-floor features.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the table and passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">Earth&rsquo;s crust is divided into two types: continental and oceanic. These differ in composition, thickness, density, and age. The differences in density determine how each type behaves at tectonic plate boundaries &mdash; particularly at subduction zones, where one plate descends beneath another into the mantle.</p><br>
+            <table class="dt">
+              <tr><th>Property</th><th>Continental Crust</th><th>Oceanic Crust</th></tr>
+              <tr><td>Average thickness</td><td>35&ndash;70 km</td><td>5&ndash;10 km</td></tr>
+              <tr><td>Density</td><td>2.7 g/cm&sup3;</td><td>3.0 g/cm&sup3;</td></tr>
+              <tr><td>Dominant rock type</td><td>Granite (felsic)</td><td>Basalt (mafic)</td></tr>
+              <tr><td>Maximum age</td><td>Up to 4 billion years</td><td>&lt;200 million years</td></tr>
+              <tr><td>Subduction behavior</td><td>Does not subduct</td><td>Subducts under continental crust</td></tr>
+            </table>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> Which statement best supports the claim that oceanic crust subducts under continental crust at convergent plate boundaries?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Continental crust is thicker than oceanic crust</li>
+                <li><span class="cl">(2)</span> Oceanic crust (density 3.0 g/cm&sup3;) is denser than continental crust (2.7 g/cm&sup3;), causing it to sink beneath the less-dense continental crust when the two converge</li>
+                <li><span class="cl">(3)</span> Oceanic crust is composed of granite</li>
+                <li><span class="cl">(4)</span> Continental crust can be up to 4 billion years old</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> A student claims that continental and oceanic crust are identical in composition, density, and behavior at plate boundaries. Which evidence in the table best refutes this claim?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Both types of crust are part of Earth&rsquo;s lithosphere</li>
+                <li><span class="cl">(2)</span> Continental crust is thick granite (2.7 g/cm&sup3;) that does not subduct, while oceanic crust is thin basalt (3.0 g/cm&sup3;) that does subduct &mdash; the two types are fundamentally different in every property listed</li>
+                <li><span class="cl">(3)</span> Oceanic crust is thinner than continental crust</li>
+                <li><span class="cl">(4)</span> Continental crust can be up to 4 billion years old</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> Identify the evidence in the table that best supports the claim that oceanic crust is geologically young and continuously recycled, while continental crust is ancient and preserved.</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Oceanic crust has a density of 3.0 g/cm&sup3;</li>
+                <li><span class="cl">(2)</span> Continental crust has an average thickness of 35&ndash;70 km</li>
+                <li><span class="cl">(3)</span> Oceanic crust is at most ~200 million years old while continental crust can be up to 4 billion years old, indicating oceanic crust is continuously destroyed by subduction while continental crust is preserved</li>
+                <li><span class="cl">(4)</span> Both crust types float on the denser mantle material below</li>
+              </ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Using evidence from the table, explain why oceanic crust subducts under continental crust at convergent plate boundaries. Identify a specific property from the table as evidence and explain how it supports this explanation. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET C · ESS2-2 -->
+        <div class="cq" id="qc-ess2-2">
+          <div class="std-hdr"><span class="code">HS-ESS2-2</span> &mdash; Analyze geoscience data to make the claim that one change to Earth&rsquo;s surface can create feedbacks that cause changes to other Earth systems.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the table and passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">Albedo measures the fraction of incoming solar energy a surface reflects. High-albedo surfaces (like ice and snow) reflect most sunlight back to space, while low-albedo surfaces (like open ocean) absorb most incoming energy. As Arctic temperatures rise, sea ice melts and is replaced by open ocean, fundamentally changing the surface energy balance in a process called ice-albedo feedback.</p><br>
+            <table class="dt">
+              <tr><th>Surface Type</th><th>Albedo (fraction reflected)</th><th>Solar Energy Absorbed</th></tr>
+              <tr><td>Fresh snow</td><td>0.80&ndash;0.90</td><td>10&ndash;20%</td></tr>
+              <tr><td>Sea ice</td><td>0.50&ndash;0.70</td><td>30&ndash;50%</td></tr>
+              <tr><td>Open ocean</td><td>0.06</td><td>94%</td></tr>
+              <tr><td>Boreal forest</td><td>0.10&ndash;0.15</td><td>85&ndash;90%</td></tr>
+              <tr><td>Arctic sea ice extent (1980)</td><td colspan="2">~7.5 million km&sup2;</td></tr>
+              <tr><td>Arctic sea ice extent (2020)</td><td colspan="2">~4.1 million km&sup2; (&minus;45%)</td></tr>
+            </table>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> Which statement best supports the claim that melting Arctic sea ice creates a positive feedback loop that amplifies warming?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Fresh snow has a higher albedo than sea ice</li>
+                <li><span class="cl">(2)</span> As sea ice (albedo 0.50&ndash;0.70) melts and is replaced by open ocean (albedo 0.06), solar energy absorption increases dramatically from ~40% to 94%, causing further warming and additional ice loss</li>
+                <li><span class="cl">(3)</span> Arctic sea ice extent decreased by 45% from 1980 to 2020</li>
+                <li><span class="cl">(4)</span> Boreal forest has a lower albedo than sea ice</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> A student claims that changes in Arctic sea ice extent have no measurable effect on the amount of solar energy absorbed by Earth&rsquo;s surface. Which evidence in the table best refutes this claim?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Sea ice reflects between 50% and 70% of incoming solar energy</li>
+                <li><span class="cl">(2)</span> Replacing sea ice (which absorbs 30&ndash;50% of solar energy) with open ocean (which absorbs 94%) dramatically increases energy absorption, directly contradicting the claim of no measurable effect</li>
+                <li><span class="cl">(3)</span> Arctic sea ice covered ~7.5 million km&sup2; in 1980</li>
+                <li><span class="cl">(4)</span> Fresh snow can reflect up to 90% of incoming solar radiation</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> Identify the evidence in the table that best supports the claim that the loss of Arctic sea ice since 1980 represents a significant, self-amplifying acceleration of surface warming.</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Boreal forest absorbs 85&ndash;90% of incoming solar radiation</li>
+                <li><span class="cl">(2)</span> Fresh snow reflects up to 90% of incoming solar energy</li>
+                <li><span class="cl">(3)</span> Arctic sea ice extent decreased ~45% (from 7.5 to 4.1 million km&sup2;) between 1980 and 2020, converting high-albedo ice (reflecting ~60% of solar energy) to low-albedo open ocean (absorbing 94%), greatly increasing heat absorption</li>
+                <li><span class="cl">(4)</span> Sea ice reflects more solar energy than open ocean</li>
+              </ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Using evidence from the table, explain how the ice-albedo feedback amplifies Arctic warming. Cite specific albedo values from the table and explain how the replacement of sea ice by open ocean affects the amount of solar energy absorbed at the surface. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET C · ESS2-3 -->
+        <div class="cq" id="qc-ess2-3">
+          <div class="std-hdr"><span class="code">HS-ESS2-3</span> &mdash; Develop a model based on evidence of Earth&rsquo;s interior to describe the cycling of matter by thermal convection.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the table and passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">Heat flow measurements at Earth&rsquo;s surface reveal the uneven distribution of thermal energy within the mantle. Scientists measure heat flow in milliwatts per square meter (mW/m&sup2;). High heat flow indicates hot mantle material rising toward the surface; low heat flow indicates cooler material or a descending cold slab. These patterns reveal convection cells &mdash; circular currents in the mantle that drive plate movement.</p><br>
+            <table class="dt">
+              <tr><th>Tectonic Setting</th><th>Heat Flow (mW/m&sup2;)</th><th>Interpretation</th></tr>
+              <tr><td>Mid-ocean ridge (spreading center)</td><td>200&ndash;400</td><td>Hot mantle upwelling; new crust forming</td></tr>
+              <tr><td>Oceanic basin (away from ridge)</td><td>40&ndash;60</td><td>Cooled, subsided oceanic crust</td></tr>
+              <tr><td>Subduction zone (trench)</td><td>30&ndash;50</td><td>Cold slab descending into mantle</td></tr>
+              <tr><td>Volcanic arc (above subduction)</td><td>80&ndash;150</td><td>Partial melting above descending slab</td></tr>
+              <tr><td>Continental shield</td><td>40&ndash;60</td><td>Old, stable, cooled crust</td></tr>
+            </table>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> Which statement best supports the claim that mantle convection drives the movement of tectonic plates?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> All tectonic settings have approximately the same measured heat flow</li>
+                <li><span class="cl">(2)</span> High heat flow at mid-ocean ridges (200&ndash;400 mW/m&sup2;) indicates hot mantle rising, while low heat flow at subduction zones (30&ndash;50 mW/m&sup2;) indicates cold material sinking &mdash; together forming a convection cycle that moves plates</li>
+                <li><span class="cl">(3)</span> Subduction zones are always located adjacent to mid-ocean ridges</li>
+                <li><span class="cl">(4)</span> Continental shields have low heat flow because they contain granite</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> A student claims that Earth&rsquo;s mantle has a uniform temperature everywhere beneath the surface. Which data in the table best refutes this claim?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Continental shields and oceanic basins have similar heat flow values</li>
+                <li><span class="cl">(2)</span> Heat flow varies dramatically from 30&ndash;50 mW/m&sup2; at subduction zones to 200&ndash;400 mW/m&sup2; at mid-ocean ridges, demonstrating a highly uneven temperature distribution within the mantle</li>
+                <li><span class="cl">(3)</span> Volcanic arcs have intermediate heat flow values of 80&ndash;150 mW/m&sup2;</li>
+                <li><span class="cl">(4)</span> Oceanic basins away from ridges have heat flow of 40&ndash;60 mW/m&sup2;</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> Identify the evidence in the table that best supports the claim that mantle material moves in a circular convection pattern, rising at ridges and sinking at trenches.</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Continental shields have low heat flow due to their age and stability</li>
+                <li><span class="cl">(2)</span> Volcanic arcs above subduction zones have heat flow of 80&ndash;150 mW/m&sup2;</li>
+                <li><span class="cl">(3)</span> High heat flow at mid-ocean ridges (200&ndash;400 mW/m&sup2;) combined with low heat flow at subduction zones (30&ndash;50 mW/m&sup2;) indicates hot upwelling at ridges and cold downwelling at trenches &mdash; the two limbs of a convection cell</li>
+                <li><span class="cl">(4)</span> Oceanic basins far from ridges have heat flow of 40&ndash;60 mW/m&sup2;</li>
+              </ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Using data from the table, explain how heat flow measurements support the existence of mantle convection cells. Cite at least two specific heat flow values and explain what each indicates about the movement of material within the mantle. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET C · ESS2-4 -->
+        <div class="cq" id="qc-ess2-4">
+          <div class="std-hdr"><span class="code">HS-ESS2-4</span> &mdash; Use a model to describe how variations in the flow of energy into and out of Earth&rsquo;s systems result in changes in climate.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the table and passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">The greenhouse effect occurs when atmospheric gases absorb outgoing infrared radiation and re-radiate it back toward the surface, warming the planet above what solar heating alone would produce. The difference between a planet&rsquo;s actual surface temperature and its predicted temperature without an atmosphere (the &ldquo;blackbody temperature&rdquo;) measures the strength of the greenhouse effect.</p><br>
+            <table class="dt">
+              <tr><th>Planet</th><th>Main Greenhouse Gases</th><th>Predicted Temp Without Atmosphere (&deg;C)</th><th>Actual Avg Surface Temp (&deg;C)</th><th>Greenhouse Warming (&deg;C)</th></tr>
+              <tr><td>Venus</td><td>96% CO&sub2;</td><td>&minus;41</td><td>+465</td><td>+506</td></tr>
+              <tr><td>Earth</td><td>H&sub2;O, CO&sub2;, CH&sub4;</td><td>&minus;18</td><td>+15</td><td>+33</td></tr>
+              <tr><td>Mars</td><td>95% CO&sub2; (very thin)</td><td>&minus;57</td><td>&minus;60</td><td>&minus;3</td></tr>
+            </table>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> Which statement best supports the claim that Earth&rsquo;s greenhouse gases are responsible for keeping the planet warm enough to support life?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Earth contains only 0.04% CO&sub2; in its atmosphere</li>
+                <li><span class="cl">(2)</span> Earth&rsquo;s actual surface temperature (+15&deg;C) is 33&deg;C warmer than the predicted temperature without greenhouse gases (&minus;18&deg;C), demonstrating that the greenhouse effect raises Earth&rsquo;s temperature above freezing</li>
+                <li><span class="cl">(3)</span> Venus is the hottest planet in the solar system</li>
+                <li><span class="cl">(4)</span> Mars has a very thin atmosphere with minimal greenhouse warming</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> A student claims that a higher percentage of CO&sub2; in an atmosphere always produces proportionally greater warming. Which comparison in the table best refutes this claim?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Venus has 96% CO&sub2; and is extremely hot (+465&deg;C)</li>
+                <li><span class="cl">(2)</span> Earth has less CO&sub2; than Mars but is significantly warmer</li>
+                <li><span class="cl">(3)</span> Mars has 95% CO&sub2; but shows almost no greenhouse warming (&minus;3&deg;C), because its extremely thin atmosphere contains too little total mass of gas to produce significant warming &mdash; demonstrating that atmospheric pressure and total gas mass, not just CO&sub2; percentage, matter</li>
+                <li><span class="cl">(4)</span> Venus is closer to the Sun than Mars</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> Identify the evidence in the table that best supports the claim that Venus&rsquo;s extreme surface temperature is primarily caused by its thick CO&sub2; atmosphere rather than its proximity to the Sun.</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Earth&rsquo;s actual surface temperature is +15&deg;C</li>
+                <li><span class="cl">(2)</span> Venus&rsquo;s actual temperature (+465&deg;C) is 506&deg;C warmer than its predicted temperature without an atmosphere (&minus;41&deg;C), an amount of warming that cannot be explained by solar distance alone and must be attributed to its dense CO&sub2; atmosphere</li>
+                <li><span class="cl">(3)</span> Mars has a thin atmosphere and cold surface temperatures</li>
+                <li><span class="cl">(4)</span> Earth&rsquo;s predicted temperature without greenhouse gases is &minus;18&deg;C</li>
+              </ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Using evidence from the table, explain how the greenhouse effect influences planetary surface temperatures. Compare at least two planets and use data from the table to explain why their actual temperatures differ from their predicted temperatures without an atmosphere. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET C · ESS2-5 -->
+        <div class="cq" id="qc-ess2-5">
+          <div class="std-hdr"><span class="code">HS-ESS2-5</span> &mdash; Plan and conduct an investigation of the properties of water and its effects on Earth materials and surface processes.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the table and passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">Water has an unusually high specific heat capacity (4.18 J/g&deg;C), meaning it absorbs and releases large amounts of heat with only small changes in temperature. This property moderates the climate of coastal areas: oceans warm up slowly in summer and cool slowly in winter, buffering the temperature of nearby land. Inland areas, far from the moderating influence of oceans, experience much more extreme seasonal temperature swings.</p><br>
+            <table class="dt">
+              <tr><th>City</th><th>Distance to Ocean (km)</th><th>Jan Avg (&deg;C)</th><th>Jul Avg (&deg;C)</th><th>Annual Temp Range (&deg;C)</th></tr>
+              <tr><td>San Francisco, CA</td><td>0 (coastal)</td><td>10</td><td>17</td><td>7</td></tr>
+              <tr><td>Sacramento, CA</td><td>130</td><td>8</td><td>35</td><td>27</td></tr>
+              <tr><td>London, UK</td><td>25</td><td>5</td><td>19</td><td>14</td></tr>
+              <tr><td>Warsaw, Poland</td><td>500</td><td>&minus;3</td><td>20</td><td>23</td></tr>
+              <tr><td>Tokyo, Japan</td><td>5 (coastal)</td><td>5</td><td>27</td><td>22</td></tr>
+              <tr><td>Ulaanbaatar, Mongolia</td><td>1,500</td><td>&minus;22</td><td>16</td><td>38</td></tr>
+            </table>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> Which statement best supports the claim that proximity to the ocean moderates a city&rsquo;s annual temperature range?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> San Francisco receives less annual rainfall than Sacramento</li>
+                <li><span class="cl">(2)</span> Coastal cities like San Francisco (7&deg;C range) and London (14&deg;C range) have much smaller annual temperature ranges than similarly-latituded inland cities like Sacramento (27&deg;C) and Warsaw (23&deg;C)</li>
+                <li><span class="cl">(3)</span> All cities at the same latitude have the same average summer temperature</li>
+                <li><span class="cl">(4)</span> Tokyo is a coastal city located in East Asia</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> A student claims that distance from the ocean has no effect on a city&rsquo;s annual temperature range. Which data in the table best refutes this claim?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> London averages 5&deg;C in January</li>
+                <li><span class="cl">(2)</span> Ulaanbaatar (1,500 km from ocean) has an annual range of 38&deg;C compared to Tokyo&rsquo;s 22&deg;C and San Francisco&rsquo;s 7&deg;C, demonstrating a clear relationship between ocean distance and temperature variability</li>
+                <li><span class="cl">(3)</span> Warsaw is 500 km from the ocean</li>
+                <li><span class="cl">(4)</span> Sacramento&rsquo;s July average temperature is 35&deg;C</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> Identify the evidence in the table that best supports the claim that water&rsquo;s high specific heat moderates coastal climates by reducing extreme seasonal temperature swings.</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> All coastal cities listed are near large bodies of water</li>
+                <li><span class="cl">(2)</span> Tokyo&rsquo;s January average is 5&deg;C</li>
+                <li><span class="cl">(3)</span> Ulaanbaatar&rsquo;s annual temperature range (38&deg;C) is more than five times greater than San Francisco&rsquo;s (7&deg;C), consistent with the ocean absorbing and releasing heat slowly to buffer temperatures in coastal areas</li>
+                <li><span class="cl">(4)</span> Warsaw has colder winters and warmer summers than London</li>
+              </ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Using data from the table, explain how water&rsquo;s high specific heat moderates the climate of coastal cities. Compare a coastal city to an inland city and use specific temperature values from the table to support your explanation. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET C · ESS2-6 -->
+        <div class="cq" id="qc-ess2-6">
+          <div class="std-hdr"><span class="code">HS-ESS2-6</span> &mdash; Develop a quantitative model to describe the cycling of carbon among the hydrosphere, atmosphere, geosphere, and biosphere.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the table and passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">Atmospheric CO&sub2; is a key indicator of carbon cycle disruption. Since the Industrial Revolution, burning fossil fuels and deforestation have released carbon stored over millions of years back into the atmosphere in a matter of decades. The Mauna Loa Observatory has recorded continuous CO&sub2; measurements since 1958. Earlier concentrations are reconstructed from ice cores.</p><br>
+            <table class="dt">
+              <tr><th>Year</th><th>Atmospheric CO&sub2; (ppm)</th><th>Global Avg Temp Anomaly (&deg;C)</th></tr>
+              <tr><td>1750 (pre-industrial)</td><td>280</td><td>0.0 (baseline)</td></tr>
+              <tr><td>1900</td><td>296</td><td>+0.1</td></tr>
+              <tr><td>1950</td><td>310</td><td>+0.1</td></tr>
+              <tr><td>1980</td><td>339</td><td>+0.3</td></tr>
+              <tr><td>2000</td><td>370</td><td>+0.6</td></tr>
+              <tr><td>2020</td><td>412</td><td>+1.0</td></tr>
+            </table>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> Which statement best supports the claim that human industrial activity has significantly increased atmospheric CO&sub2; since the Industrial Revolution?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> CO&sub2; levels have always fluctuated throughout Earth&rsquo;s geologic history</li>
+                <li><span class="cl">(2)</span> Atmospheric CO&sub2; rose from 280 ppm in 1750 to 412 ppm in 2020 &mdash; a 47% increase that coincides with industrialization, fossil fuel combustion, and large-scale deforestation</li>
+                <li><span class="cl">(3)</span> Temperature anomalies are measured relative to the 1750 baseline</li>
+                <li><span class="cl">(4)</span> CO&sub2; levels reached 370 ppm in the year 2000</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> A student claims that rising CO&sub2; levels have had no measurable effect on global temperatures. Which data in the table best refutes this claim?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Pre-industrial CO&sub2; levels were 280 ppm in 1750</li>
+                <li><span class="cl">(2)</span> As CO&sub2; rose from 280 ppm (1750) to 412 ppm (2020), the global temperature anomaly also rose from 0.0&deg;C to +1.0&deg;C, showing a consistent parallel trend between CO&sub2; increase and temperature increase</li>
+                <li><span class="cl">(3)</span> The temperature anomaly in 1900 was only +0.1&deg;C</li>
+                <li><span class="cl">(4)</span> CO&sub2; levels were 339 ppm in 1980</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> Identify the evidence in the table that best supports the claim that the rate of CO&sub2; increase has accelerated sharply in recent decades compared to the early industrial era.</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> CO&sub2; increased by only ~16 ppm from 1750&ndash;1900 (150 years), but by ~73 ppm from 1980&ndash;2020 (40 years) &mdash; a rate more than 13 times faster per year in the recent period</li>
+                <li><span class="cl">(2)</span> The temperature anomaly in 2020 was +1.0&deg;C</li>
+                <li><span class="cl">(3)</span> CO&sub2; levels have been above 300 ppm since approximately 1950</li>
+                <li><span class="cl">(4)</span> Global temperature anomalies have increased at each data point shown</li>
+              </ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Using data from the table, support the claim that human activities have added CO&sub2; to the atmosphere at an accelerating rate since 1750. Cite at least two specific data points as evidence and explain how they support the claim. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET C · ESS2-7 -->
+        <div class="cq" id="qc-ess2-7">
+          <div class="std-hdr"><span class="code">HS-ESS2-7</span> &mdash; Construct an argument based on evidence about the simultaneous coevolution of Earth&rsquo;s systems and life on Earth.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the table and passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">For the first ~2 billion years of Earth&rsquo;s history, the atmosphere contained virtually no free oxygen. Early life was exclusively anaerobic. The evolution of photosynthesis by cyanobacteria around 2.7 billion years ago began adding O&sub2; to the atmosphere. The Great Oxidation Event (~2.4 billion years ago) dramatically increased atmospheric oxygen, profoundly changing Earth&rsquo;s chemistry and enabling new forms of life that relied on aerobic respiration.</p><br>
+            <table class="dt">
+              <tr><th>Time (billion years ago)</th><th>Atmospheric O&sub2; (approx. %)</th><th>Key Event</th></tr>
+              <tr><td>3.8</td><td>~0</td><td>First prokaryotes (anaerobic)</td></tr>
+              <tr><td>2.7</td><td>~1</td><td>Photosynthetic cyanobacteria appear</td></tr>
+              <tr><td>2.4&ndash;2.0</td><td>~2</td><td>Great Oxidation Event</td></tr>
+              <tr><td>1.0</td><td>~10</td><td>Rise of multicellular eukaryotes</td></tr>
+              <tr><td>0.54</td><td>~21</td><td>Cambrian explosion of animal life</td></tr>
+              <tr><td>Present</td><td>21</td><td>Complex aerobic organisms dominate</td></tr>
+            </table>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> Which statement best supports the claim that photosynthetic organisms were responsible for the rise of oxygen in Earth&rsquo;s atmosphere?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Atmospheric oxygen levels have been 21% for billions of years</li>
+                <li><span class="cl">(2)</span> Atmospheric O&sub2; began rising (~1%) at precisely the time when photosynthetic cyanobacteria first appeared (2.7 billion years ago), establishing a direct connection between biological oxygen production and rising atmospheric O&sub2;</li>
+                <li><span class="cl">(3)</span> The Cambrian explosion occurred 540 million years ago when O&sub2; reached 21%</li>
+                <li><span class="cl">(4)</span> Multicellular eukaryotes appeared when O&sub2; reached approximately 10%</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> A student claims that atmospheric oxygen levels have been constant throughout Earth&rsquo;s history. Which data in the table best refutes this claim?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Present-day atmospheric oxygen is 21%</li>
+                <li><span class="cl">(2)</span> Atmospheric O&sub2; varied dramatically &mdash; from ~0% at 3.8 billion years ago to ~21% at 540 million years ago to 21% today &mdash; demonstrating significant change across Earth&rsquo;s history</li>
+                <li><span class="cl">(3)</span> The first prokaryotes appeared 3.8 billion years ago</li>
+                <li><span class="cl">(4)</span> Cyanobacteria first appeared approximately 2.7 billion years ago</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> Identify the evidence in the table that best supports the claim that rising oxygen levels enabled increasingly complex life to evolve on Earth.</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> O&sub2; was 0% when the first prokaryotes appeared 3.8 billion years ago</li>
+                <li><span class="cl">(2)</span> Cyanobacteria first appeared when O&sub2; was approximately 1%</li>
+                <li><span class="cl">(3)</span> As O&sub2; rose from ~2% (Great Oxidation Event) to ~10% (1.0 Ga) to 21% (Cambrian explosion), the table shows progressively more complex life: multicellular eukaryotes, then the diverse animal phyla of the Cambrian &mdash; linking O&sub2; increase to biological complexity</li>
+                <li><span class="cl">(4)</span> The Great Oxidation Event occurred between 2.4 and 2.0 billion years ago</li>
+              </ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Using evidence from the table, support the claim that changes in Earth&rsquo;s atmosphere and the evolution of life on Earth are interconnected. Cite at least one specific data point from the table and explain how it supports this claim. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET C · ESS3-1 -->
+        <div class="cq" id="qc-ess3-1">
+          <div class="std-hdr"><span class="code">HS-ESS3-1</span> &mdash; Construct an explanation based on evidence for how the availability of natural resources, occurrence of natural hazards, and changes in climate have influenced human activity.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the table and passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">Human civilization depends on natural resources &mdash; including fresh water, arable land, and energy sources. As global population grows, so does demand for these resources. Simultaneously, human activity generates byproducts (such as CO&sub2; emissions and species extinctions) that affect Earth&rsquo;s systems. Tracking population growth alongside resource consumption and environmental impact helps scientists evaluate sustainability.</p><br>
+            <table class="dt">
+              <tr><th>Year</th><th>World Population (billions)</th><th>Annual CO&sub2; Emissions (Gt)</th><th>Freshwater Use (km&sup3;/yr)</th><th>Estimated Species Loss Rate (/yr)</th></tr>
+              <tr><td>1900</td><td>1.6</td><td>2</td><td>~500</td><td>~10</td></tr>
+              <tr><td>1950</td><td>2.5</td><td>6</td><td>~1,200</td><td>~100</td></tr>
+              <tr><td>1970</td><td>3.7</td><td>15</td><td>~2,500</td><td>~1,000</td></tr>
+              <tr><td>2000</td><td>6.1</td><td>25</td><td>~3,600</td><td>&gt;10,000</td></tr>
+              <tr><td>2020</td><td>7.8</td><td>35</td><td>~4,000</td><td>&gt;10,000</td></tr>
+            </table>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> Which statement best supports the claim that human population growth has increased resource consumption and environmental impact?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> World population grew from 1.6 billion in 1900 to 7.8 billion in 2020</li>
+                <li><span class="cl">(2)</span> As population grew from 1.6 billion (1900) to 7.8 billion (2020), CO&sub2; emissions rose from 2 to 35 Gt and freshwater use rose from ~500 to ~4,000 km&sup3;/yr, indicating resource consumption scales with population growth</li>
+                <li><span class="cl">(3)</span> Species loss rates have remained constant throughout the 20th century</li>
+                <li><span class="cl">(4)</span> CO&sub2; emissions were 6 Gt per year in 1950</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> A student claims that species extinction rates are not related to human population growth or industrial activity. Which data in the table best refutes this claim?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> World population was 2.5 billion in 1950</li>
+                <li><span class="cl">(2)</span> Estimated species loss rate increased from ~10 per year in 1900 to over 10,000 per year by 2000 &mdash; a 1,000-fold increase that closely tracks human population growth, industrial expansion, and habitat destruction</li>
+                <li><span class="cl">(3)</span> Freshwater use was approximately 500 km&sup3; per year in 1900</li>
+                <li><span class="cl">(4)</span> CO&sub2; emissions were 15 Gt in 1970</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> Identify the evidence in the table that best supports the claim that current rates of human resource consumption may not be sustainable.</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> World population reached 7.8 billion by 2020</li>
+                <li><span class="cl">(2)</span> Annual CO&sub2; emissions in 2020 were 35 Gt</li>
+                <li><span class="cl">(3)</span> Freshwater use increased eightfold from ~500 km&sup3;/yr (1900) to ~4,000 km&sup3;/yr (2020), while Earth&rsquo;s total freshwater supply has not increased, suggesting consumption is approaching or exceeding sustainable limits</li>
+                <li><span class="cl">(4)</span> Species loss rates increased significantly after 1950</li>
+              </ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Using evidence from the table, explain how human population growth has increased the impact of human activity on Earth&rsquo;s natural systems. Cite at least two data trends from the table and explain how they support this claim. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET C · ESS3-2 -->
+        <div class="cq" id="qc-ess3-2">
+          <div class="std-hdr"><span class="code">HS-ESS3-2</span> &mdash; Evaluate competing design solutions for developing, managing, and utilizing energy and mineral resources based on cost-benefit ratios.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the table and passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">Fossil fuels &mdash; coal, oil, and natural gas &mdash; are formed over millions of years from the compressed remains of ancient organisms. They are considered nonrenewable because they cannot be replenished on human timescales. Global demand for energy continues to rise as population grows and developing nations industrialize. Understanding the ratio of proven reserves to current consumption rates helps estimate how long these resources will last.</p><br>
+            <table class="dt">
+              <tr><th>Resource</th><th>Proven Reserves</th><th>Annual Consumption</th><th>Est. Years Remaining</th></tr>
+              <tr><td>Crude oil</td><td>1,700 billion barrels</td><td>~35 billion barrels/yr</td><td>~49 years</td></tr>
+              <tr><td>Natural gas</td><td>188 trillion m&sup3;</td><td>~4 trillion m&sup3;/yr</td><td>~47 years</td></tr>
+              <tr><td>Coal</td><td>1,070 billion metric tons</td><td>~8 billion metric tons/yr</td><td>~134 years</td></tr>
+              <tr><td>Uranium (nuclear)</td><td>~6 million metric tons</td><td>~67,000 metric tons/yr</td><td>~90 years</td></tr>
+            </table>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> Which statement best supports the claim that fossil fuels are nonrenewable resources that will eventually be depleted at current consumption rates?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Coal has larger proven reserves than oil or natural gas</li>
+                <li><span class="cl">(2)</span> All fossil fuels listed have finite &ldquo;years remaining&rdquo; values of 47&ndash;134 years, with no mechanism to replenish them on human timescales, confirming they will eventually run out</li>
+                <li><span class="cl">(3)</span> Natural gas has proven reserves of 188 trillion m&sup3;</td></tr>
+                <li><span class="cl">(4)</span> Uranium can be used as an alternative to fossil fuels for electricity generation</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> A student claims that the world has essentially unlimited fossil fuel supplies and energy scarcity is not a concern. Which data in the table best refutes this claim?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Coal is estimated to last approximately 134 years at current consumption rates</li>
+                <li><span class="cl">(2)</span> All fossil fuels listed have specific &ldquo;years remaining&rdquo; estimates (47&ndash;134 years), demonstrating definitively that supplies are finite</li>
+                <li><span class="cl">(3)</span> Current crude oil consumption is ~35 billion barrels per year</li>
+                <li><span class="cl">(4)</span> Natural gas reserves are estimated to last approximately 47 years</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> Identify the evidence in the table that best supports the claim that crude oil faces the most immediate supply threat of the fossil fuels listed.</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Coal has 1,070 billion metric tons in proven reserves</li>
+                <li><span class="cl">(2)</span> At current consumption rates, proven crude oil reserves will last only ~49 years &mdash; the shortest remaining supply of any fossil fuel listed &mdash; making it the most immediately threatened resource</li>
+                <li><span class="cl">(3)</span> Natural gas will last approximately 47 years at current consumption</li>
+                <li><span class="cl">(4)</span> Uranium fuel has approximately 90 years of reserves remaining</li>
+              </ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Using data from the table, support the claim that current fossil fuel supplies are limited and cannot sustain present consumption rates indefinitely. Cite specific data from the table and explain your reasoning. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET C · ESS3-3 -->
+        <div class="cq" id="qc-ess3-3">
+          <div class="std-hdr"><span class="code">HS-ESS3-3</span> &mdash; Create a computational simulation to illustrate the relationships among management of natural resources, the sustainability of human populations, and biodiversity.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the table and passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">Biodiversity &mdash; the variety of species in an ecosystem &mdash; depends heavily on habitat quality and area. Human activities such as logging, agriculture, and urbanization disturb or destroy natural habitats, reducing the number and variety of species that can survive there. Scientists study how different levels of disturbance affect species richness across multiple taxa (plants, birds, insects) to understand the relationship between land use and biodiversity loss.</p><br>
+            <table class="dt">
+              <tr><th>Habitat Type</th><th>Plant Species</th><th>Bird Species</th><th>Insect Species</th></tr>
+              <tr><td>Old-growth rainforest (undisturbed)</td><td>850</td><td>320</td><td>12,000</td></tr>
+              <tr><td>Selectively logged rainforest</td><td>490</td><td>210</td><td>7,500</td></tr>
+              <tr><td>Clear-cut, replanted (monoculture)</td><td>12</td><td>45</td><td>890</td></tr>
+              <tr><td>Agricultural cropland</td><td>8</td><td>22</td><td>340</td></tr>
+            </table>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> Which statement best supports the claim that habitat disturbance reduces biodiversity across multiple types of organisms?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> All four habitat types are located in the same geographic region</li>
+                <li><span class="cl">(2)</span> As habitat disturbance increases from undisturbed old-growth forest to agricultural land, species counts drop for all groups: plants (850 &rarr; 8), birds (320 &rarr; 22), and insects (12,000 &rarr; 340)</li>
+                <li><span class="cl">(3)</span> Old-growth rainforests are only found in tropical regions near the equator</li>
+                <li><span class="cl">(4)</span> Agricultural land has more uniform plant species than a natural rainforest</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> A student claims that replanting forests after clear-cutting fully restores biodiversity to pre-logging levels. Which data in the table best refutes this claim?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Selectively logged forest has fewer species than undisturbed old-growth forest</li>
+                <li><span class="cl">(2)</span> Clear-cut monoculture replanting supports only 12 plant species and 890 insect species, compared to 850 and 12,000 in undisturbed old-growth &mdash; demonstrating that replanting with a monoculture does not restore biodiversity</li>
+                <li><span class="cl">(3)</span> Undisturbed old-growth forest has 320 bird species</li>
+                <li><span class="cl">(4)</span> Agricultural land has the lowest species counts of any habitat in the table</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> Identify the evidence in the table that best supports the claim that even selective logging causes significant biodiversity loss, not just clear-cutting.</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Undisturbed old-growth forest contains 850 plant species and 12,000 insect species</li>
+                <li><span class="cl">(2)</span> Agricultural land has the fewest species of any habitat listed</li>
+                <li><span class="cl">(3)</span> Selectively logged rainforest shows a 42% reduction in plant species (850 &rarr; 490), 34% fewer bird species (320 &rarr; 210), and 38% fewer insect species (12,000 &rarr; 7,500) compared to undisturbed forest, demonstrating significant biodiversity loss even from partial logging</li>
+                <li><span class="cl">(4)</span> Clear-cut monoculture forest supports only 45 bird species</li>
+              </ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Using evidence from the table, explain how different land uses affect biodiversity. Compare at least two habitat types and use specific species counts from the table to support your response. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET C · ESS3-4 -->
+        <div class="cq" id="qc-ess3-4">
+          <div class="std-hdr"><span class="code">HS-ESS3-4</span> &mdash; Evaluate or refine a technological solution that reduces impacts of human activities on natural systems.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the table and passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">Carbon dioxide and other greenhouse gases emitted during electricity generation contribute to climate change. Different energy sources vary widely in the amount of CO&sub2; equivalent they emit per kilowatt-hour (kWh) of electricity produced, including emissions from manufacturing, construction, fuel extraction, and operation. Life-cycle emissions analysis allows scientists and policymakers to compare the true environmental cost of each energy source.</p><br>
+            <table class="dt">
+              <tr><th>Energy Source</th><th>Life-Cycle CO&sub2; Equivalent (g/kWh)</th><th>Type</th></tr>
+              <tr><td>Coal</td><td>820</td><td>Fossil fuel (nonrenewable)</td></tr>
+              <tr><td>Oil</td><td>650</td><td>Fossil fuel (nonrenewable)</td></tr>
+              <tr><td>Natural gas</td><td>490</td><td>Fossil fuel (nonrenewable)</td></tr>
+              <tr><td>Solar (photovoltaic)</td><td>45</td><td>Renewable</td></tr>
+              <tr><td>Hydroelectric</td><td>24</td><td>Renewable</td></tr>
+              <tr><td>Nuclear</td><td>12</td><td>Low-carbon</td></tr>
+              <tr><td>Wind</td><td>11</td><td>Renewable</td></tr>
+            </table>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> Which statement best supports the claim that replacing coal-fired power plants with wind turbines would significantly reduce carbon emissions from electricity generation?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Coal is the most widely used fossil fuel in the world</li>
+                <li><span class="cl">(2)</span> Wind energy produces only 11 g CO&sub2;/kWh compared to coal&rsquo;s 820 g CO&sub2;/kWh &mdash; a reduction of more than 98% in carbon emissions for the same amount of electricity generated</li>
+                <li><span class="cl">(3)</span> Nuclear energy is not classified as a renewable energy source</li>
+                <li><span class="cl">(4)</span> Solar photovoltaic panels produce 45 g CO&sub2;/kWh over their life cycle</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> A student claims that natural gas is essentially a &ldquo;clean&rdquo; energy source that produces negligible carbon emissions. Which evidence in the table best refutes this claim?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Coal produces 820 g CO&sub2;/kWh, significantly more than natural gas</li>
+                <li><span class="cl">(2)</span> Natural gas produces 490 g CO&sub2;/kWh &mdash; far more than renewable sources such as wind (11 g/kWh) and solar (45 g/kWh) &mdash; demonstrating that it is still a significant source of greenhouse gas emissions</li>
+                <li><span class="cl">(3)</span> Oil produces 650 g CO&sub2;/kWh over its life cycle</li>
+                <li><span class="cl">(4)</span> Hydroelectric energy produces 24 g CO&sub2;/kWh</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> Identify the evidence in the table that best supports the claim that renewable and low-carbon energy sources produce substantially fewer emissions than fossil fuels.</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Nuclear energy produces 12 g CO&sub2;/kWh, the lowest of any source listed</li>
+                <li><span class="cl">(2)</span> The highest-emitting fossil fuel (coal, 820 g/kWh) produces over 18 times more CO&sub2; than the highest-emitting renewable source (solar, 45 g/kWh) and 74 times more than wind (11 g/kWh), demonstrating that renewables dramatically reduce emissions</li>
+                <li><span class="cl">(3)</span> Natural gas produces 490 g CO&sub2;/kWh, less than coal or oil</li>
+                <li><span class="cl">(4)</span> Hydroelectric energy produces 24 g CO&sub2;/kWh</li>
+              </ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Using data from the table, explain how transitioning from fossil fuels to renewable energy sources would reduce carbon emissions. Cite at least one specific comparison of emission values from the table and explain how the evidence supports this conclusion. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET C · ESS3-5 -->
+        <div class="cq" id="qc-ess3-5">
+          <div class="std-hdr"><span class="code">HS-ESS3-5</span> &mdash; Analyze geoscience data and the results from global climate models to make an evidence-based forecast of the current rate of global or regional climate change and associated future impacts to Earth systems.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the table and passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">Scientists track multiple indicators to monitor global climate change: surface air temperature anomalies, sea ice extent, and sea level. A temperature &ldquo;anomaly&rdquo; is the difference between a decade&rsquo;s average temperature and the 1900&ndash;1909 baseline. These datasets are compiled from thousands of land and ocean monitoring stations worldwide and provide converging lines of evidence for a warming planet.</p><br>
+            <table class="dt">
+              <tr><th>Decade</th><th>Avg Temp Anomaly (&deg;C)</th><th>Arctic Sea Ice (million km&sup2;)</th><th>Sea Level Change (cm, from 1900)</th></tr>
+              <tr><td>1900&ndash;1909</td><td>0.0 (baseline)</td><td>~12.0</td><td>0</td></tr>
+              <tr><td>1930&ndash;1939</td><td>+0.1</td><td>~11.5</td><td>+8</td></tr>
+              <tr><td>1960&ndash;1969</td><td>+0.1</td><td>~11.0</td><td>+12</td></tr>
+              <tr><td>1980&ndash;1989</td><td>+0.3</td><td>~9.5</td><td>+17</td></tr>
+              <tr><td>2000&ndash;2009</td><td>+0.6</td><td>~7.0</td><td>+23</td></tr>
+              <tr><td>2010&ndash;2020</td><td>+0.9</td><td>~5.5</td><td>+28</td></tr>
+            </table>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> Which statement best supports the claim that average global temperatures have risen significantly over the past century?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Arctic sea ice extent declined from 12.0 to 5.5 million km&sup2;</li>
+                <li><span class="cl">(2)</span> The global average temperature anomaly rose from 0.0&deg;C (1900&ndash;1909 baseline) to +0.9&deg;C (2010&ndash;2020), representing a total increase of nearly 1&deg;C over the past century</li>
+                <li><span class="cl">(3)</span> Sea level has risen a total of 28 cm since 1900</li>
+                <li><span class="cl">(4)</span> Arctic sea ice covered approximately 9.5 million km&sup2; during the 1980s</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> A student claims that rising global temperatures have produced no measurable physical changes in Earth&rsquo;s systems. Which data in the table best refutes this claim?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Temperature anomalies increased in each successive decade shown in the table</li>
+                <li><span class="cl">(2)</span> As temperature anomalies rose, Arctic sea ice declined from ~12.0 to ~5.5 million km&sup2; and sea level rose 28 cm &mdash; two independent physical indicators demonstrating measurable changes in Earth&rsquo;s systems concurrent with warming</li>
+                <li><span class="cl">(3)</span> Sea level was at the 0 cm baseline in 1900</li>
+                <li><span class="cl">(4)</span> The temperature anomaly during 2010&ndash;2020 was +0.9&deg;C</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> Identify the evidence in the table that best supports the forecast that continued warming will lead to further sea level rise in the future.</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> The temperature anomaly during 1960&ndash;1969 was +0.1&deg;C</li>
+                <li><span class="cl">(2)</span> Arctic sea ice extent was ~5.5 million km&sup2; during 2010&ndash;2020</li>
+                <li><span class="cl">(3)</span> Every decade in the table shows a consistent pattern: as temperature anomaly increases, sea level also rises (from 0 cm to +28 cm), indicating that continued warming will produce further sea level rise</li>
+                <li><span class="cl">(4)</span> Sea level rose 8 cm by the 1930&ndash;1939 period</li>
+              </ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Using evidence from the table, support the claim that Earth&rsquo;s climate is warming and producing measurable physical changes. Cite data from at least two different columns of the table and explain how each piece of evidence supports the claim. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
+        <!-- SET C · ESS3-6 -->
+        <div class="cq" id="qc-ess3-6">
+          <div class="std-hdr"><span class="code">HS-ESS3-6</span> &mdash; Use a computational representation to illustrate the relationships among Earth systems and how those relationships are being modified due to human activity.</div>
+          <div class="stimulus">
+            <h3>Base your answers to questions 1&ndash;3 on the table and passage below and on your knowledge of Earth Science.</h3>
+            <p class="stim-txt">The nitrogen cycle naturally moves nitrogen through the atmosphere, biosphere, and geosphere via processes such as biological fixation, nitrification, and denitrification. Human industrial and agricultural activities have introduced large new sources of reactive nitrogen into this cycle &mdash; primarily through the Haber-Bosch process (synthetic fertilizer production) and fossil fuel combustion &mdash; fundamentally altering the balance of nitrogen inputs and outputs in Earth&rsquo;s systems.</p><br>
+            <table class="dt">
+              <tr><th>Nitrogen Input Source</th><th>Pre-Industrial Rate (Tg N/yr)</th><th>Current Rate (Tg N/yr)</th><th>Change</th></tr>
+              <tr><td>Natural biological fixation</td><td>120</td><td>120</td><td>No change</td></tr>
+              <tr><td>Lightning fixation</td><td>5</td><td>5</td><td>No change</td></tr>
+              <tr><td>Haber-Bosch (synthetic fertilizer)</td><td>0</td><td>120</td><td>+120 Tg N/yr</td></tr>
+              <tr><td>Fossil fuel combustion (NO&times;)</td><td>0</td><td>25</td><td>+25 Tg N/yr</td></tr>
+              <tr><td><strong>Total reactive N input</strong></td><td><strong>~125</strong></td><td><strong>~270</strong></td><td><strong>+116%</strong></td></tr>
+            </table>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part A &mdash; Multiple Choice</div>
+            <div class="qi"><div class="qt"><span class="qn">1.</span> Which statement best supports the claim that human industrial and agricultural activities have significantly disrupted the natural nitrogen cycle?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Natural biological fixation adds 120 Tg N/yr to the biosphere</li>
+                <li><span class="cl">(2)</span> Human activities through the Haber-Bosch process and fossil fuel combustion now add ~145 Tg N/yr, nearly doubling total reactive nitrogen inputs to Earth&rsquo;s systems compared to pre-industrial levels</li>
+                <li><span class="cl">(3)</span> Lightning contributes only 5 Tg N/yr to natural nitrogen fixation</li>
+                <li><span class="cl">(4)</span> The Haber-Bosch process was developed in the early 20th century</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">2.</span> A student claims that natural processes still dominate the nitrogen cycle and that human contributions are negligible. Which data in the table best refutes this claim?</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Natural biological nitrogen fixation rate is 120 Tg N/yr</li>
+                <li><span class="cl">(2)</span> Human-caused nitrogen inputs (~145 Tg N/yr from fertilizers and fossil fuels) now exceed the entire pre-industrial natural nitrogen input (~125 Tg N/yr), meaning anthropogenic sources are no longer negligible but dominant</li>
+                <li><span class="cl">(3)</span> Lightning contributes only 5 Tg N/yr to the nitrogen cycle</li>
+                <li><span class="cl">(4)</span> Total reactive nitrogen input is now approximately 270 Tg N/yr</li>
+              </ul></div>
+            <div class="qi"><div class="qt"><span class="qn">3.</span> Identify the evidence in the table that best supports the claim that the Haber-Bosch process has had a greater individual impact on the nitrogen cycle than any other single human activity.</div>
+              <ul class="ch">
+                <li><span class="cl">(1)</span> Fossil fuel combustion adds 25 Tg N/yr of reactive nitrogen</li>
+                <li><span class="cl">(2)</span> Total reactive nitrogen inputs have increased by 116% since pre-industrial times</li>
+                <li><span class="cl">(3)</span> The Haber-Bosch process alone adds 120 Tg N/yr &mdash; equal to the entire pre-industrial natural biological fixation rate &mdash; making it the single largest human modification of the nitrogen cycle, five times greater than fossil fuel combustion</li>
+                <li><span class="cl">(4)</span> Natural biological fixation remained constant at 120 Tg N/yr before and after industrialization</li>
+              </ul></div>
+          </div>
+          <div class="q-sec"><div class="q-lbl">Part B &mdash; Constructed Response</div>
+            <div class="cr"><div class="qt"><span class="qn">4.</span> Using data from the table, explain how human activities have altered the natural nitrogen cycle. Identify at least one human-caused nitrogen source from the table and explain how its current rate compares to pre-industrial levels and what that means for Earth&rsquo;s systems. <em>(1 pt)</em></div>
+              <textarea class="rb" placeholder="Write your response here..."></textarea></div>
+          </div>
+        </div>
+
         </div><!-- end #content -->
     </div><!-- end #layout -->
 
@@ -2692,7 +3536,7 @@
         function show(id, btn) {
             document.querySelectorAll('.cq').forEach(function (e) { e.classList.remove('on'); });
             document.getElementById('welcome').style.display = 'none';
-            var prefix = currentSet === 'a' ? 'q-' : 'qb-';
+            var prefix = currentSet === 'a' ? 'q-' : (currentSet === 'b' ? 'qb-' : 'qc-');
             var q = document.getElementById(prefix + id);
             if (q) q.classList.add('on');
             document.querySelectorAll('.sbtn').forEach(function (b) { b.classList.remove('on'); });
@@ -2756,6 +3600,28 @@
             'ess3-6': {1:2, 2:2, 3:2}
         };
 
+        var ANSWER_KEY_C = {
+            'ess1-1': {1:2, 2:3, 3:4},
+            'ess1-2': {1:2, 2:3, 3:2},
+            'ess1-3': {1:2, 2:3, 3:4},
+            'ess1-4': {1:2, 2:4, 3:3},
+            'ess1-5': {1:2, 2:2, 3:4},
+            'ess1-6': {1:2, 2:2, 3:3},
+            'ess2-1': {1:2, 2:2, 3:3},
+            'ess2-2': {1:2, 2:2, 3:3},
+            'ess2-3': {1:2, 2:2, 3:3},
+            'ess2-4': {1:2, 2:3, 3:2},
+            'ess2-5': {1:2, 2:2, 3:3},
+            'ess2-6': {1:2, 2:2, 3:1},
+            'ess2-7': {1:2, 2:2, 3:3},
+            'ess3-1': {1:2, 2:2, 3:3},
+            'ess3-2': {1:2, 2:2, 3:2},
+            'ess3-3': {1:2, 2:2, 3:3},
+            'ess3-4': {1:2, 2:2, 3:2},
+            'ess3-5': {1:2, 2:2, 3:3},
+            'ess3-6': {1:2, 2:2, 3:3}
+        };
+
         function toggleOptions(e) {
             e.stopPropagation();
             document.getElementById('opt-dropdown').classList.toggle('on');
@@ -2783,10 +3649,14 @@
             document.getElementById('welcome').style.display = '';
             document.getElementById('set-indicator').textContent = currentSet.toUpperCase();
             var aActive = currentSet === 'a';
+            var bActive = currentSet === 'b';
+            var cActive = currentSet === 'c';
             document.getElementById('opt-a').className = 'opt-item opt-divider' + (aActive ? ' active-set' : '');
-            document.getElementById('opt-b').className = 'opt-item' + (!aActive ? ' active-set' : '');
+            document.getElementById('opt-b').className = 'opt-item opt-divider' + (bActive ? ' active-set' : '');
+            document.getElementById('opt-c').className = 'opt-item' + (cActive ? ' active-set' : '');
             document.getElementById('opt-a').innerHTML = (aActive ? '&#10003;' : '&nbsp;&nbsp;') + ' Set A';
-            document.getElementById('opt-b').innerHTML = (!aActive ? '&#10003;' : '&nbsp;&nbsp;') + ' Set B';
+            document.getElementById('opt-b').innerHTML = (bActive ? '&#10003;' : '&nbsp;&nbsp;') + ' Set B';
+            document.getElementById('opt-c').innerHTML = (cActive ? '&#10003;' : '&nbsp;&nbsp;') + ' Set C';
             document.querySelectorAll('.sbtn').forEach(function (b) { b.classList.remove('on'); });
             updateProgress();
             document.getElementById('warn-overlay').classList.remove('on');
@@ -2816,7 +3686,7 @@
                 for (var i = 1; i <= 3; i++) {
                     var resp = answers[stdId + '-mc' + i] || '';
                     var chosen = choiceNum(resp);
-                    var activeKey = currentSet === 'a' ? ANSWER_KEY : ANSWER_KEY_B;
+                    var activeKey = currentSet === 'a' ? ANSWER_KEY : (currentSet === 'b' ? ANSWER_KEY_B : ANSWER_KEY_C);
                     var key = activeKey[stdId] ? activeKey[stdId][i] : null;
                     var correct = (chosen !== null && key !== null && chosen === key);
                     if (correct) { stdResult.correct++; totalCorrect++; }
